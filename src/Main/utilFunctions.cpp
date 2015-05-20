@@ -41,189 +41,178 @@ using namespace cv;
 namespace cvar {
 
 // CSV�t�@�C������s����쐬����
-CvMat* loadCsvFileAsMatrix(char* filename, int cv_type) {
-	FILE* fp;
+    CvMat* loadCsvFileAsMatrix(char* filename, int cv_type) {
+        FILE* fp;
 
-	assert(
-			cv_type == CV_32SC1 || cv_type == CV_8UC1 || cv_type == CV_32FC1 || cv_type == CV_64FC1);
+        assert(
+                cv_type == CV_32SC1 || cv_type == CV_8UC1 || cv_type == CV_32FC1 || cv_type == CV_64FC1);
 
-	string mode = "r";
+        string mode = "r";
 
-	fp = fopen(filename, mode.c_str());
+        fp = fopen(filename, mode.c_str());
 
-	if (fp != NULL) {
-		char line[512];
-		int rows, cols;
-		int max = 0;
-		int i;
-		int step;
-		CvMat* retMat = NULL;
-		rows = 0;
+        if (fp != NULL) {
+            char line[512];
+            int rows, cols;
+            int max = 0;
+            int i;
+            int step;
+            CvMat* retMat = NULL;
+            rows = 0;
 
+            while (fscanf(fp, "%s", line) != std::char_traits<char>::eof()) {
+                cols = 0;
+                for (i = 0; line[i] != '\0'; i++) {
+                    if (line[i] == ',') cols++;
+                }
+                if (max < cols) max = cols;
+                rows++;
+            }
+            retMat = cvCreateMat(rows, cols + 1, cv_type);
 
+            if (cv_type == CV_32SC1) {
+                step = retMat->step / sizeof(int);
+            } else if (cv_type == CV_8UC1) {
+                step = retMat->step / sizeof(char);
+            } else if (cv_type == CV_32FC1) {
+                step = retMat->step / sizeof(float);
+            } else {
+                step = retMat->step / sizeof(double);
+            }
 
-		while (fscanf(fp, "%s", line) != std::char_traits<char>::eof()) {
-			cols = 0;
-			for (i = 0; line[i] != '\0'; i++) {
-				if (line[i] == ',')
-					cols++;
-			}
-			if (max < cols)
-				max = cols;
-			rows++;
-		}
-		retMat = cvCreateMat(rows, cols + 1, cv_type);
+            rewind(fp);
+            rows = 0;
+            cols = 0;
+            i = 0;
 
-		if (cv_type == CV_32SC1) {
-			step = retMat->step / sizeof(int);
-		} else if (cv_type == CV_8UC1) {
-			step = retMat->step / sizeof(char);
-		} else if (cv_type == CV_32FC1) {
-			step = retMat->step / sizeof(float);
-		} else {
-			step = retMat->step / sizeof(double);
-		}
+            int c;
+            while ((c = fgetc(fp)) != std::char_traits<char>::eof()) {
+                if (c == ',') {
+                    line[i] = '\0';
+                    if (cv_type == CV_32SC1) retMat->data.i[rows * step + cols] =
+                            atoi(line);
+                    else if (cv_type == CV_8UC1) retMat->data.ptr[rows * step
+                            + cols] = atoi(line);
+                    else if (cv_type == CV_32FC1) retMat->data.fl[rows * step
+                            + cols] = (float) atof(line);
+                    else retMat->data.db[rows * step + cols] = atof(line);
+                    i = 0;
+                    cols++;
+                } else if (c == '\n') {
+                    line[i] = '\0';
+                    if (cv_type == CV_32SC1) retMat->data.i[rows * step + cols] =
+                            atoi(line);
+                    else if (cv_type == CV_8UC1) retMat->data.ptr[rows * step
+                            + cols] = atoi(line);
+                    else if (cv_type == CV_32FC1) retMat->data.fl[rows * step
+                            + cols] = (float) atof(line);
+                    else retMat->data.db[rows * step + cols] = atof(line);
+                    i = 0;
+                    cols = 0;
+                    rows++;
+                } else if (isdigit(c) || c == '.' || c == '-') {
+                    line[i] = c;
+                    i++;
+                }
+            }
 
-		rewind(fp);
-		rows = 0;
-		cols = 0;
-		i = 0;
+            fclose(fp);
+            return retMat;
+        } else {
+            return NULL;
+        }
+    }
 
-		int c;
-		while ((c = fgetc(fp)) != std::char_traits<char>::eof()) {
-			if (c == ',') {
-				line[i] = '\0';
-				if (cv_type == CV_32SC1)
-					retMat->data.i[rows * step + cols] = atoi(line);
-				else if (cv_type == CV_8UC1)
-					retMat->data.ptr[rows * step + cols] = atoi(line);
-				else if (cv_type == CV_32FC1)
-					retMat->data.fl[rows * step + cols] = (float) atof(line);
-				else
-					retMat->data.db[rows * step + cols] = atof(line);
-				i = 0;
-				cols++;
-			} else if (c == '\n') {
-				line[i] = '\0';
-				if (cv_type == CV_32SC1)
-					retMat->data.i[rows * step + cols] = atoi(line);
-				else if (cv_type == CV_8UC1)
-					retMat->data.ptr[rows * step + cols] = atoi(line);
-				else if (cv_type == CV_32FC1)
-					retMat->data.fl[rows * step + cols] = (float) atof(line);
-				else
-					retMat->data.db[rows * step + cols] = atof(line);
-				i = 0;
-				cols = 0;
-				rows++;
-			} else if (isdigit(c) || c == '.' || c == '-') {
-				line[i] = c;
-				i++;
-			}
-		}
+    void createMatchingImage(Mat& src_img, Mat& dest_img,
+            vector<Point2f>& src_pts, vector<Point2f>& dest_pts) {
+        assert(src_pts.size() == dest_pts.size());
+        vector<Point> src_pts_i, dest_pts_i;
 
-		fclose(fp);
-		return retMat;
-	} else {
-		return NULL;
-	}
-}
+        int size = src_pts.size();
+        for (int i = 0; i < size; i++) {
 
-void createMatchingImage(Mat& src_img, Mat& dest_img, vector<Point2f>& src_pts,
-		vector<Point2f>& dest_pts) {
-	assert(src_pts.size() == dest_pts.size());
-	vector<Point> src_pts_i, dest_pts_i;
+            Point p1 = src_pts[i];
+            Point p2 = dest_pts[i];
 
-	int size = src_pts.size();
-	for (int i = 0; i < size; i++) {
+            src_pts_i.push_back(p1);
+            dest_pts_i.push_back(p2);
+        }
 
-		Point p1 = src_pts[i];
-		Point p2 = dest_pts[i];
+        createMatchingImage(src_img, dest_img, src_pts_i, dest_pts_i);
+    }
 
-		src_pts_i.push_back(p1);
-		dest_pts_i.push_back(p2);
-	}
+    void createMatchingImage(Mat& src_img, Mat& dest_img,
+            vector<Point>& src_pts, vector<Point>& dest_pts) {
+        assert(src_pts.size() == dest_pts.size());
+        int width, height;
+        if (src_img.cols > dest_img.cols) width = src_img.cols;
+        else width = dest_img.cols;
+        height = src_img.rows + dest_img.rows;
+        Mat resultimg(height, width, CV_8UC1);
+        resultimg = Scalar(0);
+        Mat tmpMat(resultimg, Rect(0, 0, src_img.cols, src_img.rows));
+        src_img.copyTo(tmpMat);
+        Mat tmpMat2(resultimg,
+                Rect(0, src_img.rows, dest_img.cols, dest_img.rows));
+        dest_img.copyTo(tmpMat2);
 
-	createMatchingImage(src_img, dest_img, src_pts_i, dest_pts_i);
-}
+        int size = src_pts.size();
+        Point pt;
+        pt.x = 0;
+        pt.y = src_img.rows;
+        for (int i = 0; i < size; i++) {
+            line(resultimg, src_pts[i], dest_pts[i] + pt, Scalar(255));
+        }
 
-void createMatchingImage(Mat& src_img, Mat& dest_img, vector<Point>& src_pts,
-		vector<Point>& dest_pts) {
-	assert(src_pts.size() == dest_pts.size());
-	int width, height;
-	if (src_img.cols > dest_img.cols)
-		width = src_img.cols;
-	else
-		width = dest_img.cols;
-	height = src_img.rows + dest_img.rows;
-	Mat resultimg(height, width, CV_8UC1);
-	resultimg = Scalar(0);
-	Mat tmpMat(resultimg, Rect(0, 0, src_img.cols, src_img.rows));
-	src_img.copyTo(tmpMat);
-	Mat tmpMat2(resultimg, Rect(0, src_img.rows, dest_img.cols, dest_img.rows));
-	dest_img.copyTo(tmpMat2);
-
-	int size = src_pts.size();
-	Point pt;
-	pt.x = 0;
-	pt.y = src_img.rows;
-	for (int i = 0; i < size; i++) {
-		line(resultimg, src_pts[i], dest_pts[i] + pt, Scalar(255));
-	}
-
-	namedWindow("matching", CV_WINDOW_AUTOSIZE);
-	imshow("matching", resultimg);
-	waitKey(0);
-}
+        namedWindow("matching", CV_WINDOW_AUTOSIZE);
+        imshow("matching", resultimg);
+        waitKey(0);
+    }
 
 // �w��T�C�Y���͂ݏo��_���T�C�Y���ߖT�_�ɋߎ�
-void truncatePoint(cv::Size& size, cv::Point2f& pt) {
-	if (pt.x < 0)
-		pt.x = 0;
-	else if (pt.x >= size.width)
-		pt.x = size.width - 1;
-	if (pt.y < 0)
-		pt.y = 0;
-	else if (pt.y >= size.height)
-		pt.y = size.height - 1;
-}
+    void truncatePoint(cv::Size& size, cv::Point2f& pt) {
+        if (pt.x < 0) pt.x = 0;
+        else if (pt.x >= size.width) pt.x = size.width - 1;
+        if (pt.y < 0) pt.y = 0;
+        else if (pt.y >= size.height) pt.y = size.height - 1;
+    }
 
 // �S�_���Ȃ������`��
-void drawLineContour(Mat& src_img, vector<Point2f>& points, Scalar& color,
-		int thickness, int lineType, int shift) {
-	int pt_num = points.size();
-	assert(pt_num > 1);
+    void drawLineContour(Mat& src_img, vector<Point2f>& points, Scalar& color,
+            int thickness, int lineType, int shift) {
+        int pt_num = points.size();
+        assert(pt_num > 1);
 
-	Point2f b_pt, e_pt;
-	Size img_size = src_img.size();
+        Point2f b_pt, e_pt;
+        Size img_size = src_img.size();
 
-	b_pt = points[pt_num - 1];
-	e_pt = points[0];
-	truncatePoint(img_size, b_pt);
-	truncatePoint(img_size, e_pt);
-	line(src_img, b_pt, e_pt, color, thickness, lineType, shift);
+        b_pt = points[pt_num - 1];
+        e_pt = points[0];
+        truncatePoint(img_size, b_pt);
+        truncatePoint(img_size, e_pt);
+        line(src_img, b_pt, e_pt, color, thickness, lineType, shift);
 
-	for (int i = 1; i < pt_num; i++) {
-		b_pt = points[i - 1];
-		e_pt = points[i];
-		truncatePoint(img_size, b_pt);
-		truncatePoint(img_size, e_pt);
-		line(src_img, b_pt, e_pt, color, thickness, lineType, shift);
-	}
+        for (int i = 1; i < pt_num; i++) {
+            b_pt = points[i - 1];
+            e_pt = points[i];
+            truncatePoint(img_size, b_pt);
+            truncatePoint(img_size, e_pt);
+            line(src_img, b_pt, e_pt, color, thickness, lineType, shift);
+        }
 
-}
+    }
 
-void drawPoints(Mat& frame, vector<Point2f>& corners,
-		vector<unsigned char>& mask_vec, Scalar& color, int thickness,
-		int lineType, int shift) {
-	assert(mask_vec.empty() || corners.size() == mask_vec.size());
+    void drawPoints(Mat& frame, vector<Point2f>& corners,
+            vector<unsigned char>& mask_vec, Scalar& color, int thickness,
+            int lineType, int shift) {
+        assert(mask_vec.empty() || corners.size() == mask_vec.size());
 
-	int size = corners.size();
-	for (int i = 0; i < size; i++) {
-		if (mask_vec.empty() || mask_vec[i] > 0) {
-			circle(frame, corners[i], thickness, color, lineType, shift);
-		}
-	}
-}
+        int size = corners.size();
+        for (int i = 0; i < size; i++) {
+            if (mask_vec.empty() || mask_vec[i] > 0) {
+                circle(frame, corners[i], thickness, color, lineType, shift);
+            }
+        }
+    }
 }
 ;

@@ -37,36 +37,36 @@ using namespace cvar;
 using namespace cvar::overlay;
 
 mqoModelObject::mqoModelObject(void) {
-	status = UNINIT;
-	model = NULL;
+    status = UNINIT;
+    model = NULL;
 }
 
 mqoModelObject::~mqoModelObject(void) {
-	release();
+    release();
 }
 
 void mqoModelObject::init() {
-	status = INIT;
+    status = INIT;
 }
 
 void mqoModelObject::loadModelFile(string filename) {
-	if (status & INIT) {
-		if (status & LOADED) {
-			mqoDeleteModel(model);
-		}
-		model = mqoCreateModel((char*) filename.c_str(), 1.0);
-		status = status | LOADED;
-	}
+    if (status & INIT) {
+        if (status & LOADED) {
+            mqoDeleteModel(model);
+        }
+        model = mqoCreateModel((char*) filename.c_str(), 1.0);
+        status = status | LOADED;
+    }
 }
 
 void mqoModelObject::drawModel(int& frame_id) {
-	mqoCallModel(model);
+    mqoCallModel(model);
 }
 
 void mqoModelObject::release() {
-	if (status & LOADED) {
-		mqoDeleteModel(model);
+    if (status & LOADED) {
+        mqoDeleteModel(model);
 //		status = status ^ LOADED;
-		status = status - (status & LOADED);
-	}
+        status = status - (status & LOADED);
+    }
 }

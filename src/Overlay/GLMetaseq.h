@@ -278,151 +278,151 @@
 #define DEF_TGA_BIT_INFO_TOP_TO_DOWN	0x20
 
 typedef struct {
-	unsigned char id;
-	unsigned char color_map_flag;
-	unsigned char type;
-	unsigned short color_map_entry;
-	unsigned char color_map_entry_size;
-	unsigned short x;
-	unsigned short y;
-	unsigned short width;
-	unsigned short height;
-	unsigned char depth;
-	unsigned char bit_info;
+        unsigned char id;
+        unsigned char color_map_flag;
+        unsigned char type;
+        unsigned short color_map_entry;
+        unsigned char color_map_entry_size;
+        unsigned short x;
+        unsigned short y;
+        unsigned short width;
+        unsigned short height;
+        unsigned char depth;
+        unsigned char bit_info;
 } STR_TGA_HEAD;
 
 /*=========================================================================
  �y�^��`�z OpenGL�p�F�\���� (4�Ffloat)
  =========================================================================*/
 typedef struct {
-	GLfloat r;
-	GLfloat g;
-	GLfloat b;
-	GLfloat a;
+        GLfloat r;
+        GLfloat g;
+        GLfloat b;
+        GLfloat a;
 } glCOLOR4f;
 
 /*=========================================================================
  �y�^��`�z OpenGL�p�Q�������W�\���� (float)
  =========================================================================*/
 typedef struct {
-	GLfloat x;
-	GLfloat y;
+        GLfloat x;
+        GLfloat y;
 } glPOINT2f;
 
 /*=========================================================================
  �y�^��`�z OpenGL�p�R�������W�\���� (float)
  =========================================================================*/
 typedef struct tag_glPOINT3f {
-	GLfloat x;
-	GLfloat y;
-	GLfloat z;
+        GLfloat x;
+        GLfloat y;
+        GLfloat z;
 } glPOINT3f;
 
 /*=========================================================================
  �y�^��`�z �ʏ��\����
  =========================================================================*/
 typedef struct {
-	int n;		// 1�̖ʂ��\�����钸�_�̐��i3�`4�j
-	int m;		// �ʂ̍ގ��ԍ�
-	int v[4];	// ���_�ԍ����i�[�����z��
-	glPOINT2f uv[4];	// UV�}�b�v
+        int n;		// 1�̖ʂ��\�����钸�_�̐��i3�`4�j
+        int m;		// �ʂ̍ގ��ԍ�
+        int v[4];	// ���_�ԍ����i�[�����z��
+        glPOINT2f uv[4];	// UV�}�b�v
 } MQO_FACE;
 
 /*=========================================================================
  �y�^��`�z �ގ����\���́i�t�@�C���������ǂݍ��ލۂɎg�p�j
  =========================================================================*/
 typedef struct {
-	glCOLOR4f col;				// �F
-	GLfloat dif[4];				// �g�U��
-	GLfloat amb[4];				// ��͌�
-	GLfloat emi[4];				// ���ȏƖ�
-	GLfloat spc[4];				// ���ˌ�
-	GLfloat power;				// ���ˌ��̋���
-	int useTex;				// �e�N�X�`���̗L��
-	char texFile[SIZE_STR];	// �e�N�X�`���t�@�C��
-	char alpFile[SIZE_STR];	// �A���t�@�e�N�X�`���t�@�C��
-	GLuint texName;			// �e�N�X�`����
+        glCOLOR4f col;				// �F
+        GLfloat dif[4];				// �g�U��
+        GLfloat amb[4];				// ��͌�
+        GLfloat emi[4];				// ���ȏƖ�
+        GLfloat spc[4];				// ���ˌ�
+        GLfloat power;				// ���ˌ��̋���
+        int useTex;				// �e�N�X�`���̗L��
+        char texFile[SIZE_STR];	// �e�N�X�`���t�@�C��
+        char alpFile[SIZE_STR];	// �A���t�@�e�N�X�`���t�@�C��
+        GLuint texName;			// �e�N�X�`����
 } MQO_MATDATA;
 
 /*=========================================================================
  �y�^��`�z �I�u�W�F�N�g�\���́i�p�[�c�P�̃f�[�^�j
  =========================================================================*/
 typedef struct {
-	char objname[SIZE_STR];	// �p�[�c��
-	int visible;			// �����
-	int shading;			// �V�F�[�f�B���O�i0:�t���b�g�^1:�O���[�j
-	float facet;				// �X���[�W���O�p
-	int n_face;				// �ʐ�
-	int n_vertex;			// ���_��
-	MQO_FACE *F;					// ��
-	glPOINT3f *V;					// ���_
+        char objname[SIZE_STR];	// �p�[�c��
+        int visible;			// �����
+        int shading;			// �V�F�[�f�B���O�i0:�t���b�g�^1:�O���[�j
+        float facet;				// �X���[�W���O�p
+        int n_face;				// �ʐ�
+        int n_vertex;			// ���_��
+        MQO_FACE *F;					// ��
+        glPOINT3f *V;					// ���_
 } MQO_OBJDATA;
 
 /*=========================================================================
  �y�^��`�z �e�N�X�`���v�[��
  =========================================================================*/
 typedef struct {
-	GLuint texture_id;			// �e�N�X�`��ID
-	int texsize;			// �e�N�X�`���T�C�Y
-	char texfile[MAX_PATH];	// �e�N�X�`���t�@�C��
-	char alpfile[MAX_PATH];	// �A���t�@�e�N�X�`���t�@�C��
-	unsigned char alpha;				// �A���t�@
+        GLuint texture_id;			// �e�N�X�`��ID
+        int texsize;			// �e�N�X�`���T�C�Y
+        char texfile[MAX_PATH];	// �e�N�X�`���t�@�C��
+        char alpfile[MAX_PATH];	// �A���t�@�e�N�X�`���t�@�C��
+        unsigned char alpha;				// �A���t�@
 } TEXTURE_POOL;
 
 /*=========================================================================
  �y�^��`�z ���_�f�[�^�i�e�N�X�`���g�p���j
  =========================================================================*/
 typedef struct {
-	GLfloat point[3];	// ���_�z�� (x, y, z)
-	GLfloat normal[3];	// �@��z�� (x, y, z)
-	GLfloat uv[2];		// UV�z�� (u, v)
+        GLfloat point[3];	// ���_�z�� (x, y, z)
+        GLfloat normal[3];	// �@��z�� (x, y, z)
+        GLfloat uv[2];		// UV�z�� (u, v)
 } VERTEX_TEXUSE;
 
 /*=========================================================================
  �y�^��`�z ���_�f�[�^�i�e�N�X�`���s�g�p���j
  =========================================================================*/
 typedef struct {
-	GLfloat point[3];	// ���_�z�� (x, y, z)
-	GLfloat normal[3];	// �@��z�� (x, y, z)
+        GLfloat point[3];	// ���_�z�� (x, y, z)
+        GLfloat normal[3];	// �@��z�� (x, y, z)
 } VERTEX_NOTEX;
 
 /*=========================================================================
  �y�^��`�z �}�e���A�����i�}�e���A���ʂɒ��_�z������j
  =========================================================================*/
 typedef struct {
-	int isValidMaterialInfo;	// �}�e���A�����̗L��/����
-	int isUseTexture;		// �e�N�X�`���̗L���FUSE_TEXTURE / NOUSE_TEXTURE
-	GLuint texture_id;			// �e�N�X�`���̖��O(OpenGL)
-	GLuint VBO_id;				// ���_�o�b�t�@��ID(OpenGL)�@�Ή����Ă鎞�����g�p
-	int datanum;			// ���_��
-	GLfloat color[4];			// �F�z�� (r, g, b, a)
-	GLfloat dif[4];				// �g�U��
-	GLfloat amb[4];				// ��͌�
-	GLfloat emi[4];				// ���ȏƖ�
-	GLfloat spc[4];				// ���ˌ�
-	GLfloat power;				// ���ˌ��̋���
-	VERTEX_NOTEX *vertex_p;			// �|���S���݂̂̎��̒��_�z��
-	VERTEX_TEXUSE *vertex_t;			// �e�N�X�`���g�p���̒��_�z��
+        int isValidMaterialInfo;	// �}�e���A�����̗L��/����
+        int isUseTexture;		// �e�N�X�`���̗L���FUSE_TEXTURE / NOUSE_TEXTURE
+        GLuint texture_id;			// �e�N�X�`���̖��O(OpenGL)
+        GLuint VBO_id;			// ���_�o�b�t�@��ID(OpenGL)�@�Ή����Ă鎞�����g�p
+        int datanum;			// ���_��
+        GLfloat color[4];			// �F�z�� (r, g, b, a)
+        GLfloat dif[4];				// �g�U��
+        GLfloat amb[4];				// ��͌�
+        GLfloat emi[4];				// ���ȏƖ�
+        GLfloat spc[4];				// ���ˌ�
+        GLfloat power;				// ���ˌ��̋���
+        VERTEX_NOTEX *vertex_p;			// �|���S���݂̂̎��̒��_�z��
+        VERTEX_TEXUSE *vertex_t;			// �e�N�X�`���g�p���̒��_�z��
 } MQO_MATERIAL;
 
 /*=========================================================================
  �y�^��`�z �����I�u�W�F�N�g�i1�̃p�[�c���Ǘ��j
  =========================================================================*/
 typedef struct {
-	char objname[SIZE_STR];		// �I�u�W�F�N�g��
-	int isVisible;				// 0�F��\���@���̑��F�\��
-	int isShadingFlat;			// �V�F�[�f�B���O���[�h
-	int matnum;					// �g�p�}�e���A����
-	MQO_MATERIAL *mat;					// �}�e���A���z��
+        char objname[SIZE_STR];		// �I�u�W�F�N�g��
+        int isVisible;				// 0�F��\���@���̑��F�\��
+        int isShadingFlat;			// �V�F�[�f�B���O���[�h
+        int matnum;					// �g�p�}�e���A����
+        MQO_MATERIAL *mat;					// �}�e���A���z��
 } MQO_INNER_OBJECT;
 
 /*=========================================================================
  �y�^��`�z MQO�I�u�W�F�N�g�i1�̃��f�����Ǘ��j�@��MQO_MODEL�̎���
  =========================================================================*/
 typedef struct {
-	unsigned char alpha;				// ���_�z��쐬���Ɏw�肳�ꂽ�A���t�@�l�i�Q�Ɨp�j
-	int objnum;				// �����I�u�W�F�N�g��
-	MQO_INNER_OBJECT obj[MAX_OBJECT];	// �����I�u�W�F�N�g�z��
+        unsigned char alpha;			// ���_�z��쐬���Ɏw�肳�ꂽ�A���t�@�l�i�Q�Ɨp�j
+        int objnum;				// �����I�u�W�F�N�g��
+        MQO_INNER_OBJECT obj[MAX_OBJECT];	// �����I�u�W�F�N�g�z��
 } MQO_OBJECT;
 
 /*=========================================================================
@@ -434,8 +434,8 @@ typedef MQO_OBJECT * MQO_MODEL;		// MQO_MODEL�͓Ǝ��`���\���̂
  �y�^��`�z MQO�V�[�P���X
  =========================================================================*/
 typedef struct {
-	MQO_MODEL model;		// ���f��
-	int n_frame;	// �t���[����
+        MQO_MODEL model;		// ���f��
+        int n_frame;	// �t���[����
 } MQO_SEQUENCE;
 
 /*=========================================================================
@@ -481,32 +481,33 @@ extern "C" {
 #endif
 
 // ����
-void mqoInit(void);
+    void mqoInit(void);
 
 // �I������
-void mqoCleanup(void);
+    void mqoCleanup(void);
 
 // ���f������
-MQO_MODEL mqoCreateModel(char *filename, double scale);
+    MQO_MODEL mqoCreateModel(char *filename, double scale);
 
 // �V�[�P���X����
-MQO_SEQUENCE mqoCreateSequence(const char *format, int n_file, double scale);
+    MQO_SEQUENCE mqoCreateSequence(const char *format, int n_file,
+            double scale);
 
 // �V�[�P���X�����i�g���Łj
-MQO_SEQUENCE mqoCreateSequenceEx(const char *format, int n_file, double scale,
-		int fade_inout, unsigned char alpha);
+    MQO_SEQUENCE mqoCreateSequenceEx(const char *format, int n_file,
+            double scale, int fade_inout, unsigned char alpha);
 
 // ���f���Ăяo��
-void mqoCallModel(MQO_MODEL model);
+    void mqoCallModel(MQO_MODEL model);
 
 // �V�[�P���X�Ăяo��
-void mqoCallSequence(MQO_SEQUENCE seq, int i);
+    void mqoCallSequence(MQO_SEQUENCE seq, int i);
 
 // ���f���̍폜
-void mqoDeleteModel(MQO_MODEL model);
+    void mqoDeleteModel(MQO_MODEL model);
 
 // �V�[�P���X�̍폜
-void mqoDeleteSequence(MQO_SEQUENCE seq);
+    void mqoDeleteSequence(MQO_SEQUENCE seq);
 
 #ifdef __cplusplus
 }

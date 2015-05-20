@@ -44,13 +44,13 @@ trackingOBJ::~trackingOBJ(void) {
 }
 
 trackingOBJ* trackingOBJ::create(TRACKER_TYPE type) {
-	if (type == TRACKER_KLT) {
-		return new kltTrackingOBJ();
-	}
+    if (type == TRACKER_KLT) {
+        return new kltTrackingOBJ();
+    }
 //	else if(type == TRACKER_ORB){
 //		return new orbTrackingOBJ();
 //	}
-	else {
-		return 0;
-	}
+    else {
+        return 0;
+    }
 }

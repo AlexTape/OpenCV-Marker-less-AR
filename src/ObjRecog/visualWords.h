@@ -37,64 +37,66 @@
 #include <opencv2/features2d/features2d.hpp>
 
 namespace cvar {
-namespace orns {
+    namespace orns {
 
-class visualWords {
-public:
-	visualWords(void);
-	~visualWords(void);
+        class visualWords {
+            public:
+                visualWords(void);
+                ~visualWords(void);
 
-	//! Release All
-	void release();
+                //! Release All
+                void release();
 
-	//! Is Feature Dictionary ready?
-	/*!
-	 \return if the index of feature dictionary is ready, return true
-	 */
-	bool isReady();
+                //! Is Feature Dictionary ready?
+                /*!
+                 \return if the index of feature dictionary is ready, return true
+                 */
+                bool isReady();
 
-	void addFeatures(const cv::Mat& feature);	// Visual Word�쐬�p�̓����ʂ�ǉ�
-	void createVW(int cluster_num = 0);	// Visual Word���쐬
+                void addFeatures(const cv::Mat& feature);// Visual Word�쐬�p�̓����ʂ�ǉ�
+                void createVW(int cluster_num = 0);	// Visual Word���쐬
 
-	// Load & Save
-	bool save(const std::string& filename) const;
-	bool saveBinary(const std::string& filename,
-			const std::string& idx_filename) const;
-	void write(cv::FileStorage& FS, const std::string& name) const;
-	bool load(const std::string& filename);
-	bool loadBinary(const std::string& filename,
-			const std::string& idx_filename);
-	void read(const cv::FileNode& node);
+                // Load & Save
+                bool save(const std::string& filename) const;
+                bool saveBinary(const std::string& filename,
+                        const std::string& idx_filename) const;
+                void write(cv::FileStorage& FS, const std::string& name) const;
+                bool load(const std::string& filename);
+                bool loadBinary(const std::string& filename,
+                        const std::string& idx_filename);
+                void read(const cv::FileNode& node);
 
-	void setVoteNum(int vote_num);
+                void setVoteNum(int vote_num);
 
-	int getVisualWordNum() const;
+                int getVisualWordNum() const;
 
-	cv::Mat querySearchDB(const cv::Mat& features);
+                cv::Mat querySearchDB(const cv::Mat& features);
 
-private:
-	// search DB functions
+            private:
+                // search DB functions
 //	int releaseSearchDB();
-	static void convertFeatureMat(const std::vector<cv::Mat>& src_feature,
-			cv::Mat& dest_feature);	// combine vector to Mat
-	bool save_vw_binary(const std::string& filename) const;	// visualWord�f�[�^���o�C�i���`���ŕۑ�
-	bool load_vw_binary(const std::string& filename);// visualWord�f�[�^���o�C�i���`���ŕۑ�
-	bool saveIndex(const std::string& filename) const;
-	bool loadIndex(const std::string& filename);
-	void writeIndex(cv::FileStorage& FS, const std::string& name) const;
-	void readIndex(const cv::FileNode& node);
+                static void convertFeatureMat(
+                        const std::vector<cv::Mat>& src_feature,
+                        cv::Mat& dest_feature);	// combine vector to Mat
+                bool save_vw_binary(const std::string& filename) const;	// visualWord�f�[�^���o�C�i���`���ŕۑ�
+                bool load_vw_binary(const std::string& filename);// visualWord�f�[�^���o�C�i���`���ŕۑ�
+                bool saveIndex(const std::string& filename) const;
+                bool loadIndex(const std::string& filename);
+                void writeIndex(cv::FileStorage& FS,
+                        const std::string& name) const;
+                void readIndex(const cv::FileNode& node);
 
-private:
-	std::string matcherType;
-	cv::Ptr<cv::DescriptorMatcher> descriptor_matcher;
-	int voteNum;
-	float radius;
+            private:
+                std::string matcherType;
+                cv::Ptr<cv::DescriptorMatcher> descriptor_matcher;
+                int voteNum;
+                float radius;
 
-	static const int version = 120;
-};
+                static const int version = 120;
+        };
 
-}
-;
+    }
+    ;
 }
 ;
 #endif

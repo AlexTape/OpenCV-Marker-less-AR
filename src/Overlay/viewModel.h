@@ -38,131 +38,131 @@
 //#include "GLMetaseq.h"	// ���f�����[�_
 
 namespace cvar {
-namespace overlay {
+    namespace overlay {
 
-typedef struct {
-	modelObject* model;	// ���f���N���X
-	double scale;	// ���f���̃T�C�Y���w��
-	std::string modelFilename;	// ���f���t�@�C���ւ̃p�X
-	cv::Mat initRot;// ����ʒu�ւ�3�~3��]�s��i�}�[�J�[��Z=0��X-Y���ʂŁAZ��+����AY��+���s���j
-	cv::Mat initTrans;	// ����ʒu�ւ̈ړ�����
-	cv::Point2f markerCenter;	// �}�[�J�[���S�ʒu
-	cv::Size markerSize;	// �}�[�J�[�T�C�Y
-} MODEL_INFO;
+        typedef struct {
+                modelObject* model;	// ���f���N���X
+                double scale;	// ���f���̃T�C�Y���w��
+                std::string modelFilename;	// ���f���t�@�C���ւ̃p�X
+                cv::Mat initRot;// ����ʒu�ւ�3�~3��]�s��i�}�[�J�[��Z=0��X-Y���ʂŁAZ��+����AY��+���s���j
+                cv::Mat initTrans;	// ����ʒu�ւ̈ړ�����
+                cv::Point2f markerCenter;	// �}�[�J�[���S�ʒu
+                cv::Size markerSize;	// �}�[�J�[�T�C�Y
+        } MODEL_INFO;
 
-class viewModel {
-private:
-	static viewModel* vmInstance;
-	viewModel(void);
-	viewModel(viewModel*) {
-		two_power_height = 0;
-		aspect_rate = 0;
-		capture_width = 0;
-		mat_type = 0;
-		window_height = 0;
-		capture_height = 0;
-		mirror_f = 0;
-		curModel = 0;
-		window_width = 0;
-		wait_frames = 0;
-		focal_length = 0;
-		two_power_width = 0;
-	}
-	~viewModel(void);
+        class viewModel {
+            private:
+                static viewModel* vmInstance;
+                viewModel(void);
+                viewModel(viewModel*) {
+                    two_power_height = 0;
+                    aspect_rate = 0;
+                    capture_width = 0;
+                    mat_type = 0;
+                    window_height = 0;
+                    capture_height = 0;
+                    mirror_f = 0;
+                    curModel = 0;
+                    window_width = 0;
+                    wait_frames = 0;
+                    focal_length = 0;
+                    two_power_width = 0;
+                }
+                ~viewModel(void);
 
-public:
+            public:
 //	viewModel(void);
 //	~viewModel(void);
 
-	static viewModel* getInstance() {
-		if (!vmInstance) {
-			vmInstance = new viewModel();
-		}
-		return vmInstance;
-	}
+                static viewModel* getInstance() {
+                    if (!vmInstance) {
+                        vmInstance = new viewModel();
+                    }
+                    return vmInstance;
+                }
 
-	static void deleteInstance() {
-		if (vmInstance) {
-			delete vmInstance;
-		}
-		vmInstance = 0;
-	}
+                static void deleteInstance() {
+                    if (vmInstance) {
+                        delete vmInstance;
+                    }
+                    vmInstance = 0;
+                }
 
-public:
-	cv::Mat resized_frame;
+            public:
+                cv::Mat resized_frame;
 
-	int two_power_width;	// 2�̗ݏ�ɍ��킹�邽�߂̃��T�C�Y��T�C�Y
-	int two_power_height;	// 512��1024�����肪�K��
+                int two_power_width;	// 2�̗ݏ�ɍ��킹�邽�߂̃��T�C�Y��T�C�Y
+                int two_power_height;	// 512��1024�����肪�K��
 
-	int window_width;
-	int window_height;
+                int window_width;
+                int window_height;
 
-	int capture_width;
-	int capture_height;
+                int capture_width;
+                int capture_height;
 
-	unsigned int texture[1];
+                unsigned int texture[1];
 //	MQO_MODEL g_mqoModel;	// MQO���f��
-	double aspect_rate;			// �L���v�`���̏c����
-	float focal_length;		// �œ_����
+                double aspect_rate;			// �L���v�`���̏c����
+                float focal_length;		// �œ_����
 
-	cv::Mat cameraMatrix;	// �J�����p�����[�^�s��
+                cv::Mat cameraMatrix;	// �J�����p�����[�^�s��
 
 //	double model_scale;
-	std::map<int, MODEL_INFO> model_map;
+                std::map<int, MODEL_INFO> model_map;
 
-	// �҂���
-	int wait_frames;
-	MODEL_INFO wait_model;
+                // �҂���
+                int wait_frames;
+                MODEL_INFO wait_model;
 
-protected:
-	cv::Mat accHomMat;
-	int mat_type;
-	modelObjectFactory modelFac;
-	MODEL_INFO* curModel;
-	bool mirror_f;
-	cv::Mat mirrorMat;
+            protected:
+                cv::Mat accHomMat;
+                int mat_type;
+                modelObjectFactory modelFac;
+                MODEL_INFO* curModel;
+                bool mirror_f;
+                cv::Mat mirrorMat;
 
-public:
-	bool init(cv::Size& frame_size, cv::Mat& cameraMat);
-	bool init(cv::Size& frame_size, cv::Mat& cameraMat, int type);
-	void resize(int win_w, int win_h);	// �E�B���h�E�T�C�Y�ύX�֐�
-	void updateTexture(cv::Mat& frame);	// �X�V�֐�
-	void release();
-	void exitFunc();
+            public:
+                bool init(cv::Size& frame_size, cv::Mat& cameraMat);
+                bool init(cv::Size& frame_size, cv::Mat& cameraMat, int type);
+                void resize(int win_w, int win_h);	// �E�B���h�E�T�C�Y�ύX�֐�
+                void updateTexture(cv::Mat& frame);	// �X�V�֐�
+                void release();
+                void exitFunc();
 
-	bool setTwoPowerSize(int w, int h);
-	void setCameraMatrix(cv::Mat& cameraMat);
-	void setMirrorMode(bool flag);
-	void setFocalLength(float len);
+                bool setTwoPowerSize(int w, int h);
+                void setCameraMatrix(cv::Mat& cameraMat);
+                void setMirrorMode(bool flag);
+                void setFocalLength(float len);
 //	void setMarkerSize(cv::Size);
 
-	void drawScene(cv::Mat& img);
-	void drawObject(cv::Mat& homographyMat, int seq_id);
-	void drawWaitModel(int seq_id);
-	template<typename _Tp> void drawObjectType(cv::Mat& homographyMat,
-			int seq_id);
-	void initAccHomMat();
+                void drawScene(cv::Mat& img);
+                void drawObject(cv::Mat& homographyMat, int seq_id);
+                void drawWaitModel(int seq_id);
+                template<typename _Tp> void drawObjectType(
+                        cv::Mat& homographyMat, int seq_id);
+                void initAccHomMat();
 //	void initAccHomMat(cv::Mat& homMat);
-	bool setRecogId(int id, cv::Mat& homMat);
-	bool addModel(int id, cv::Size& markerSize, int model_type,
-			const std::string& model_filename, double scale = 1.0);
-	bool addModel(int id, cv::Size& markerSize, int model_type,
-			const std::string& model_filename, double scale, cv::Mat& initRot,
-			cv::Mat& initTrans);
-	void releaseModel();
+                bool setRecogId(int id, cv::Mat& homMat);
+                bool addModel(int id, cv::Size& markerSize, int model_type,
+                        const std::string& model_filename, double scale = 1.0);
+                bool addModel(int id, cv::Size& markerSize, int model_type,
+                        const std::string& model_filename, double scale,
+                        cv::Mat& initRot, cv::Mat& initTrans);
+                void releaseModel();
 
-	bool addWaitModel(int wait_frame_num, int model_type,
-			const std::string& model_filename, double scale = 1.0);
-	bool addWaitModel(int wait_frame_num, int model_type,
-			const std::string& model_filename, double scale, cv::Mat& initRot,
-			cv::Mat& initTrans);
-	void releaseWaitModel();
+                bool addWaitModel(int wait_frame_num, int model_type,
+                        const std::string& model_filename, double scale = 1.0);
+                bool addWaitModel(int wait_frame_num, int model_type,
+                        const std::string& model_filename, double scale,
+                        cv::Mat& initRot, cv::Mat& initTrans);
+                void releaseWaitModel();
 
 //	cv::Mat convertMatType(cv::Mat& src_mat);
-};
+        };
 
-}
-;
+    }
+    ;
 }
 ;
 #endif

@@ -37,25 +37,25 @@
 #include "modelObject.h"
 
 namespace cvar {
-namespace overlay {
+    namespace overlay {
 
-class mqoModelObject: public modelObject {
-public:
-	mqoModelObject(void);
-	~mqoModelObject(void);
+        class mqoModelObject: public modelObject {
+            public:
+                mqoModelObject(void);
+                ~mqoModelObject(void);
 
-public:
-	MQO_MODEL model;	// ���f���\����
+            public:
+                MQO_MODEL model;	// ���f���\����
 
-public:
-	void init();
-	void loadModelFile(std::string filename);
-	void drawModel(int& frame_id);
-	void release();
-};
+            public:
+                void init();
+                void loadModelFile(std::string filename);
+                void drawModel(int& frame_id);
+                void release();
+        };
 
-}
-;
+    }
+    ;
 }
 ;
 

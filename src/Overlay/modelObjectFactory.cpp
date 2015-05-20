@@ -41,25 +41,25 @@ modelObjectFactory::~modelObjectFactory(void) {
 }
 
 modelObject* modelObjectFactory::create(int type) {
-	if (type == METASEQ) {
-		return new mqoModelObject();
-	} else if (type == MQOSEQ) {
-		return new mqoSeqModelObject();
-	} else if (type == SLIDE) {
-		return new slideModelObject();
-	} else {
-		return NULL;
-	}
+    if (type == METASEQ) {
+        return new mqoModelObject();
+    } else if (type == MQOSEQ) {
+        return new mqoSeqModelObject();
+    } else if (type == SLIDE) {
+        return new slideModelObject();
+    } else {
+        return NULL;
+    }
 }
 
 int modelObjectFactory::getModelTypeId(std::string model_name) {
-	if (model_name == "METASEQ") {
-		return METASEQ;
-	} else if (model_name == "MQOSEQ") {
-		return MQOSEQ;
-	} else if (model_name == "SLIDE") {
-		return SLIDE;
-	} else {
-		return 0;
-	}
+    if (model_name == "METASEQ") {
+        return METASEQ;
+    } else if (model_name == "MQOSEQ") {
+        return MQOSEQ;
+    } else if (model_name == "SLIDE") {
+        return SLIDE;
+    } else {
+        return 0;
+    }
 }

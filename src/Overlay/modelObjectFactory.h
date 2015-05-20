@@ -39,25 +39,25 @@
 #include "mqoSeqModelObject.h"
 
 namespace cvar {
-namespace overlay {
+    namespace overlay {
 
-class modelObjectFactory {
-public:
-	modelObjectFactory(void);
-	~modelObjectFactory(void);
+        class modelObjectFactory {
+            public:
+                modelObjectFactory(void);
+                ~modelObjectFactory(void);
 
-public:
-	static const int METASEQ = 1;
-	static const int MQOSEQ = 2;
-	static const int SLIDE = 3;
+            public:
+                static const int METASEQ = 1;
+                static const int MQOSEQ = 2;
+                static const int SLIDE = 3;
 
-public:
-	modelObject* create(int type);
-	static int getModelTypeId(std::string model_name);
-};
+            public:
+                modelObject* create(int type);
+                static int getModelTypeId(std::string model_name);
+        };
 
-}
-;
+    }
+    ;
 }
 ;
 

@@ -38,17 +38,19 @@
 namespace cvar {
 
 // �f�o�b�O�p�֐��Q
-CvMat* loadCsvFileAsMatrix(char* filename, int cv_type);
-void createMatchingImage(cv::Mat& src_img, cv::Mat& dest_img,
-		std::vector<cv::Point>& src_pts, std::vector<cv::Point>& dest_pts);
-void createMatchingImage(cv::Mat& src_img, cv::Mat& dest_img,
-		std::vector<cv::Point2f>& src_pts, std::vector<cv::Point2f>& dest_pts);
-void truncatePoint(cv::Size& size, cv::Point2f& pt);// �w��T�C�Y���͂ݏo��_���T�C�Y���ߖT�_�ɋߎ�
-void drawLineContour(cv::Mat& src_img, std::vector<cv::Point2f>& points,
-		cv::Scalar& color, int thickness = 1, int lineType = 8, int shift = 0);	// �S�_���Ȃ������`��
-void drawPoints(cv::Mat& src_img, std::vector<cv::Point2f>& points,
-		std::vector<unsigned char>& mask_vec, cv::Scalar& color, int thickness =
-				1, int lineType = 8, int shift = 0);	// �S�_���Ȃ������`��
+    CvMat* loadCsvFileAsMatrix(char* filename, int cv_type);
+    void createMatchingImage(cv::Mat& src_img, cv::Mat& dest_img,
+            std::vector<cv::Point>& src_pts, std::vector<cv::Point>& dest_pts);
+    void createMatchingImage(cv::Mat& src_img, cv::Mat& dest_img,
+            std::vector<cv::Point2f>& src_pts,
+            std::vector<cv::Point2f>& dest_pts);
+    void truncatePoint(cv::Size& size, cv::Point2f& pt); // �w��T�C�Y���͂ݏo��_���T�C�Y���ߖT�_�ɋߎ�
+    void drawLineContour(cv::Mat& src_img, std::vector<cv::Point2f>& points,
+            cv::Scalar& color, int thickness = 1, int lineType = 8, int shift =
+                    0);	// �S�_���Ȃ������`��
+    void drawPoints(cv::Mat& src_img, std::vector<cv::Point2f>& points,
+            std::vector<unsigned char>& mask_vec, cv::Scalar& color,
+            int thickness = 1, int lineType = 8, int shift = 0);// �S�_���Ȃ������`��
 
 }
 ;

@@ -39,88 +39,88 @@
 #include "modelObject.h"
 
 namespace cvar {
-namespace overlay {
+    namespace overlay {
 
-typedef struct {
+        typedef struct {
 //	cv::Mat image;
-	std::string image_file;
-	int frame_num;
-} SLIDE_INFO;
+                std::string image_file;
+                int frame_num;
+        } SLIDE_INFO;
 
-class slideModelObject: public modelObject {
-public:
-	slideModelObject(void);
-	~slideModelObject(void);
+        class slideModelObject: public modelObject {
+            public:
+                slideModelObject(void);
+                ~slideModelObject(void);
 
-public:
-	static const int TWO_POWER_WIDTH = 1024;
-	static const int TWO_POWER_HEIGHT = 1024;
-	unsigned int texture[1];
+            public:
+                static const int TWO_POWER_WIDTH = 1024;
+                static const int TWO_POWER_HEIGHT = 1024;
+                unsigned int texture[1];
 
-	static const int NON_FIX = 0;
-	static const int WIDTH_FIX = 1;
-	static const int HEIGHT_FIX = 2;
-	static const int LONGER_FIX = 3;
-	static const int SHORTER_FIX = 4;
-	int size_fix_mode;
-	int fixed_size;
+                static const int NON_FIX = 0;
+                static const int WIDTH_FIX = 1;
+                static const int HEIGHT_FIX = 2;
+                static const int LONGER_FIX = 3;
+                static const int SHORTER_FIX = 4;
+                int size_fix_mode;
+                int fixed_size;
 
-	int morph_interval;		// �t���[���Ԑ؂�ւ��C���^�[�o���i�t���[�����j
-	int spread_interval;	// �摜�g��ؑփC���^�[�o���i�t���[�����j
+                int morph_interval;	// �t���[���Ԑ؂�ւ��C���^�[�o���i�t���[�����j
+                int spread_interval;	// �摜�g��ؑփC���^�[�o���i�t���[�����j
 
-protected:
-	int slide_status;	// ���݂̕\���X�e�[�^�X
-	static const int SLIDE_INIT = 0x00;	// �P�Ԗڂ̃X���C�h�̓��ߏ���
-	static const int SLIDE_ALPHA = 0x01;	// �Q�Ԗڈȍ~�̃X���C�h�̓��ߏ���
-	static const int SLIDE_NORM = 0x02;	// �ʏ�̃X���C�h�d���\��
-	static const int SLIDE_PRESPREAD = 0x04;	// �X���C�h�g�又���O�̓��ߏ���
-	static const int SLIDE_SPREADING = 0x08;	// �g�又��
-	static const int SLIDE_LARGEALPHA = 0x0f;	// �g��X���C�h�̓��ߏ���
-	static const int SLIDE_LARGE = 0x10;	// �g��\��
-	static const int SLIDE_NORMLAST = 0x20;	// �ŏI�X���C�h�i�d���\���j
-	static const int SLIDE_LARGELAST = 0x40;	// �ŏI�X���C�h(�g��\��)
-	std::vector<SLIDE_INFO*> slide_vec;
-	std::vector<SLIDE_INFO*> spread_slide_vec;
-	std::vector<SLIDE_INFO*>::iterator slide_itr;
+            protected:
+                int slide_status;	// ���݂̕\���X�e�[�^�X
+                static const int SLIDE_INIT = 0x00;	// �P�Ԗڂ̃X���C�h�̓��ߏ���
+                static const int SLIDE_ALPHA = 0x01;// �Q�Ԗڈȍ~�̃X���C�h�̓��ߏ���
+                static const int SLIDE_NORM = 0x02;	// �ʏ�̃X���C�h�d���\��
+                static const int SLIDE_PRESPREAD = 0x04;// �X���C�h�g�又���O�̓��ߏ���
+                static const int SLIDE_SPREADING = 0x08;	// �g�又��
+                static const int SLIDE_LARGEALPHA = 0x0f;// �g��X���C�h�̓��ߏ���
+                static const int SLIDE_LARGE = 0x10;	// �g��\��
+                static const int SLIDE_NORMLAST = 0x20;	// �ŏI�X���C�h�i�d���\���j
+                static const int SLIDE_LARGELAST = 0x40;// �ŏI�X���C�h(�g��\��)
+                std::vector<SLIDE_INFO*> slide_vec;
+                std::vector<SLIDE_INFO*> spread_slide_vec;
+                std::vector<SLIDE_INFO*>::iterator slide_itr;
 
-	cv::Mat texture_img;
-	cv::Mat foreground_img;
-	int counter;
-	double T, B, L, R;
-	double fT, fB, fL, fR;
+                cv::Mat texture_img;
+                cv::Mat foreground_img;
+                int counter;
+                double T, B, L, R;
+                double fT, fB, fL, fR;
 
 //	float image_scale;
-	GLfloat mv_src_matrix[16];
-	GLfloat mv_dest_matrix[16];
+                GLfloat mv_src_matrix[16];
+                GLfloat mv_dest_matrix[16];
 
-	double fore_dist;
+                double fore_dist;
 
-public:
-	// modelObject���\�b�h�̃I�[�o�[���C�h
-	void init();
-	void loadModelFile(std::string filename);
-	void drawModel(int& frame_id);
-	void release();
+            public:
+                // modelObject���\�b�h�̃I�[�o�[���C�h
+                void init();
+                void loadModelFile(std::string filename);
+                void drawModel(int& frame_id);
+                void release();
 
-protected:
-	void releaseSlides();
-	void updateForegroundTexture();
-	void updateTexture();
-	void switchForeground();
-	void drawTexture();
-	void drawForegroundTexture();
+            protected:
+                void releaseSlides();
+                void updateForegroundTexture();
+                void updateTexture();
+                void switchForeground();
+                void drawTexture();
+                void drawForegroundTexture();
 
-	void updateAlphaChannel(float ratio);
+                void updateAlphaChannel(float ratio);
 
-	void calcDestSpreadMatrix(GLfloat* prj_mtrx);
-	void calcSpreadMatrix(GLfloat* trans_mtrx);
+                void calcDestSpreadMatrix(GLfloat* prj_mtrx);
+                void calcSpreadMatrix(GLfloat* trans_mtrx);
 //	void calcSpreadMatrix(GLfloat* trans_mtrx, int cur_num, int end_num);
-	void transGLmatrix2CvMat(GLfloat* glf, cv::Mat& cvmat);
-	void transCvMat2GLmatrix(cv::Mat& cvmat, GLfloat* glf);
-};
+                void transGLmatrix2CvMat(GLfloat* glf, cv::Mat& cvmat);
+                void transCvMat2GLmatrix(cv::Mat& cvmat, GLfloat* glf);
+        };
 
-}
-;
+    }
+    ;
 }
 ;
 #endif

@@ -38,34 +38,35 @@
 
 namespace cvar {
 
-class cameraCalibration {
-public:
-	cameraCalibration(void);
-	~cameraCalibration(void);
+    class cameraCalibration {
+        public:
+            cameraCalibration(void);
+            ~cameraCalibration(void);
 
-public:
-	cv::Mat camera_matrix;
-	cv::Mat distortion;
-	std::vector<cv::Mat> rotation;
-	std::vector<cv::Mat> translation;
-	std::vector<cv::Mat> checker_image_list;
+        public:
+            cv::Mat camera_matrix;
+            cv::Mat distortion;
+            std::vector<cv::Mat> rotation;
+            std::vector<cv::Mat> translation;
+            std::vector<cv::Mat> checker_image_list;
 
-protected:
-	unsigned int max_img_num; /* �摜�ő吔 */
-	int pat_row; /* �p�^�[���̍s�� */
-	int pat_col; /* �p�^�[���̗� */
-	float chess_size; /* �p�^�[��1�}�X��1�ӃT�C�Y[mm] */
+        protected:
+            unsigned int max_img_num; /* The maximum number of images */
+            int pat_row; /* Number of rows in the pattern */
+            int pat_col; /* Number of columns in the pattern */
+            float chess_size; /* Size of each side pattern 1 Mass [mm] */
 
-public:
-	void setMaxImageNum(int num);
-	void setBoardColsAndRows(int r, int c);
-	void setChessSize(float size);
-	bool addCheckerImage(cv::Mat& img);
-	void releaseCheckerImage();
-	bool doCalibration();
-	void saveCameraMatrix(const std::string& filename);
-	void writeCameraMatrix(cv::FileStorage& cvfs, const std::string& name);
-};
+        public:
+            void setMaxImageNum(int num);
+            void setBoardColsAndRows(int r, int c);
+            void setChessSize(float size);
+            bool addCheckerImage(cv::Mat& img);
+            void releaseCheckerImage();
+            bool doCalibration();
+            void saveCameraMatrix(const std::string& filename);
+            void writeCameraMatrix(cv::FileStorage& cvfs,
+                    const std::string& name);
+    };
 
 }
 ;

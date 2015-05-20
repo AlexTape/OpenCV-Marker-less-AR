@@ -40,66 +40,66 @@ using namespace cvar;
 using namespace cvar::overlay;
 
 mqoSeqModelObject::mqoSeqModelObject(void) {
-	status = UNINIT;
+    status = UNINIT;
 }
 
 mqoSeqModelObject::~mqoSeqModelObject(void) {
-	release();
+    release();
 }
 
 void mqoSeqModelObject::init() {
-	status = INIT;
+    status = INIT;
 }
 
 void mqoSeqModelObject::loadModelFile(string filename) {
-	if (status & INIT) {
-		if (status & LOADED) {
-			mqoDeleteSequence(model_seq);
-		}
+    if (status & INIT) {
+        if (status & LOADED) {
+            mqoDeleteSequence(model_seq);
+        }
 
-		try {
-			FileStorage fs(filename, FileStorage::READ);
+        try {
+            FileStorage fs(filename, FileStorage::READ);
 
-			string fh;
-			int num;
-			fs["fileheader"] >> fh;
-			fs["number"] >> num;
+            string fh;
+            int num;
+            fs["fileheader"] >> fh;
+            fs["number"] >> num;
 
-			string::size_type fname_top = filename.find_last_of("\\");
-			char fullfilename[256];
+            string::size_type fname_top = filename.find_last_of("\\");
+            char fullfilename[256];
 
-			if (fname_top == string::npos) {
-				fname_top = filename.find_last_of("/");
-			}
+            if (fname_top == string::npos) {
+                fname_top = filename.find_last_of("/");
+            }
 
-			if (fname_top != string::npos) {
-				string dirname = filename.substr(0, fname_top);
-				sprintf(fullfilename, "%s/%s%%d.mqo", dirname.c_str(),
-						fh.c_str());
-			} else {
-				sprintf(fullfilename, "%s\%%d.mqo", fh.c_str());
-			}
+            if (fname_top != string::npos) {
+                string dirname = filename.substr(0, fname_top);
+                sprintf(fullfilename, "%s/%s%%d.mqo", dirname.c_str(),
+                        fh.c_str());
+            } else {
+                sprintf(fullfilename, "%s\%%d.mqo", fh.c_str());
+            }
 
-			model_seq = mqoCreateSequence(fullfilename, num, 1.0);
+            model_seq = mqoCreateSequence(fullfilename, num, 1.0);
 //			model_seq = mqoCreateSequence("ardemo/miku/miku%d.mqo",num,1.0);
 //			model_seq = mqoCreateSequence((char*)filename.c_str(),1.0);
 
-			status = status | LOADED;
-		} catch (std::exception& e) {
-			throw e;
-		}
-	}
+            status = status | LOADED;
+        } catch (std::exception& e) {
+            throw e;
+        }
+    }
 }
 
 void mqoSeqModelObject::drawModel(int& frame_id) {
-	int seq_id = frame_id % model_seq.n_frame;
-	mqoCallSequence(model_seq, seq_id);
+    int seq_id = frame_id % model_seq.n_frame;
+    mqoCallSequence(model_seq, seq_id);
 }
 
 void mqoSeqModelObject::release() {
-	if (status & LOADED) {
-		mqoDeleteSequence(model_seq);
+    if (status & LOADED) {
+        mqoDeleteSequence(model_seq);
 //		status = status ^ LOADED;
-		status = status - (status & LOADED);
-	}
+        status = status - (status & LOADED);
+    }
 }

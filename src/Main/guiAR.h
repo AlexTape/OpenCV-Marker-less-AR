@@ -34,9 +34,9 @@
 
 namespace cvar {
 
-void setControlOR(orns::controlOR& ctrlOR_cls);
-int startGUI(int argc, char *argv[]);
-void setARConfigFile(std::string& conf_f);
+    void setControlOR(orns::controlOR& ctrlOR_cls);
+    int startGUI(int argc, char *argv[]);
+    void setARConfigFile(std::string& conf_f);
 
 }
 ;
