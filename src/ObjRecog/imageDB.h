@@ -1,76 +1,79 @@
 /*M///////////////////////////////////////////////////////////////////////////////////////
-//
-//  IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
-//
-//  By downloading, copying, installing or using the software you agree to this license.
-//  If you do not agree to this license, do not download, install,
-//  copy or use the software.
-//
-//
-//                           License Agreement
-//
-// Copyright (C) 2012, Takuya MINAGAWA.
-// Third party copyrights are property of their respective owners.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights to
-// use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-// of the Software, and to permit persons to whom the Software is furnished to do
-// so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
-// PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-// SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
-//M*/
+ //
+ //  IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
+ //
+ //  By downloading, copying, installing or using the software you agree to this license.
+ //  If you do not agree to this license, do not download, install,
+ //  copy or use the software.
+ //
+ //
+ //                           License Agreement
+ //
+ // Copyright (C) 2012, Takuya MINAGAWA.
+ // Third party copyrights are property of their respective owners.
+ //
+ // Permission is hereby granted, free of charge, to any person obtaining a copy
+ // of this software and associated documentation files (the "Software"), to deal
+ // in the Software without restriction, including without limitation the rights to
+ // use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+ // of the Software, and to permit persons to whom the Software is furnished to do
+ // so, subject to the following conditions:
+ //
+ // The above copyright notice and this permission notice shall be included in all
+ // copies or substantial portions of the Software.
+ //
+ // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ // INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ // PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ // HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ //
+ //M*/
 #ifndef __IMAGE_DB__
 #define __IMAGE_DB__
 
 #include <opencv2/features2d/features2d.hpp>
 
-namespace cvar{
-namespace or{
+namespace cvar {
+namespace orns {
 
-typedef struct{
+typedef struct {
 	int in_feat_i;
 	int keypoint_id;
-}featureVote;
+} featureVote;
 
-typedef struct{
+typedef struct {
 	int keypoint_id;
 	int img_id;
-}featureInfo;
+} featureInfo;
 
-typedef struct{
+typedef struct {
 	int feature_num;
 	cv::Size img_size;
-}imageInfo;
+} imageInfo;
 
-typedef struct{
-	int	img_id;
-	float	probability;
-	int	matched_num;
-	cv::Mat	pose_mat;
+typedef struct {
+	int img_id;
+	float probability;
+	int matched_num;
+	cv::Mat pose_mat;
 	cv::Size img_size;
 	std::vector<cv::Point2f> object_position;
-}resultInfo;
+} resultInfo;
 
-class imageDB
-{
+class imageDB {
 public:
 	imageDB(void);
 	~imageDB(void);
 
 	// Operational Functions
-	int registImageFeatures(int img_id, cv::Size img_size, std::vector<cv::KeyPoint> kp_vec, std::vector<int> id_list);	// Add image feature id to DB
-	std::vector<resultInfo> retrieveImageId(const std::vector<cv::KeyPoint>& kp_vec, const std::vector<int>& id_list, cv::Size img_size, const int visual_word_num, int result_num = 1);	// Add image feature id to DB
+	int registImageFeatures(int img_id, cv::Size img_size,
+			std::vector<cv::KeyPoint> kp_vec, std::vector<int> id_list);// Add image feature id to DB
+	std::vector<resultInfo> retrieveImageId(
+			const std::vector<cv::KeyPoint>& kp_vec,
+			const std::vector<int>& id_list, cv::Size img_size,
+			const int visual_word_num, int result_num = 1);	// Add image feature id to DB
 	int removeImageId(int img_id);	// remove image in DB
 	void setThreshold(float th);
 	float getThreshold() const;
@@ -87,8 +90,10 @@ public:
 	int write(cv::FileStorage& cvfs, const std::string& name) const;
 
 private:
-	int readFeatureKptMap(const cv::FileStorage& cvfs, const cv::FileNode& node);
-	int writeFeatureKptMap(cv::FileStorage& cvfs, const std::string& name) const;
+	int readFeatureKptMap(const cv::FileStorage& cvfs,
+			const cv::FileNode& node);
+	int writeFeatureKptMap(cv::FileStorage& cvfs,
+			const std::string& name) const;
 	int readKeyMap(const cv::FileStorage& cvfs, const cv::FileNode& node);
 	int writeKeyMap(cv::FileStorage& cvfs, const std::string& name) const;
 	int readImgInfoMap(const cv::FileStorage& cvfs, const cv::FileNode& node);
@@ -96,12 +101,22 @@ private:
 
 	// Internal Functions
 	int getVacantKptId();
-	void voteInputFeatures(const std::vector<cv::KeyPoint>& kp_vec, const std::vector<int>& id_list);
-	std::vector<resultInfo> calcMatchCountResult(const std::vector<cv::KeyPoint>& kp_vec, int visual_word_num);
-	std::vector<resultInfo> calcGeometryConsistentResult(const std::vector<cv::KeyPoint>& kp_vec, const std::vector<resultInfo>& tmp_result_vec, cv::Size img_size, int result_num);
-	void calcPointPair(const std::vector<cv::KeyPoint>& kp_vec, std::vector<featureVote>& vote_vec, std::vector<cv::Point2f>& query_pts, std::vector<cv::Point2f>& reg_pts);
+	void voteInputFeatures(const std::vector<cv::KeyPoint>& kp_vec,
+			const std::vector<int>& id_list);
+	std::vector<resultInfo> calcMatchCountResult(
+			const std::vector<cv::KeyPoint>& kp_vec, int visual_word_num);
+	std::vector<resultInfo> calcGeometryConsistentResult(
+			const std::vector<cv::KeyPoint>& kp_vec,
+			const std::vector<resultInfo>& tmp_result_vec, cv::Size img_size,
+			int result_num);
+	void calcPointPair(const std::vector<cv::KeyPoint>& kp_vec,
+			std::vector<featureVote>& vote_vec,
+			std::vector<cv::Point2f>& query_pts,
+			std::vector<cv::Point2f>& reg_pts);
 	float calcIntegBinDistribution(int in_feats_num, int match_num, float Pp);
-	int countAffineInlier(std::vector<cv::Point2f>& src_pts, std::vector<cv::Point2f>& dest_pts, cv::Mat& affMat, double dist_threthold);
+	int countAffineInlier(std::vector<cv::Point2f>& src_pts,
+			std::vector<cv::Point2f>& dest_pts, cv::Mat& affMat,
+			double dist_threthold);
 //	cv::Mat transKptPointToMat(std::vector<cv::KeyPoint>& kpt_vec);
 //	cv::Mat transKptScaleAngleToMat(cv::vector<cv::KeyPoint>& kpt_vec);
 //	double calcDistThreshold(cv::Mat& affMat, int img_id);
@@ -111,22 +126,24 @@ private:
 	void releaseImgVoteMap();
 
 private:
-	std::multimap<int,featureInfo>	feature_KPT_map;	// feature_idÇÉLÅ[Ç…keypoint_idÇ∆img_idÇåüçı
-	std::map<int,cv::KeyPoint>	keypoint_map;	// keypoint_idÇÉLÅ[Ç…KeyPointÇåüçı
-	std::map<int,imageInfo>	imgInfo_map;	// img_idÇÉLÅ[Ç…feature_numÇåüçı
-	std::map<int,std::vector<featureVote>*>	imgVote_map;	// img_idÇÉLÅ[Ç…voteTableÇåüçı
+	std::multimap<int, featureInfo> feature_KPT_map;// feature_idÔøΩÔøΩÔøΩLÔøΩ[ÔøΩÔøΩkeypoint_idÔøΩÔøΩimg_idÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
+	std::map<int, cv::KeyPoint> keypoint_map;// keypoint_idÔøΩÔøΩÔøΩLÔøΩ[ÔøΩÔøΩKeyPointÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
+	std::map<int, imageInfo> imgInfo_map;	// img_idÔøΩÔøΩÔøΩLÔøΩ[ÔøΩÔøΩfeature_numÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
+	std::map<int, std::vector<featureVote>*> imgVote_map;// img_idÔøΩÔøΩÔøΩLÔøΩ[ÔøΩÔøΩvoteTableÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
 
-//	int visual_word_num;	// visual wordÇÃêî
-	int imageNum;	// ìoò^âÊëúñáêî
-	int featureNum;	// ìoò^ì¡í•ì_êî
+//	int visual_word_num;	// visual wordÔøΩÃêÔøΩ
+	int imageNum;	// ÔøΩoÔøΩ^ÔøΩÊëúÔøΩÔøΩÔøΩÔøΩ
+	int featureNum;	// ÔøΩoÔøΩ^ÔøΩÔøΩÔøΩÔøΩÔøΩ_ÔøΩÔøΩ
 	int voteNum;
-	float threshold;	// ì¡í•ì_É}ÉbÉ`ÇÃÇµÇ´Ç¢íl(0 - 1)
+	float threshold;	// ÔøΩÔøΩÔøΩÔøΩÔøΩ_ÔøΩ}ÔøΩbÔøΩ`ÔøΩÃÇÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩl(0 - 1)
 	float geo_threshold;
-	double dist_diff_threshold;	// ëŒâûì_ÇÃà íuÇ…ä÷Ç∑ÇÈãñóeåÎç∑(âÊëúÉTÉCÉYÇÃî‰ÅF0 - 1)
-//	double angle_diff_threshold;	// ëŒâûì_ÇÃäpìxÇ…ä÷Ç∑ÇÈãñóeåÎç∑ 180ìxÅ~(0 - 1)
-//	double scale_diff_threshold;	// ëŒâûì_ÇÃÉXÉPÅ[ÉãÇ…ä÷Ç∑ÇÈãñóeåÎç∑ (ÉTÉCÉYÇÃî‰ÅF> 1)
+	double dist_diff_threshold;	// ÔøΩŒâÔøΩÔøΩ_ÔøΩÃà íuÔøΩ…ä÷ÇÔøΩÔøΩÈãñÔøΩeÔøΩÎç∑(ÔøΩÊëúÔøΩTÔøΩCÔøΩYÔøΩÃîÔøΩF0 - 1)
+//	double angle_diff_threshold;	// ÔøΩŒâÔøΩÔøΩ_ÔøΩÃäpÔøΩxÔøΩ…ä÷ÇÔøΩÔøΩÈãñÔøΩeÔøΩÎç∑ 180ÔøΩxÔøΩ~(0 - 1)
+//	double scale_diff_threshold;	// ÔøΩŒâÔøΩÔøΩ_ÔøΩÃÉXÔøΩPÔøΩ[ÔøΩÔøΩÔøΩ…ä÷ÇÔøΩÔøΩÈãñÔøΩeÔøΩÎç∑ (ÔøΩTÔøΩCÔøΩYÔøΩÃîÔøΩF> 1)
 };
 
-};
-};
+}
+;
+}
+;
 #endif

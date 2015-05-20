@@ -1,35 +1,35 @@
 /*M///////////////////////////////////////////////////////////////////////////////////////
-//
-//  IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
-//
-//  By downloading, copying, installing or using the software you agree to this license.
-//  If you do not agree to this license, do not download, install,
-//  copy or use the software.
-//
-//
-//                           License Agreement
-//
-// Copyright (C) 2012, Takuya MINAGAWA.
-// Third party copyrights are property of their respective owners.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights to
-// use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-// of the Software, and to permit persons to whom the Software is furnished to do
-// so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
-// PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-// SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
-//M*/
+ //
+ //  IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
+ //
+ //  By downloading, copying, installing or using the software you agree to this license.
+ //  If you do not agree to this license, do not download, install,
+ //  copy or use the software.
+ //
+ //
+ //                           License Agreement
+ //
+ // Copyright (C) 2012, Takuya MINAGAWA.
+ // Third party copyrights are property of their respective owners.
+ //
+ // Permission is hereby granted, free of charge, to any person obtaining a copy
+ // of this software and associated documentation files (the "Software"), to deal
+ // in the Software without restriction, including without limitation the rights to
+ // use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+ // of the Software, and to permit persons to whom the Software is furnished to do
+ // so, subject to the following conditions:
+ //
+ // The above copyright notice and this permission notice shall be included in all
+ // copies or substantial portions of the Software.
+ //
+ // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ // INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ // PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ // HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ //
+ //M*/
 #include "guiAR.h"
 
 #include <iostream>
@@ -40,8 +40,8 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-#include "trackingOBJ.h"
-#include "viewModel.h"
+#include "../Tracking/trackingOBJ.h"
+#include "../Overlay/viewModel.h"
 #include "commonCvFunctions.h"
 #include "utilFunctions.h"
 
@@ -56,26 +56,26 @@
 using namespace std;
 using namespace cv;
 using namespace cvar;
-using namespace cvar::or;
+using namespace cvar::orns;
 using namespace cvar::tracking;
 using namespace cvar::overlay;
 
-controlOR* ctrlOR = 0;	// “Á’è•¨‘Ì”F¯ƒNƒ‰ƒX
-trackingOBJ* trckOBJ = 0;	// ƒIƒuƒWƒFƒNƒg’ÇÕƒNƒ‰ƒX
-viewModel *viewMDL;	// OpenGL‰æ‘œ•\¦ƒNƒ‰ƒXiƒVƒ“ƒOƒ‹ƒgƒ“j
+controlOR* ctrlOR = 0;	// ï¿½ï¿½ï¿½è•¨ï¿½Ì”Fï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
+trackingOBJ* trckOBJ = 0;	// ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ÇÕƒNï¿½ï¿½ï¿½X
+viewModel *viewMDL;	// OpenGLï¿½æ‘œï¿½\ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Xï¿½iï¿½Vï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½gï¿½ï¿½ï¿½j
 
-VideoCapture capture( 0 );	// ƒJƒƒ‰ƒLƒƒƒvƒ`ƒƒ
-int seq_id = 0;	// ƒgƒ‰ƒbƒLƒ“ƒO‚ÌƒV[ƒPƒ“ƒXID
-int wait_seq_id = 0; // ”ñƒgƒ‰ƒbƒLƒ“ƒO‚ÌƒV[ƒPƒ“ƒXID
-bool track_f = false;	// ƒgƒ‰ƒbƒLƒ“ƒOƒtƒ‰ƒO
-int query_scale=1;	// ƒNƒGƒŠ[‰æ‘œk¬ƒXƒP[ƒ‹
-int max_query_size = 320;	// Å‘åƒNƒGƒŠ[‰æ‘œƒTƒCƒY
-Mat query_image;	// ‰æ‘œ”F¯ƒNƒGƒŠ[—pk¬‰æ‘œƒTƒCƒY
-//Mat pose_mat_scale;	// ƒzƒ‚ƒOƒ‰ƒtƒBs—ñŠi”[—p
-string config_file = "config.xml";	// İ’èƒtƒ@ƒCƒ‹
+VideoCapture capture(1);	// ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½vï¿½`ï¿½ï¿½
+int seq_id = 0;	// ï¿½gï¿½ï¿½ï¿½bï¿½Lï¿½ï¿½ï¿½Oï¿½ÌƒVï¿½[ï¿½Pï¿½ï¿½ï¿½XID
+int wait_seq_id = 0; // ï¿½ï¿½gï¿½ï¿½ï¿½bï¿½Lï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ÌƒVï¿½[ï¿½Pï¿½ï¿½ï¿½XID
+bool track_f = false;	// ï¿½gï¿½ï¿½ï¿½bï¿½Lï¿½ï¿½ï¿½Oï¿½tï¿½ï¿½ï¿½O
+int query_scale = 1;	// ï¿½Nï¿½Gï¿½ï¿½ï¿½[ï¿½æ‘œï¿½kï¿½ï¿½ï¿½Xï¿½Pï¿½[ï¿½ï¿½
+int max_query_size = 320;	// ï¿½Å‘ï¿½Nï¿½Gï¿½ï¿½ï¿½[ï¿½æ‘œï¿½Tï¿½Cï¿½Y
+Mat query_image;	// ï¿½æ‘œï¿½Fï¿½ï¿½ï¿½Nï¿½Gï¿½ï¿½ï¿½[ï¿½pï¿½kï¿½ï¿½ï¿½æ‘œï¿½Tï¿½Cï¿½Y
+//Mat pose_mat_scale;	// ï¿½zï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½tï¿½Bï¿½sï¿½ï¿½iï¿½[ï¿½p
+string config_file = "config.xml";	// ï¿½İ’ï¿½tï¿½@ï¿½Cï¿½ï¿½
 
-//ƒXƒNƒŠ[ƒ“ƒTƒCƒY‚ÌƒvƒƒpƒeƒB
-bool fullscreen = false;	// ƒtƒ‹ƒXƒNƒŠ[ƒ“ƒ‚[ƒh
+//ï¿½Xï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Tï¿½Cï¿½Yï¿½Ìƒvï¿½ï¿½ï¿½pï¿½eï¿½B
+bool fullscreen = false;	// ï¿½tï¿½ï¿½ï¿½Xï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½h
 int screen_pos_x;
 int screen_pos_y;
 int screen_width;
@@ -87,42 +87,39 @@ string imgname="ardemo\\test\\hoge_0.png";
 Mat frame;
 #endif
 
-namespace cvar{
+namespace cvar {
 
 void fullScreenChange();
 
-void setARConfigFile(string& conf_f)
-{
+void setARConfigFile(string& conf_f) {
 	config_file = conf_f;
 }
 
-
-void readModelParams(FileNode& fn, string& modelfile_name, int& type_id, float& scale, Mat& initRot, Mat& initTrans)
-{
+// fixed FileNode& to FileNode
+void readModelParams(FileNode fn, string& modelfile_name, int& type_id,
+		float& scale, Mat& initRot, Mat& initTrans) {
 	string model_type;
 
 	fn["modelfile"] >> modelfile_name;
 	fn["ModelType"] >> model_type;
 	type_id = modelObjectFactory::getModelTypeId(model_type);
 
-	if(fn["scale"].isNone()){
+	if (fn["scale"].isNone()) {
 		scale = 1.0;
-	}
-	else{
+	} else {
 		fn["scale"] >> scale;
 	}
 
 	initRot.release();
 	initTrans.release();
 
-	float d[] = {1,0,0,0,1,0,0,0,1};
+	float d[] = { 1, 0, 0, 0, 1, 0, 0, 0, 1 };
 	FileNode poseNode = fn["init_pose"];
-	if(poseNode.isNone()){
-		initRot = Mat(3,3,CV_32FC1,d).clone();
+	if (poseNode.isNone()) {
+		initRot = Mat(3, 3, CV_32FC1, d).clone();
 		initTrans.create(3, 1, CV_32FC1);
 		initTrans.setTo(Scalar(0));
-	}
-	else{
+	} else {
 		float yaw, pitch, roll;
 		float x, y, z;
 
@@ -133,124 +130,120 @@ void readModelParams(FileNode& fn, string& modelfile_name, int& type_id, float& 
 		poseNode["y"] >> y;
 		poseNode["z"] >> z;
 
-		Mat yawMat = Mat(3,3,CV_32FC1,d).clone();
-		Mat pitchMat = Mat(3,3,CV_32FC1,d).clone();
-		Mat rollMat = Mat(3,3,CV_32FC1,d).clone();
+		Mat yawMat = Mat(3, 3, CV_32FC1, d).clone();
+		Mat pitchMat = Mat(3, 3, CV_32FC1, d).clone();
+		Mat rollMat = Mat(3, 3, CV_32FC1, d).clone();
 
 		float rad_yaw = yaw * M_PI / 180;
-		yawMat.at<float>(1,1) = (yawMat.at<float>(0,0) = cos(rad_yaw));
-		yawMat.at<float>(0,1) = -(yawMat.at<float>(1,0) = sin(rad_yaw));
+		yawMat.at<float>(1, 1) = (yawMat.at<float>(0, 0) = cos(rad_yaw));
+		yawMat.at<float>(0, 1) = -(yawMat.at<float>(1, 0) = sin(rad_yaw));
 
 		float rad_pitch = pitch * M_PI / 180;
-		pitchMat.at<float>(2,2) = (pitchMat.at<float>(0,0) = cos(rad_pitch));
-		pitchMat.at<float>(0,2) = -(pitchMat.at<float>(2,0) = sin(rad_pitch));
+		pitchMat.at<float>(2, 2) = (pitchMat.at<float>(0, 0) = cos(rad_pitch));
+		pitchMat.at<float>(0, 2) = -(pitchMat.at<float>(2, 0) = sin(rad_pitch));
 
 		float rad_roll = roll * M_PI / 180;
-		rollMat.at<float>(2,2) = (rollMat.at<float>(1,1) = cos(rad_roll));
-		rollMat.at<float>(1,2) = -(rollMat.at<float>(2,1) = sin(rad_roll));
+		rollMat.at<float>(2, 2) = (rollMat.at<float>(1, 1) = cos(rad_roll));
+		rollMat.at<float>(1, 2) = -(rollMat.at<float>(2, 1) = sin(rad_roll));
 
 		initRot = rollMat * pitchMat * yawMat;
 		initTrans.release();
 		initTrans.create(3, 1, CV_32FC1);
-		initTrans.at<float>(0,0) = x;
-		initTrans.at<float>(1,0) = y;
-		initTrans.at<float>(2,0) = z;
+		initTrans.at<float>(0, 0) = x;
+		initTrans.at<float>(1, 0) = y;
+		initTrans.at<float>(2, 0) = z;
 	}
 }
 
-
-void setARConfig(Size& frame_size)
-{
-	try{
+void setARConfig(Size& frame_size) {
+	try {
 		FileStorage cvfs;
-		// Configƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+		// Configï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 		cvfs.open(config_file, CV_STORAGE_READ);
 
-		// “ü—ÍƒtƒŒ[ƒ€—pƒeƒNƒXƒ`ƒƒƒTƒCƒY(2‚Ì—İæ)‚ğŒvZ
+		// ï¿½ï¿½Íƒtï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½pï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Tï¿½Cï¿½Y(2ï¿½Ì—İï¿½)ï¿½ï¿½ï¿½vï¿½Z
 		int tw = 128;
 		int th = 128;
-		while(frame_size.width > tw){
+		while (frame_size.width > tw) {
 			tw <<= 1;
 		}
-		while(frame_size.height > th){
+		while (frame_size.height > th) {
 			th <<= 1;
 		}
-		viewMDL->setTwoPowerSize(tw,th);
+		viewMDL->setTwoPowerSize(tw, th);
 
-		// visual word‚Ì“Ç‚İ‚İ
+		// visual wordï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 		FileNode fn;
 		fn = cvfs["VisualWord"];
 		std::string vwfile;
 		fn["visualWord"] >> vwfile;
 		std::string idxfile;
 		fn["index"] >> idxfile;
-		if(idxfile.empty()){
+		if (idxfile.empty()) {
 			ctrlOR->loadVisualWords(vwfile);
-		}
-		else{
+		} else {
 			ctrlOR->loadVisualWordsBinary(vwfile, idxfile);
 		}
 
-		// ƒIƒuƒWƒFƒNƒgDB‚Ì“Ç‚İ‚İ
+		// ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gDBï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 		ctrlOR->loadObjectDB(cvfs["ObjectDB"]);
 
-		// ‰æ‘œ”F¯ƒNƒGƒŠ[—pÅ‘å‰æ‘œƒTƒCƒY‚Ì“Ç‚İ‚İ
+		// ï¿½æ‘œï¿½Fï¿½ï¿½ï¿½Nï¿½Gï¿½ï¿½ï¿½[ï¿½pï¿½Å‘ï¿½æ‘œï¿½Tï¿½Cï¿½Yï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 		cvfs["max_query_size"] >> max_query_size;
 
-		// ƒNƒGƒŠ[—p‰æ‘œƒTƒCƒY‚ğ“KØ‚È‘å‚«‚³‚Ök¬‚µ‚Ä—ÌˆæŠm•Û
+		// ï¿½Nï¿½Gï¿½ï¿½ï¿½[ï¿½pï¿½æ‘œï¿½Tï¿½Cï¿½Yï¿½ï¿½Kï¿½Ø‚È‘å‚«ï¿½ï¿½ï¿½Ökï¿½ï¿½ï¿½ï¿½ï¿½Ä—Ìˆï¿½mï¿½ï¿½
 		int frame_max_size;
-		if(frame_size.width > frame_size.height){
+		if (frame_size.width > frame_size.height) {
 			frame_max_size = frame_size.width;
-		}
-		else{
+		} else {
 			frame_max_size = frame_size.height;
 		}
 		query_scale = 1;
-		while((frame_max_size / query_scale) > max_query_size){
-			query_scale*=2;
+		while ((frame_max_size / query_scale) > max_query_size) {
+			query_scale *= 2;
 		}
-		query_image.create(frame_size.height/query_scale, frame_size.width/query_scale, CV_8UC1);
+		query_image.create(frame_size.height / query_scale,
+				frame_size.width / query_scale, CV_8UC1);
 
-		// ƒJƒƒ‰“à•”ƒpƒ‰ƒ[ƒ^‚Ì“Ç‚İ‚İ
+		// ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 		Mat camera_matrix;
 		FileStorage fs(cvfs["camera_matrix"], FileStorage::READ);
 		fs["camera_matrix"] >> camera_matrix;
 		viewMDL->init(frame_size, camera_matrix);
 
-		// Å“_‹——£İ’èiÈ—ª‚µ‚½ê‡‚Í1.0‚Éİ’è‚³‚ê‚éj
-		if(!cvfs["focal_length"].isNone()){
-			viewMDL->setFocalLength(cvfs["focal_length"]);
+		// ï¿½Å“_ï¿½ï¿½ï¿½ï¿½ï¿½İ’ï¿½iï¿½È—ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½ï¿½1.0ï¿½Éİ’è‚³ï¿½ï¿½ï¿½j
+		if (!cvfs["focal_length"].isNone()) {
+
+			// fixed error
+			viewMDL->setFocalLength(cvReadReal(*cvfs["focal_length"],0));
 		}
 
-		// ƒtƒ‹ƒXƒNƒŠ[ƒ“ƒ‚[ƒh‚Ì“Ç‚İ‚İ
+		// ï¿½tï¿½ï¿½ï¿½Xï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½hï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 		string str_flg;
-		if(cvfs["full_screen_mode"].isNone()){
+		if (cvfs["full_screen_mode"].isNone()) {
 			str_flg = "false";
-		}
-		else{
+		} else {
 			cvfs["full_screen_mode"] >> str_flg;
 		}
-		if(str_flg == "true"){
-			if(!fullscreen){
+		if (str_flg == "true") {
+			if (!fullscreen) {
 				fullScreenChange();
 			}
 		}
 
-		// ƒ~ƒ‰[ƒ‚[ƒh‚Ì“Ç‚İ‚İ
-		if(cvfs["mirror_mode"].isNone()){
+		// ï¿½~ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½[ï¿½hï¿½Ì“Ç‚İï¿½ï¿½ï¿½
+		if (cvfs["mirror_mode"].isNone()) {
 			str_flg = "false";
-		}
-		else{
+		} else {
 			cvfs["mirror_mode"] >> str_flg;
 		}
-		if(str_flg == "true"){
+		if (str_flg == "true") {
 			viewMDL->setMirrorMode(true);
-		}
-		else{
+		} else {
 			viewMDL->setMirrorMode(false);
 		}
 
-		// dô•\¦‚Ì‚½‚ß‚Ìƒ‚ƒfƒ‹î•ñ“Ç‚İ‚İ
+		// ï¿½dï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ß‚Ìƒï¿½ï¿½fï¿½ï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
 		fn = cvfs["model_info"];
 		FileNode fn2;
 		viewMDL->releaseModel();
@@ -262,63 +255,72 @@ void setARConfig(Size& frame_size)
 		float scale;
 		Mat initRot, initTrans;
 		Size imgsize;
-		while(fn_itr != fn.end()){
+		while (fn_itr != fn.end()) {
 			(*fn_itr)["id"] >> id;
 			imgsize = (ctrlOR->image_db.getImageInfo(id)).img_size;
-			readModelParams(*fn_itr, modelfile_name, type_id, scale, initRot, initTrans);
-			viewMDL->addModel(id, imgsize, type_id, modelfile_name, scale, initRot, initTrans);
+
+			readModelParams(*fn_itr, modelfile_name, type_id, scale, initRot,
+					initTrans);
+
+			viewMDL->addModel(id, imgsize, type_id, modelfile_name, scale,
+					initRot, initTrans);
 			fn_itr++;
 		}
 
-		// ‘Ò‚¿ó‚¯‚É•\¦‚·‚éƒ‚ƒfƒ‹î•ñ“Ç‚İ‚İ
+		// ï¿½Ò‚ï¿½ï¿½ó‚¯ï¿½ï¿½É•\ï¿½ï¿½ï¿½ï¿½ï¿½éƒ‚ï¿½fï¿½ï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
 		fn = cvfs["WaitingModel"];
-		if(!fn.isNone()){
+		if (!fn.isNone()) {
 			int timer = fn["timer"];
-			readModelParams(fn, modelfile_name, type_id, scale, initRot, initTrans);
-			viewMDL->addWaitModel(timer, type_id, modelfile_name, scale, initRot, initTrans);
+			readModelParams(fn, modelfile_name, type_id, scale, initRot,
+					initTrans);
+			viewMDL->addWaitModel(timer, type_id, modelfile_name, scale,
+					initRot, initTrans);
 		}
-	}
-	catch(std::exception e){
+	} catch (std::exception& e) {
 		cout << "Failed to read file " + config_file << endl;
 		throw e;
 	}
 }
 
-
-void displayFunc(void)
-{
+void displayFunc(void) {
 #ifndef NO_CAMERA
 	Mat frame;
-	if (capture.isOpened()) { //ƒJƒƒ‰‚ª‘¶İ‚·‚é‚Æ‚«
-		//ƒLƒƒƒvƒ`ƒƒ
+	if (capture.isOpened()) { //ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ‚ï¿½ï¿½ï¿½Æ‚ï¿½
+		//ï¿½Lï¿½ï¿½ï¿½vï¿½`ï¿½ï¿½
 		capture >> frame;
-	} else { //ƒJƒƒ‰‚ª‘¶İ‚µ‚È‚¢‚Æ‚«
-		//“Á‚É‚â‚é‚±‚Æ‚È‚µ
+	} else { //ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ‚ï¿½ï¿½È‚ï¿½ï¿½Æ‚ï¿½
+		//ï¿½ï¿½ï¿½É‚ï¿½é‚±ï¿½Æ‚È‚ï¿½
 	}
 #else
 	frame = imread(imgname);
 #endif
 
 #ifndef NO_OBJRECOG
-	//ƒeƒNƒXƒ`ƒƒ‚É•`‰æ‚µ‚½‚¢‰æ‘œ‚ğ“Š‚°‚é
+	//ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½É•`ï¿½æ‚µï¿½ï¿½ï¿½ï¿½ï¿½æ‘œï¿½ğ“Š‚ï¿½ï¿½ï¿½
 	Mat grayImg;
 	cvtColor(frame, grayImg, CV_BGR2GRAY);
 
-	if(!track_f){
-		try{
+	if (!track_f) {
+		try {
 			cv::resize(grayImg, query_image, query_image.size());
-			vector<resultInfo> recog_result = ctrlOR->queryImage(query_image);	// k¬‰æ‘œ‚Å”F¯
-//			vector<resultInfo> recog_result = ctrlOR->queryImage(grayImg);	// ƒJƒƒ‰‚©‚ç‚Ì‰æ‘œ‚Å”F¯
-			if(!recog_result.empty()){
+			vector<resultInfo> recog_result = ctrlOR->queryImage(query_image);// ï¿½kï¿½ï¿½ï¿½æ‘œï¿½Å”Fï¿½ï¿½
+//			vector<resultInfo> recog_result = ctrlOR->queryImage(grayImg);	// ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‰æ‘œï¿½Å”Fï¿½ï¿½
+			if (!recog_result.empty()) {
+
 				cout << "img id: " << recog_result[0].img_id << endl;
 
-				// k¬‰æ‘œ—pƒzƒ‚ƒOƒ‰ƒtƒB‚ğƒJƒƒ‰‰æ‘œ—p‚É•ÏŠ·
+				// ÂkÂÂ¬Â‰Ã¦Â‘ÂœÂ—pÂƒzÂƒÂ‚ÂƒOÂƒÂ‰ÂƒtÂƒBÂ‚Ã°ÂƒJÂƒÂÂƒÂ‰Â‰Ã¦Â‘ÂœÂ—pÂ‚Ã‰Â•ÃÂŠÂ·
 				Mat pose_mat_scale = recog_result[0].pose_mat.clone();
 				pose_mat_scale.row(0) *= query_scale;
 				pose_mat_scale.row(1) *= query_scale;
 
-				trckOBJ->startTracking(grayImg, scalePoints(recog_result[0].object_position, (double)query_scale));
+				const Mat& test = grayImg;
+
+				vector<Point2f> test1 = scalePoints(recog_result[0].object_position, (double)query_scale);
+
+				trckOBJ->startTracking(test, test1 );
 				track_f = viewMDL->setRecogId(recog_result[0].img_id, pose_mat_scale);
+
 //				trckOBJ.startTracking(grayImg, recog_result[0].object_position);
 //				viewMDL->setRecogId(recog_result[0].img_id, recog_result[0].pose_mat);
 //				track_f = true;
@@ -333,18 +335,16 @@ void displayFunc(void)
 //					itr++;
 //				}
 			}
+		} catch (exception& e) {
 		}
-		catch(exception e){
-		}
-	}
-	else{
+	} else {
 		track_f = trckOBJ->onTracking(grayImg);
 		seq_id++;
 	}
 #endif
 
 #ifdef PLOT_PT
-	if(track_f){
+	if(track_f) {
 		drawLineContour(frame, trckOBJ.object_position, Scalar(255));
 		drawPoints(frame, trckOBJ.corners, trckOBJ.track_status, Scalar(255));
 	}
@@ -353,58 +353,48 @@ void displayFunc(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	viewMDL->drawScene(frame);
 
-
-	////////////////// ƒIƒuƒWƒFƒNƒg‚ğ•`‰æ //////////////////
+	////////////////// ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½`ï¿½ï¿½ //////////////////
 //	drawOctahedron();
 #ifndef NO_OVERLAY
-	if(track_f){
-		try{
+	if (track_f) {
+		try {
 			viewMDL->drawObject(trckOBJ->getHomographyMat(), seq_id);
-		}
-		catch(std::exception& e){
+		} catch (std::exception& e) {
 			track_f = false;
 		}
-	}
-	else{
-		try{
+	} else {
+		try {
 			viewMDL->drawWaitModel(wait_seq_id);
 			wait_seq_id++;
-		}
-		catch(std::exception& e){
+		} catch (std::exception& e) {
 		}
 	}
 #endif
 
-	// •`‰æiƒoƒbƒtƒ@[“ü‚ê‘Ö‚¦j
+	// ï¿½`ï¿½ï¿½iï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½ï¿½ï¿½Ö‚ï¿½ï¿½j
 //	glFlush();
 
 	glutSwapBuffers();
 
 }
 
-
-// ƒAƒCƒhƒ‹‚ÌƒR[ƒ‹ƒoƒbƒN
-void idleFunc()
-{
-	//Ä•`‰æ—v‹
+// ï¿½Aï¿½Cï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ÌƒRï¿½[ï¿½ï¿½ï¿½oï¿½bï¿½N
+void idleFunc() {
+	//ï¿½Ä•`ï¿½ï¿½vï¿½ï¿½
 	glutPostRedisplay();
 }
 
-
-// ƒEƒCƒ“ƒhƒEƒŠƒTƒCƒY‚ÌƒR[ƒ‹ƒoƒbƒN
+// ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½ï¿½ï¿½Tï¿½Cï¿½Yï¿½ÌƒRï¿½[ï¿½ï¿½ï¿½oï¿½bï¿½N
 void resizeFunc(int w, int h) {
-	viewMDL->resize(w,h);
+	viewMDL->resize(w, h);
 }
 
-
-void fullScreenChange()
-{
-	if(fullscreen){
+void fullScreenChange() {
+	if (fullscreen) {
 		glutReshapeWindow(screen_width, screen_height);
 		glutPositionWindow(screen_pos_x, screen_pos_y);
 		fullscreen = false;
-	}
-	else{
+	} else {
 		screen_pos_x = glutGet(GLUT_WINDOW_X);
 		screen_pos_y = glutGet(GLUT_WINDOW_Y);
 		screen_width = glutGet(GLUT_WINDOW_WIDTH);
@@ -414,56 +404,49 @@ void fullScreenChange()
 	}
 }
 
-
-// ƒL[ƒ{[ƒh“ü—ÍƒR[ƒ‹ƒoƒbƒN
+// ï¿½Lï¿½[ï¿½{ï¿½[ï¿½hï¿½ï¿½ÍƒRï¿½[ï¿½ï¿½ï¿½oï¿½bï¿½N
 void keyboardFunc(unsigned char key, int x, int y) {
 	switch (key) {
-  case 'q':
-  case 'Q':
-  case '\033':  // '\033' ‚Í ESC ‚Ì ASCII ƒR[ƒh
-	  exit(0);
-	  break;
-  case 'f':
-  case 'F':
-	  fullScreenChange();
-	  break;
-  default:
-	  break;
+	case 'q':
+	case 'Q':
+	case '\033':  // '\033' ï¿½ï¿½ ESC ï¿½ï¿½ ASCII ï¿½Rï¿½[ï¿½h
+		exit(0);
+		break;
+	case 'f':
+	case 'F':
+		fullScreenChange();
+		break;
+	default:
+		break;
 	}
 }
 
-
-// I—¹ŠÖ”
-void myExit()
-{
+// ï¿½Iï¿½ï¿½ï¿½Öï¿½
+void myExit() {
 	viewMDL->exitFunc();
 	query_image.release();
 	delete trckOBJ;
 }
 
-
-void setControlOR(controlOR& ctrlOR_cls)
-{
+void setControlOR(controlOR& ctrlOR_cls) {
 	ctrlOR = &ctrlOR_cls;
 }
 
-
-int startGUI(int argc, char *argv[])
-{
-	// viewModel‚Ìæ“¾
+int startGUI(int argc, char *argv[]) {
+	// viewModelï¿½Ìæ“¾
 	viewMDL = viewModel::getInstance();
 
-	// I—¹ˆ—‚Ì’è‹`
+	// ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì’ï¿½`
 	atexit(myExit);
 
 #ifndef NO_CAMERA
-	// ƒJƒƒ‰‰Šú‰»
-	if( !capture.isOpened() ) {
+	// ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	if (!capture.isOpened()) {
 		std::cout << "Failed to Open Camera" << std::endl;
 		return -1;
 	}
 
-	Mat	frame;
+	Mat frame;
 	capture >> frame;
 #else
 	frame = imread(imgname);
@@ -476,16 +459,18 @@ int startGUI(int argc, char *argv[])
 	glutInitWindowSize(frame.cols, frame.rows);
 	glutCreateWindow("Augmented Reality");
 
-	try{
+	try {
 		trckOBJ = trackingOBJ::create(trackingOBJ::TRACKER_KLT);
-		setARConfig(Size(frame.cols, frame.rows));
-	}
-	catch(std::exception e){
+
+		Size s = Size(frame.cols, frame.rows);
+		setARConfig(s);
+
+	} catch (std::exception& e) {
 		throw e;
 	}
-	
+
 #ifndef NO_OBJRECOG
-	if(ctrlOR == 0)
+	if (ctrlOR == 0)
 		return -1;
 #else
 	track_f = true;
@@ -503,10 +488,11 @@ int startGUI(int argc, char *argv[])
 
 	// main loop
 	glutMainLoop();
-	
+
 	viewModel::deleteInstance();
 
 	return 0;
 }
 
-};
+}
+;

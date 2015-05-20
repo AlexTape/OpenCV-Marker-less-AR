@@ -1,55 +1,53 @@
 /*M///////////////////////////////////////////////////////////////////////////////////////
-//
-//  IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
-//
-//  By downloading, copying, installing or using the software you agree to this license.
-//  If you do not agree to this license, do not download, install,
-//  copy or use the software.
-//
-//
-//                           License Agreement
-//
-// Copyright (C) 2012, Takuya MINAGAWA.
-// Third party copyrights are property of their respective owners.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights to
-// use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-// of the Software, and to permit persons to whom the Software is furnished to do
-// so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
-// PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-// SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
-//M*/
+ //
+ //  IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
+ //
+ //  By downloading, copying, installing or using the software you agree to this license.
+ //  If you do not agree to this license, do not download, install,
+ //  copy or use the software.
+ //
+ //
+ //                           License Agreement
+ //
+ // Copyright (C) 2012, Takuya MINAGAWA.
+ // Third party copyrights are property of their respective owners.
+ //
+ // Permission is hereby granted, free of charge, to any person obtaining a copy
+ // of this software and associated documentation files (the "Software"), to deal
+ // in the Software without restriction, including without limitation the rights to
+ // use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+ // of the Software, and to permit persons to whom the Software is furnished to do
+ // so, subject to the following conditions:
+ //
+ // The above copyright notice and this permission notice shall be included in all
+ // copies or substantial portions of the Software.
+ //
+ // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ // INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ // PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ // HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ //
+ //M*/
 #ifndef __SLIDE_MODEL_OBJECT__
 #define __SLIDE_MODEL_OBJECT__
 
 #include <vector>
 #include <GL/glut.h>
 #include <opencv2/core/core.hpp>
-#include "modelobject.h"
+#include "modelObject.h"
 
-namespace cvar{
-namespace overlay{
+namespace cvar {
+namespace overlay {
 
-typedef struct{
+typedef struct {
 //	cv::Mat image;
 	std::string image_file;
 	int frame_num;
-}SLIDE_INFO;
+} SLIDE_INFO;
 
-class slideModelObject :
-	public modelObject
-{
+class slideModelObject: public modelObject {
 public:
 	slideModelObject(void);
 	~slideModelObject(void);
@@ -57,8 +55,8 @@ public:
 public:
 	static const int TWO_POWER_WIDTH = 1024;
 	static const int TWO_POWER_HEIGHT = 1024;
-	GLuint texture[1];
-	
+	unsigned int texture[1];
+
 	static const int NON_FIX = 0;
 	static const int WIDTH_FIX = 1;
 	static const int HEIGHT_FIX = 2;
@@ -67,29 +65,29 @@ public:
 	int size_fix_mode;
 	int fixed_size;
 
-	int morph_interval;		// ƒtƒŒ[ƒ€ŠÔØ‚è‘Ö‚¦ƒCƒ“ƒ^[ƒoƒ‹iƒtƒŒ[ƒ€”j
-	int spread_interval;	// ‰æ‘œŠg‘åØ‘ÖƒCƒ“ƒ^[ƒoƒ‹iƒtƒŒ[ƒ€”j
+	int morph_interval;		// ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ÔØ‚ï¿½Ö‚ï¿½ï¿½Cï¿½ï¿½ï¿½^ï¿½[ï¿½oï¿½ï¿½ï¿½iï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½j
+	int spread_interval;	// ï¿½æ‘œï¿½gï¿½ï¿½Ø‘ÖƒCï¿½ï¿½ï¿½^ï¿½[ï¿½oï¿½ï¿½ï¿½iï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½j
 
 protected:
-	int slide_status;	// Œ»İ‚Ì•\¦ƒXƒe[ƒ^ƒX
-	static const int SLIDE_INIT = 0x00;	// ‚P”Ô–Ú‚ÌƒXƒ‰ƒCƒh‚Ì“§‰ßˆ—
-	static const int SLIDE_ALPHA = 0x01;	// ‚Q”Ô–ÚˆÈ~‚ÌƒXƒ‰ƒCƒh‚Ì“§‰ßˆ—
-	static const int SLIDE_NORM = 0x02;	// ’Êí‚ÌƒXƒ‰ƒCƒhdô•\¦
-	static const int SLIDE_PRESPREAD = 0x04;	// ƒXƒ‰ƒCƒhŠg‘åˆ—‘O‚Ì“§‰ßˆ—
-	static const int SLIDE_SPREADING = 0x08;	// Šg‘åˆ—
-	static const int SLIDE_LARGEALPHA = 0x0f;	// Šg‘åƒXƒ‰ƒCƒh‚Ì“§‰ßˆ—
-	static const int SLIDE_LARGE = 0x10;	// Šg‘å•\¦
-	static const int SLIDE_NORMLAST = 0x20;	// ÅIƒXƒ‰ƒCƒhidô•\¦j
-	static const int SLIDE_LARGELAST = 0x40;	// ÅIƒXƒ‰ƒCƒh(Šg‘å•\¦)
-	std::vector<SLIDE_INFO*>	slide_vec;
-	std::vector<SLIDE_INFO*>	spread_slide_vec;
-	std::vector<SLIDE_INFO*>::iterator	slide_itr;
+	int slide_status;	// ï¿½ï¿½ï¿½İ‚Ì•\ï¿½ï¿½ï¿½Xï¿½eï¿½[ï¿½^ï¿½X
+	static const int SLIDE_INIT = 0x00;	// ï¿½Pï¿½Ô–Ú‚ÌƒXï¿½ï¿½ï¿½Cï¿½hï¿½Ì“ï¿½ï¿½ßï¿½ï¿½ï¿½
+	static const int SLIDE_ALPHA = 0x01;	// ï¿½Qï¿½Ô–ÚˆÈ~ï¿½ÌƒXï¿½ï¿½ï¿½Cï¿½hï¿½Ì“ï¿½ï¿½ßï¿½ï¿½ï¿½
+	static const int SLIDE_NORM = 0x02;	// ï¿½Êï¿½ÌƒXï¿½ï¿½ï¿½Cï¿½hï¿½dï¿½ï¿½ï¿½\ï¿½ï¿½
+	static const int SLIDE_PRESPREAD = 0x04;	// ï¿½Xï¿½ï¿½ï¿½Cï¿½hï¿½gï¿½åˆï¿½ï¿½ï¿½Oï¿½Ì“ï¿½ï¿½ßï¿½ï¿½ï¿½
+	static const int SLIDE_SPREADING = 0x08;	// ï¿½gï¿½åˆï¿½ï¿½
+	static const int SLIDE_LARGEALPHA = 0x0f;	// ï¿½gï¿½ï¿½Xï¿½ï¿½ï¿½Cï¿½hï¿½Ì“ï¿½ï¿½ßï¿½ï¿½ï¿½
+	static const int SLIDE_LARGE = 0x10;	// ï¿½gï¿½ï¿½\ï¿½ï¿½
+	static const int SLIDE_NORMLAST = 0x20;	// ï¿½ÅIï¿½Xï¿½ï¿½ï¿½Cï¿½hï¿½iï¿½dï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½j
+	static const int SLIDE_LARGELAST = 0x40;	// ï¿½ÅIï¿½Xï¿½ï¿½ï¿½Cï¿½h(ï¿½gï¿½ï¿½\ï¿½ï¿½)
+	std::vector<SLIDE_INFO*> slide_vec;
+	std::vector<SLIDE_INFO*> spread_slide_vec;
+	std::vector<SLIDE_INFO*>::iterator slide_itr;
 
-	cv::Mat	texture_img;
+	cv::Mat texture_img;
 	cv::Mat foreground_img;
 	int counter;
-	double T,B,L,R;
-	double fT,fB,fL,fR;
+	double T, B, L, R;
+	double fT, fB, fL, fR;
 
 //	float image_scale;
 	GLfloat mv_src_matrix[16];
@@ -98,7 +96,7 @@ protected:
 	double fore_dist;
 
 public:
-	// modelObjectƒƒ\ƒbƒh‚ÌƒI[ƒo[ƒ‰ƒCƒh
+	// modelObjectï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½ÌƒIï¿½[ï¿½oï¿½[ï¿½ï¿½ï¿½Cï¿½h
 	void init();
 	void loadModelFile(std::string filename);
 	void drawModel(int& frame_id);
@@ -121,6 +119,8 @@ protected:
 	void transCvMat2GLmatrix(cv::Mat& cvmat, GLfloat* glf);
 };
 
-};
-};
+}
+;
+}
+;
 #endif

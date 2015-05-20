@@ -1,86 +1,98 @@
 /*M///////////////////////////////////////////////////////////////////////////////////////
-//
-//  IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
-//
-//  By downloading, copying, installing or using the software you agree to this license.
-//  If you do not agree to this license, do not download, install,
-//  copy or use the software.
-//
-//
-//                           License Agreement
-//
-// Copyright (C) 2012, Takuya MINAGAWA.
-// Third party copyrights are property of their respective owners.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights to
-// use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-// of the Software, and to permit persons to whom the Software is furnished to do
-// so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
-// PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-// SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
-//M*/
+ //
+ //  IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
+ //
+ //  By downloading, copying, installing or using the software you agree to this license.
+ //  If you do not agree to this license, do not download, install,
+ //  copy or use the software.
+ //
+ //
+ //                           License Agreement
+ //
+ // Copyright (C) 2012, Takuya MINAGAWA.
+ // Third party copyrights are property of their respective owners.
+ //
+ // Permission is hereby granted, free of charge, to any person obtaining a copy
+ // of this software and associated documentation files (the "Software"), to deal
+ // in the Software without restriction, including without limitation the rights to
+ // use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+ // of the Software, and to permit persons to whom the Software is furnished to do
+ // so, subject to the following conditions:
+ //
+ // The above copyright notice and this permission notice shall be included in all
+ // copies or substantial portions of the Software.
+ //
+ // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ // INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ // PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ // HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ //
+ //M*/
 #ifndef __VIEW_MODEL__
 #define __VIEW_MODEL__
 
 #include <opencv2/core/core.hpp>
 #include "modelObjectFactory.h"
-//#include "GLMetaseq.h"	// ƒ‚ƒfƒ‹ƒ[ƒ_
+//#include "GLMetaseq.h"	// ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½_
 
-namespace cvar{
-namespace overlay{
+namespace cvar {
+namespace overlay {
 
-typedef struct{
-	modelObject* model;	// ƒ‚ƒfƒ‹ƒNƒ‰ƒX
-	double scale;	// ƒ‚ƒfƒ‹‚ÌƒTƒCƒY‚ğw’è
-	std::string modelFilename;	// ƒ‚ƒfƒ‹ƒtƒ@ƒCƒ‹‚Ö‚ÌƒpƒX
-	cv::Mat initRot;	// ‰ŠúˆÊ’u‚Ö‚Ì3~3‰ñ“]s—ñiƒ}[ƒJ[‚ÍZ=0‚ÌX-Y•½–Ê‚ÅAZ‚ª+•ûŒü‚ªãAY‚ª+•ûŒü‚ª‰œs‚«j
-	cv::Mat initTrans;	// ‰ŠúˆÊ’u‚Ö‚ÌˆÚ“®¬•ª
-	cv::Point2f	markerCenter;	// ƒ}[ƒJ[’†SˆÊ’u
-	cv::Size markerSize;	// ƒ}[ƒJ[ƒTƒCƒY
-}MODEL_INFO;
+typedef struct {
+	modelObject* model;	// ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
+	double scale;	// ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½ÌƒTï¿½Cï¿½Yï¿½ï¿½ï¿½wï¿½ï¿½
+	std::string modelFilename;	// ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ö‚Ìƒpï¿½X
+	cv::Mat initRot;// ï¿½ï¿½ï¿½ï¿½Ê’uï¿½Ö‚ï¿½3ï¿½~3ï¿½ï¿½]ï¿½sï¿½ï¿½iï¿½}ï¿½[ï¿½Jï¿½[ï¿½ï¿½Z=0ï¿½ï¿½X-Yï¿½ï¿½ï¿½Ê‚ÅAZï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½AYï¿½ï¿½+ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½j
+	cv::Mat initTrans;	// ï¿½ï¿½ï¿½ï¿½Ê’uï¿½Ö‚ÌˆÚ“ï¿½ï¿½ï¿½ï¿½ï¿½
+	cv::Point2f markerCenter;	// ï¿½}ï¿½[ï¿½Jï¿½[ï¿½ï¿½ï¿½Sï¿½Ê’u
+	cv::Size markerSize;	// ï¿½}ï¿½[ï¿½Jï¿½[ï¿½Tï¿½Cï¿½Y
+} MODEL_INFO;
 
-class viewModel
-{
+class viewModel {
 private:
 	static viewModel* vmInstance;
 	viewModel(void);
-	viewModel(viewModel*){}
+	viewModel(viewModel*) {
+		two_power_height = 0;
+		aspect_rate = 0;
+		capture_width = 0;
+		mat_type = 0;
+		window_height = 0;
+		capture_height = 0;
+		mirror_f = 0;
+		curModel = 0;
+		window_width = 0;
+		wait_frames = 0;
+		focal_length = 0;
+		two_power_width = 0;
+	}
 	~viewModel(void);
 
 public:
 //	viewModel(void);
 //	~viewModel(void);
 
-	static viewModel* getInstance(){
-		if(!vmInstance){
+	static viewModel* getInstance() {
+		if (!vmInstance) {
 			vmInstance = new viewModel();
 		}
 		return vmInstance;
 	}
 
-	static void deleteInstance(){
-		if(vmInstance){
+	static void deleteInstance() {
+		if (vmInstance) {
 			delete vmInstance;
 		}
 		vmInstance = 0;
 	}
 
 public:
-	cv::Mat	resized_frame;
+	cv::Mat resized_frame;
 
-	int two_power_width;	// 2‚Ì—İæ‚É‡‚í‚¹‚é‚½‚ß‚ÌƒŠƒTƒCƒYæƒTƒCƒY
-	int two_power_height;	// 512‚©1024‚ ‚½‚è‚ª“K“–
+	int two_power_width;	// 2ï¿½Ì—İï¿½Éï¿½ï¿½í‚¹ï¿½é‚½ï¿½ß‚Ìƒï¿½ï¿½Tï¿½Cï¿½Yï¿½ï¿½Tï¿½Cï¿½Y
+	int two_power_height;	// 512ï¿½ï¿½1024ï¿½ï¿½ï¿½ï¿½ï¿½è‚ªï¿½Kï¿½ï¿½
 
 	int window_width;
 	int window_height;
@@ -88,33 +100,33 @@ public:
 	int capture_width;
 	int capture_height;
 
-	GLuint texture[1];
-//	MQO_MODEL g_mqoModel;	// MQOƒ‚ƒfƒ‹
-	double aspect_rate;			// ƒLƒƒƒvƒ`ƒƒ‚Ìc‰¡”ä
-	float focal_length;		// Å“_‹——£
+	unsigned int texture[1];
+//	MQO_MODEL g_mqoModel;	// MQOï¿½ï¿½ï¿½fï¿½ï¿½
+	double aspect_rate;			// ï¿½Lï¿½ï¿½ï¿½vï¿½`ï¿½ï¿½ï¿½Ìcï¿½ï¿½ï¿½ï¿½
+	float focal_length;		// ï¿½Å“_ï¿½ï¿½ï¿½ï¿½
 
-	cv::Mat cameraMatrix;	// ƒJƒƒ‰ƒpƒ‰ƒ[ƒ^s—ñ
+	cv::Mat cameraMatrix;	// ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^ï¿½sï¿½ï¿½
 
 //	double model_scale;
-	std::map<int,MODEL_INFO>	model_map;
+	std::map<int, MODEL_INFO> model_map;
 
-	// ‘Ò‚¿ó‚¯
+	// ï¿½Ò‚ï¿½ï¿½ï¿½
 	int wait_frames;
 	MODEL_INFO wait_model;
 
-protected:	
+protected:
 	cv::Mat accHomMat;
 	int mat_type;
 	modelObjectFactory modelFac;
-	MODEL_INFO*	curModel;
+	MODEL_INFO* curModel;
 	bool mirror_f;
 	cv::Mat mirrorMat;
 
 public:
 	bool init(cv::Size& frame_size, cv::Mat& cameraMat);
 	bool init(cv::Size& frame_size, cv::Mat& cameraMat, int type);
-	void resize(int win_w, int win_h);	// ƒEƒBƒ“ƒhƒEƒTƒCƒY•ÏXŠÖ”
-	void updateTexture(cv::Mat& frame);	// XVŠÖ”
+	void resize(int win_w, int win_h);	// ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½Tï¿½Cï¿½Yï¿½ÏXï¿½Öï¿½
+	void updateTexture(cv::Mat& frame);	// ï¿½Xï¿½Vï¿½Öï¿½
 	void release();
 	void exitFunc();
 
@@ -127,21 +139,30 @@ public:
 	void drawScene(cv::Mat& img);
 	void drawObject(cv::Mat& homographyMat, int seq_id);
 	void drawWaitModel(int seq_id);
-	template<typename _Tp> void drawObjectType(cv::Mat& homographyMat, int seq_id);
+	template<typename _Tp> void drawObjectType(cv::Mat& homographyMat,
+			int seq_id);
 	void initAccHomMat();
 //	void initAccHomMat(cv::Mat& homMat);
 	bool setRecogId(int id, cv::Mat& homMat);
-	bool addModel(int id, cv::Size& markerSize, int model_type, const std::string& model_filename, double scale = 1.0);
-	bool addModel(int id, cv::Size& markerSize, int model_type, const std::string& model_filename, double scale, cv::Mat& initRot, cv::Mat& initTrans);
+	bool addModel(int id, cv::Size& markerSize, int model_type,
+			const std::string& model_filename, double scale = 1.0);
+	bool addModel(int id, cv::Size& markerSize, int model_type,
+			const std::string& model_filename, double scale, cv::Mat& initRot,
+			cv::Mat& initTrans);
 	void releaseModel();
 
-	bool addWaitModel(int wait_frame_num, int model_type, const std::string& model_filename, double scale = 1.0);
-	bool addWaitModel(int wait_frame_num, int model_type, const std::string& model_filename, double scale, cv::Mat& initRot, cv::Mat& initTrans);
+	bool addWaitModel(int wait_frame_num, int model_type,
+			const std::string& model_filename, double scale = 1.0);
+	bool addWaitModel(int wait_frame_num, int model_type,
+			const std::string& model_filename, double scale, cv::Mat& initRot,
+			cv::Mat& initTrans);
 	void releaseWaitModel();
 
 //	cv::Mat convertMatType(cv::Mat& src_mat);
 };
 
-};
-};
+}
+;
+}
+;
 #endif

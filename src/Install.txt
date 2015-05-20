@@ -1,47 +1,54 @@
-This is very short introduction how to build source code of OpenCV Marker less AR
+This is very short introduction how to build source code of OpenCV Marker less AR for Linux (Mint/Ubuntu)
 
 1. Install OpenCV
-Please install OpenCV 2.3 or later.
-You can download it from this site.  
-https://sourceforge.net/projects/opencvlibrary/
 
-To install it, please follow the instruction of this site.
-http://opencv.willowgarage.com/wiki/InstallGuide
+Please install OpenCV 2.4.10 or later.
 
-2. Install GLUT
-Please install GLUT 3.7.6 or later.
-You can download it from this site.  
-http://www.opengl.org/resources/libraries/glut/
+http://docs.opencv.org/doc/tutorials/introduction/linux_install/linux_install.html
 
+2. Install Environment
 
-3. Install libpng and zlib
-To use GLMetaseq, you need these libraries. If you build OpenCV from source code, you can find these libraries in OpenCV.
+(Note: this is just a command-line grep of all installations i have done during bugfixing. You definitely not need all packages!) 
 
-
-4. Create new project
-Please create new project of your IDE and import all source files of OpenCV Marker less AR
-
-
-5. Add include directory path to your project
-You need to add include path of each libarary to your project.
-For example, OpenCV2.3.1 include path on Windows is usually:
-C:\OpenCV2.3.1\include
-
-If you use Visual C++, you can specify its path at
-Property of Project -> C/C++ -> General -> Additional include Directories:
+sudo apt-get install bison g++-multilib git gperf libxml2-utils make zlib1g-dev:i386 zip
+sudo apt-get install build-essential
+sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
+sudo apt-get install glutg3-dev geany
+sudo apt-get install freeglut3-dev
+sudo apt-get install libtool
+sudo apt-get install g++
+sudo apt-get install zlib1g-dev
+sudo apt-get install libpng-dev
+sudo apt-get install zlib1g-dev
+sudo apt-get install libv4l-dev
+sudo apt-get install cheese
+sudo apt-get install libv4l-0
+sudo apt-get install v4l-utils
+sudo apt-get install v4l2ucp v4l-utils libv4l-dev
 
 
-6. Link libraries
-You need to link each libraries to your project.
-About OpenCV, you need the following lib files.
-- opencv_core
-- opencv_imgproc
-- opencv_highgui
+3. Setup
+
+Toolchain: Linux GCC
+
+Builder: Gnu Make Builder
+
+GCC C++ Compiler Includes: /usr/local/include/opencv
+
+GCC C++ Compiler Miscellaneous/Other Flags: -c -fmessage-length=0
+
+GCC C++ Linker Library search path: /usr/local/lib
+
+GCC C++ Linker Libraries:
+- png
+- opencv_nonfree
 - opencv_calib3d
-- opencv_video231
+- opencv_core
 - opencv_features2d
-
-If you use Visual C++, you can specify the libraries to link at
-Property of Project -> Linker -> General -> Additional library Directories: 
-Property of Project -> Linker -> Input -> Additonal Dependencies (debug):
-Property of Project -> Linker -> Input -> Additonal Dependencies (release):
+- opencv_highgui
+- opencv_imgproc
+- opencv_video
+- GL
+- GLU
+- glut

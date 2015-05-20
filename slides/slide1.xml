@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<Slides>
+<DisplaySize>
+  <!-- type:WIDTH, HEIGHT, LONG_SIDE, SHORT_SIDE -->
+  <type>LONG_SIDE</type>
+  <value>240</value>
+</DisplaySize>
+<MorphInterval>5</MorphInterval>
+<Images>
+  <_>
+    <frame_num>15</frame_num>
+    <image>slides/photo001.jpg</image>
+  </_>
+  <_>
+    <frame_num>15</frame_num>
+    <image>slides/photo002.jpg</image>
+  </_>
+  <_>
+    <frame_num>15</frame_num>
+    <image>slides/photo003.jpg</image>
+  </_>
+  <_>
+    <frame_num>15</frame_num>
+    <image>slides/photo004.jpg</image>
+  </_>
+</Images>
+</Slides>
+
+<!-- if SpareadSlide is set, the last slide spreads over display -->
+<SpreadSlides>
+<SpreadInterval>10</SpreadInterval>
+<Images>
+  <_>
+    <frame_num>5</frame_num>
+    <image>slides/photo005.jpg</image>
+  </_>
+  <_>
+    <frame_num>20</frame_num>
+    <image>slides/photo006.jpg</image>
+  </_>
+</Images>
+</SpreadSlides>
+</opencv_storage>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<VisualWord>
+  <visualWord>config/visualWord.bin</visualWord>
+  <index>config/vw_index.txt</index>
+</VisualWord>
+<ObjectDB>config/db.txt</ObjectDB>
+<camera_matrix>config/camera_matrix_qcam.txt</camera_matrix>
+<focal_length>0.5</focal_length>
+<max_query_size>320</max_query_size>
+<full_screen_mode>false</full_screen_mode>
+<mirror_mode>true</mirror_mode>
+<model_info>
+  <_>
+    <id>1</id>
+    <ModelType>MQOSEQ</ModelType>
+    <modelfile>miku/miku.xml</modelfile>
+    <scale>0.002</scale>
+	<init_pose>
+	  <!-- z-y-x euler angle -->
+	  <yaw>0</yaw>
+	  <pitch>0</pitch>
+	  <roll>0</roll>
+	  <x>0</x>
+	  <y>-0.2</y>
+	  <z>0</z>
+	</init_pose>
+  </_>
+  <_>
+    <id>2</id>
+    <ModelType>SLIDE</ModelType>
+    <modelfile>slides/slide1.xml</modelfile>
+    <scale>0.002</scale>
+  </_>
+</model_info>
+</opencv_storage>

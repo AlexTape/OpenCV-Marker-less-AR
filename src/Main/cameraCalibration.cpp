@@ -1,35 +1,35 @@
 /*M///////////////////////////////////////////////////////////////////////////////////////
-//
-//  IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
-//
-//  By downloading, copying, installing or using the software you agree to this license.
-//  If you do not agree to this license, do not download, install,
-//  copy or use the software.
-//
-//
-//                           License Agreement
-//
-// Copyright (C) 2012, Takuya MINAGAWA.
-// Third party copyrights are property of their respective owners.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights to
-// use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-// of the Software, and to permit persons to whom the Software is furnished to do
-// so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
-// PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-// SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
-//M*/
+ //
+ //  IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
+ //
+ //  By downloading, copying, installing or using the software you agree to this license.
+ //  If you do not agree to this license, do not download, install,
+ //  copy or use the software.
+ //
+ //
+ //                           License Agreement
+ //
+ // Copyright (C) 2012, Takuya MINAGAWA.
+ // Third party copyrights are property of their respective owners.
+ //
+ // Permission is hereby granted, free of charge, to any person obtaining a copy
+ // of this software and associated documentation files (the "Software"), to deal
+ // in the Software without restriction, including without limitation the rights to
+ // use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+ // of the Software, and to permit persons to whom the Software is furnished to do
+ // so, subject to the following conditions:
+ //
+ // The above copyright notice and this permission notice shall be included in all
+ // copies or substantial portions of the Software.
+ //
+ // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ // INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ // PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ // HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ //
+ //M*/
 
 #include "cameraCalibration.h"
 
@@ -44,9 +44,7 @@ using namespace std;
 using namespace cv;
 using namespace cvar;
 
-
-cameraCalibration::cameraCalibration(void)
-{
+cameraCalibration::cameraCalibration(void) {
 	max_img_num = 25;
 	pat_row = 7;
 	pat_col = 10;
@@ -55,31 +53,24 @@ cameraCalibration::cameraCalibration(void)
 	distortion.create(1, 5, CV_32FC1);
 }
 
-cameraCalibration::~cameraCalibration(void)
-{
+cameraCalibration::~cameraCalibration(void) {
 }
 
-void cameraCalibration::setMaxImageNum(int num)
-{
+void cameraCalibration::setMaxImageNum(int num) {
 	max_img_num = num;
 }
 
-void cameraCalibration::setBoardColsAndRows(int r, int c)
-{
+void cameraCalibration::setBoardColsAndRows(int r, int c) {
 	pat_row = r;
 	pat_col = c;
 }
 
-
-void cameraCalibration::setChessSize(float size)
-{
+void cameraCalibration::setChessSize(float size) {
 	chess_size = size;
 }
 
-
-bool cameraCalibration::addCheckerImage(Mat& img)
-{
-	if(checker_image_list.size() >= max_img_num)
+bool cameraCalibration::addCheckerImage(Mat& img) {
+	if (checker_image_list.size() >= max_img_num)
 		return false;
 	else
 		checker_image_list.push_back(img);
@@ -87,21 +78,17 @@ bool cameraCalibration::addCheckerImage(Mat& img)
 	return true;
 }
 
-
-void cameraCalibration::releaseCheckerImage()
-{
+void cameraCalibration::releaseCheckerImage() {
 	checker_image_list.clear();
 }
 
-
-bool cameraCalibration::doCalibration()
-{
+bool cameraCalibration::doCalibration() {
 	int i, j, k;
 	bool found;
 	int image_num = checker_image_list.size();
 //	int pat_size = pat_row * pat_col;
 //	int all_points = image_num * pat_size;
-	if(image_num < 3){
+	if (image_num < 3) {
 		cout << "please add checkker pattern image!" << endl;
 		return false;
 	}
@@ -110,13 +97,13 @@ bool cameraCalibration::doCalibration()
 	rotation.clear();
 	translation.clear();
 
-	Size pattern_size(pat_col,pat_row);
+	Size pattern_size(pat_col, pat_row);
 //	Point3f *objects = new Point3f[all_points];
 //	Point2f *corners = new Point2f[all_points];
 	Point3f obj;
 	vector<Point3f> objects;
-	vector<vector<Point3f>> object_points;
-	// 3ŸŒ³‹óŠÔÀ•W‚Ìİ’è
+	vector<vector<Point3f> > object_points;
+	// 3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôï¿½ï¿½Wï¿½Ìİ’ï¿½
 	for (j = 0; j < pat_row; j++) {
 		for (k = 0; k < pat_col; k++) {
 			obj.x = j * chess_size;
@@ -126,85 +113,88 @@ bool cameraCalibration::doCalibration()
 		}
 	}
 
-	vector<Point2f>	corners;
-	vector<vector<Point2f>> image_points;
+	vector<Point2f> corners;
+	vector<vector<Point2f> > image_points;
 
 	int found_num = 0;
-	cvNamedWindow ("Calibration", CV_WINDOW_AUTOSIZE);
+	cvNamedWindow("Calibration", CV_WINDOW_AUTOSIZE);
 	vector<Mat>::iterator img_itr = checker_image_list.begin();
 	i = 0;
 	while (img_itr != checker_image_list.end()) {
-		// ƒ`ƒFƒXƒ{[ƒhiƒLƒƒƒŠƒuƒŒ[ƒVƒ‡ƒ“ƒpƒ^[ƒ“j‚ÌƒR[ƒi[ŒŸo
+		// ï¿½`ï¿½Fï¿½Xï¿½{ï¿½[ï¿½hï¿½iï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½pï¿½^ï¿½[ï¿½ï¿½ï¿½jï¿½ÌƒRï¿½[ï¿½iï¿½[ï¿½ï¿½ï¿½o
 		found = cv::findChessboardCorners(*img_itr, pattern_size, corners);
 
 		cout << i << "...";
 		if (found) {
 			cout << "ok" << endl;
 			found_num++;
-		}
-		else {
+		} else {
 			cout << "fail" << endl;
-	    }
-		// ƒR[ƒi[ˆÊ’u‚ğƒTƒuƒsƒNƒZƒ‹¸“x‚ÉC³C•`‰æ
+		}
+		// ï¿½Rï¿½[ï¿½iï¿½[ï¿½Ê’uï¿½ï¿½ï¿½Tï¿½uï¿½sï¿½Nï¿½Zï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ÉCï¿½ï¿½ï¿½Cï¿½`ï¿½ï¿½
 		Mat src_gray(img_itr->size(), CV_8UC1, 1);
 		cvtColor(*img_itr, src_gray, CV_BGR2GRAY);
 //		cvCvtColor (src_img[i], src_gray, CV_BGR2GRAY);
-		cornerSubPix(src_gray, corners, Size(3,3), Size(-1,-1), TermCriteria(CV_TERMCRIT_ITER | CV_TERMCRIT_EPS, 20, 0.03));
+		cornerSubPix(src_gray, corners, Size(3, 3), Size(-1, -1),
+				TermCriteria(CV_TERMCRIT_ITER | CV_TERMCRIT_EPS, 20, 0.03));
 //		cvFindCornerSubPix (src_gray, &corners[i * PAT_SIZE], corner_count,
 //                       cvSize (3, 3), cvSize (-1, -1), cvTermCriteria (CV_TERMCRIT_ITER | CV_TERMCRIT_EPS, 20, 0.03));
-		drawChessboardCorners(*img_itr, pattern_size, transPointVecToMat2D(corners), found);
+		drawChessboardCorners(*img_itr, pattern_size,
+				transPointVecToMat2D(corners), found);
 //		cvDrawChessboardCorners (src_img[i], pattern_size, &corners[i * PAT_SIZE], corner_count, found);
 //		p_count[i] = corner_count;
-		if(found){
+		if (found) {
 			image_points.push_back(corners);
 			object_points.push_back(objects);
 		}
 		corners.clear();
 
-		cvShowImage ("Calibration", &((IplImage)(*img_itr)));
-		cvWaitKey (0);
+		IplImage iplImage = *img_itr;
+
+		cvShowImage("Calibration", &(iplImage));
+
+		cvWaitKey(0);
 		i++;
 		img_itr++;
 	}
-	cvDestroyWindow ("Calibration");
+	cvDestroyWindow("Calibration");
 
-	if (found_num < 3){
+	if (found_num < 3) {
 		return false;
 	}
 
 //  cvInitMatHeader (&image_points, ALL_POINTS, 1, CV_32FC2, corners);
 //  cvInitMatHeader (&point_counts, IMAGE_NUM, 1, CV_32SC1, p_count);
 
-	// “à•”ƒpƒ‰ƒ[ƒ^C˜c‚İŒW”, ŠO•”ƒpƒ‰ƒ[ƒ^‚Ì„’è
+// ï¿½ï¿½ï¿½ï¿½ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^ï¿½Cï¿½cï¿½İŒWï¿½ï¿½, ï¿½Oï¿½ï¿½ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^ï¿½Ìï¿½ï¿½ï¿½
 //  cvCalibrateCamera2 (&object_points, &image_points, &point_counts, cvSize (640, 480), intrinsic, distortion);
-	calibrateCamera(object_points, image_points, checker_image_list[0].size(), camera_matrix, distortion, rotation, translation);
+	calibrateCamera(object_points, image_points, checker_image_list[0].size(),
+			camera_matrix, distortion, rotation, translation);
 
-/*  CvMat sub_image_points, sub_object_points;
-  int base = 0;
-  cvGetRows (&image_points, &sub_image_points, base * PAT_SIZE, (base + 1) * PAT_SIZE);
-  cvGetRows (&object_points, &sub_object_points, base * PAT_SIZE, (base + 1) * PAT_SIZE);
-  cvFindExtrinsicCameraParams2 (&sub_object_points, &sub_image_points, intrinsic, distortion, rotation, translation);
-  
-  // (7)XMLƒtƒ@ƒCƒ‹‚Ö‚Ì‘‚«o‚µ
-  CvFileStorage *fs;
-  fs = cvOpenFileStorage ("camera.xml", 0, CV_STORAGE_WRITE);
-  cvWrite (fs, "intrinsic", intrinsic);
-  cvWrite (fs, "rotation", rotation);
-  cvWrite (fs, "translation", translation);
-  cvWrite (fs, "distortion", distortion);
-  cvReleaseFileStorage (&fs);
-  */
+	/*  CvMat sub_image_points, sub_object_points;
+	 int base = 0;
+	 cvGetRows (&image_points, &sub_image_points, base * PAT_SIZE, (base + 1) * PAT_SIZE);
+	 cvGetRows (&object_points, &sub_object_points, base * PAT_SIZE, (base + 1) * PAT_SIZE);
+	 cvFindExtrinsicCameraParams2 (&sub_object_points, &sub_image_points, intrinsic, distortion, rotation, translation);
+
+	 // (7)XMLï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ö‚Ìï¿½ï¿½ï¿½ï¿½oï¿½ï¿½
+	 CvFileStorage *fs;
+	 fs = cvOpenFileStorage ("camera.xml", 0, CV_STORAGE_WRITE);
+	 cvWrite (fs, "intrinsic", intrinsic);
+	 cvWrite (fs, "rotation", rotation);
+	 cvWrite (fs, "translation", translation);
+	 cvWrite (fs, "distortion", distortion);
+	 cvReleaseFileStorage (&fs);
+	 */
 	return true;
 }
 
-void cameraCalibration::saveCameraMatrix(const string& filename)
-{
+void cameraCalibration::saveCameraMatrix(const string& filename) {
 	FileStorage fs(filename, FileStorage::WRITE);
 	writeCameraMatrix(fs, "camera_matrix");
 }
 
-
-void cameraCalibration::writeCameraMatrix(FileStorage& cvfs, const string& name)
-{
+void cameraCalibration::writeCameraMatrix(FileStorage& cvfs,
+		const string& name) {
 	cvfs << name << camera_matrix;
 }

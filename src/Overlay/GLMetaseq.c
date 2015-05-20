@@ -1,206 +1,202 @@
-
 #define __GLMETASEQ_C__
 #include "GLMetaseq.h"
 
 /*
 
-GLMetaseq
-The MIT License
-Copyright (c) 2009 Sunao Hashimoto and Keisuke Konishi
+ GLMetaseq
+ The MIT License
+ Copyright (c) 2009 Sunao Hashimoto and Keisuke Konishi
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
 
 
-GLMetaseq
-MITƒ‰ƒCƒZƒ“ƒX
-Copyright (c) 2009 Sunao Hashimoto and Keisuke Konishi
+ GLMetaseq
+ MITï¿½ï¿½ï¿½Cï¿½Zï¿½ï¿½ï¿½X
+ Copyright (c) 2009 Sunao Hashimoto and Keisuke Konishi
 
-ˆÈ‰º‚É’è‚ß‚éğŒ‚É]‚¢A–{ƒ\ƒtƒgƒEƒFƒA‚¨‚æ‚ÑŠÖ˜A•¶‘‚Ìƒtƒ@ƒCƒ‹iˆÈ‰ºuƒ\ƒtƒg
-ƒEƒFƒAvj‚Ì•¡»‚ğæ“¾‚·‚é‚·‚×‚Ä‚Ìl‚É‘Î‚µAƒ\ƒtƒgƒEƒFƒA‚ğ–³§ŒÀ‚Éˆµ‚¤‚±‚Æ‚ğ
-–³‚Å‹–‰Â‚µ‚Ü‚·B‚±‚ê‚É‚ÍAƒ\ƒtƒgƒEƒFƒA‚Ì•¡»‚ğg—pA•¡ÊA•ÏXAŒ‹‡AŒfÚA
-”Ğ•zAƒTƒuƒ‰ƒCƒZƒ“ƒXA‚¨‚æ‚Ñ/‚Ü‚½‚Í”Ì”„‚·‚éŒ —˜A‚¨‚æ‚Ñƒ\ƒtƒgƒEƒFƒA‚ğ’ñ‹Ÿ‚·‚é
-‘Šè‚É“¯‚¶‚±‚Æ‚ğ‹–‰Â‚·‚éŒ —˜‚à–³§ŒÀ‚ÉŠÜ‚Ü‚ê‚Ü‚·B 
+ ï¿½È‰ï¿½ï¿½É’ï¿½ß‚ï¿½ï¿½ï¿½ï¿½ï¿½É]ï¿½ï¿½ï¿½Aï¿½{ï¿½\ï¿½tï¿½gï¿½Eï¿½Fï¿½Aï¿½ï¿½ï¿½ï¿½ÑŠÖ˜Aï¿½ï¿½ï¿½ï¿½ï¿½Ìƒtï¿½@ï¿½Cï¿½ï¿½ï¿½iï¿½È‰ï¿½ï¿½uï¿½\ï¿½tï¿½g
+ ï¿½Eï¿½Fï¿½Aï¿½vï¿½jï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½é‚·ï¿½×‚Ä‚Ìlï¿½É‘Î‚ï¿½ï¿½Aï¿½\ï¿½tï¿½gï¿½Eï¿½Fï¿½Aï¿½ğ–³ï¿½ï¿½ï¿½ï¿½Éˆï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½
+ ï¿½ï¿½ï¿½ï¿½ï¿½Å‹ï¿½ï¿½Â‚ï¿½ï¿½Ü‚ï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½É‚ÍAï¿½\ï¿½tï¿½gï¿½Eï¿½Fï¿½Aï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½gï¿½pï¿½Aï¿½ï¿½ï¿½ÊAï¿½ÏXï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½fï¿½ÚA
+ ï¿½Ğ•zï¿½Aï¿½Tï¿½uï¿½ï¿½ï¿½Cï¿½Zï¿½ï¿½ï¿½Xï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½Ü‚ï¿½ï¿½Í”Ì”ï¿½ï¿½ï¿½ï¿½éŒ ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½Ñƒ\ï¿½tï¿½gï¿½Eï¿½Fï¿½Aï¿½ï¿½ñ‹Ÿ‚ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½É“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½éŒ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÉŠÜ‚Ü‚ï¿½Ü‚ï¿½ï¿½B
 
-ã‹L‚Ì’˜ìŒ •\¦‚¨‚æ‚Ñ–{‹–‘ø•\¦‚ğAƒ\ƒtƒgƒEƒFƒA‚Ì‚·‚×‚Ä‚Ì•¡»‚Ü‚½‚Íd—v‚È•”•ª
-‚É‹LÚ‚·‚é‚à‚Ì‚Æ‚µ‚Ü‚·B 
+ ï¿½ï¿½Lï¿½Ì’ï¿½ï¿½ìŒ ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ–{ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½\ï¿½tï¿½gï¿½Eï¿½Fï¿½Aï¿½Ì‚ï¿½ï¿½×‚Ä‚Ì•ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Ídï¿½vï¿½È•ï¿½ï¿½ï¿½
+ ï¿½É‹Lï¿½Ú‚ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚Æ‚ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-ƒ\ƒtƒgƒEƒFƒA‚ÍuŒ»ó‚Ì‚Ü‚Üv‚ÅA–¾¦‚Å‚ ‚é‚©ˆÃ–Ù‚Å‚ ‚é‚©‚ğ–â‚í‚¸A‰½‚ç‚Ì•ÛØ
-‚à‚È‚­’ñ‹Ÿ‚³‚ê‚Ü‚·B‚±‚±‚Å‚¢‚¤•ÛØ‚Æ‚ÍA¤•i«A“Á’è‚Ì–Ú“I‚Ö‚Ì“K‡«A‚¨‚æ‚Ñ
-Œ —˜”ñNŠQ‚É‚Â‚¢‚Ä‚Ì•ÛØ‚àŠÜ‚İ‚Ü‚·‚ªA‚»‚ê‚ÉŒÀ’è‚³‚ê‚é‚à‚Ì‚Å‚Í‚ ‚è‚Ü‚¹‚ñB 
-ìÒ‚Ü‚½‚Í’˜ìŒ Ò‚ÍAŒ_–ñsˆ×A•s–@sˆ×A‚Ü‚½‚Í‚»‚êˆÈŠO‚Å‚ ‚ë‚¤‚ÆAƒ\ƒtƒg
-ƒEƒFƒA‚É‹Nˆö‚Ü‚½‚ÍŠÖ˜A‚µA‚ ‚é‚¢‚Íƒ\ƒtƒgƒEƒFƒA‚Ìg—p‚Ü‚½‚Í‚»‚Ì‘¼‚Ìˆµ‚¢‚É
-‚æ‚Á‚Ä¶‚¶‚éˆêØ‚Ì¿‹A‘¹ŠQA‚»‚Ì‘¼‚Ì‹`–±‚É‚Â‚¢‚Ä‰½‚ç‚ÌÓ”C‚à•‰‚í‚È‚¢‚à‚Ì
-‚Æ‚µ‚Ü‚·B 
+ ï¿½\ï¿½tï¿½gï¿½Eï¿½Fï¿½Aï¿½Íuï¿½ï¿½ï¿½ï¿½Ì‚Ü‚Üvï¿½ÅAï¿½ï¿½ï¿½ï¿½ï¿½Å‚ï¿½ï¿½é‚©ï¿½Ã–Ù‚Å‚ï¿½ï¿½é‚©ï¿½ï¿½ï¿½í‚¸ï¿½Aï¿½ï¿½ï¿½ï¿½Ì•Ûï¿½
+ ï¿½ï¿½ï¿½È‚ï¿½ï¿½ñ‹Ÿ‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½ï¿½ÛØ‚Æ‚ÍAï¿½ï¿½ï¿½iï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½Ì–Ú“Iï¿½Ö‚Ì“Kï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½Qï¿½É‚Â‚ï¿½ï¿½Ä‚Ì•ÛØ‚ï¿½ï¿½Ü‚İ‚Ü‚ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ÉŒï¿½ï¿½è‚³ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚Å‚Í‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½B
+ ï¿½ï¿½Ò‚Ü‚ï¿½ï¿½Í’ï¿½ï¿½ìŒ ï¿½Ò‚ÍAï¿½_ï¿½ï¿½sï¿½×Aï¿½sï¿½@ï¿½sï¿½×Aï¿½Ü‚ï¿½ï¿½Í‚ï¿½ï¿½ï¿½ÈŠOï¿½Å‚ï¿½ï¿½ë‚¤ï¿½ÆAï¿½\ï¿½tï¿½g
+ ï¿½Eï¿½Fï¿½Aï¿½É‹Nï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ÍŠÖ˜Aï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½é‚¢ï¿½Íƒ\ï¿½tï¿½gï¿½Eï¿½Fï¿½Aï¿½Ìgï¿½pï¿½Ü‚ï¿½ï¿½Í‚ï¿½ï¿½Ì‘ï¿½ï¿½Ìˆï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø‚Ìï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Qï¿½Aï¿½ï¿½ï¿½Ì‘ï¿½ï¿½Ì‹`ï¿½ï¿½ï¿½É‚Â‚ï¿½ï¿½Ä‰ï¿½ï¿½ï¿½ÌÓ”Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½Æ‚ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-*/
-
-/*=========================================================================
-y‚±‚Ìƒ\[ƒX“à‚Å‚Ì‚İ—LŒø‚ÈƒOƒ[ƒoƒ‹•Ï”z
-=========================================================================*/
-
-static TEXTURE_POOL l_texPool[MAX_TEXTURE];		// ƒeƒNƒXƒ`ƒƒƒv[ƒ‹
-static int			l_texPoolnum;				// ƒeƒNƒXƒ`ƒƒ‚Ì”
-static int			l_GLMetaseqInitialized = 0;	// ‰Šú‰»ƒtƒ‰ƒO
-
+ */
 
 /*=========================================================================
-yŠÖ”éŒ¾z
-=========================================================================*/
+ ï¿½yï¿½ï¿½ï¿½Ìƒ\ï¿½[ï¿½Xï¿½ï¿½ï¿½Å‚Ì‚İ—Lï¿½ï¿½ÈƒOï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½ï¿½Ïï¿½ï¿½z
+ =========================================================================*/
+
+static TEXTURE_POOL l_texPool[MAX_TEXTURE];		// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½vï¿½[ï¿½ï¿½
+static int l_texPoolnum;				// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Ìï¿½
+static int l_GLMetaseqInitialized = 0;	// ï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O
+
+/*=========================================================================
+ ï¿½yï¿½Öï¿½ï¿½éŒ¾ï¿½z
+ =========================================================================*/
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void	endianConverter(void *addr,unsigned int size);
-void	TGAHeaderEndianConverter(	STR_TGA_HEAD *tgah );
-int		IsExtensionSupported( char* szTargetExtension );
+void endianConverter(void *addr, unsigned int size);
+void TGAHeaderEndianConverter(STR_TGA_HEAD *tgah);
+int IsExtensionSupported(char* szTargetExtension);
 
-GLuint		mqoSetTexturePool(char *texfile, char *alpfile, unsigned char alpha );
-void		mqoClearTexturePool();
-GLubyte*	mqoLoadTextureEx(char *texfile,char *alpfile,int *tex_size,unsigned char alpha);
-int			mqoLoadFile(MQO_OBJECT *mqoobj,char *filename,double scale,unsigned char alpha);
-MQO_OBJECT*	mqoCreateList(int num);
-int			mqoCreateListObject( MQO_OBJECT *obj, int id, char *filename,double scale,unsigned char alpha);
+GLuint mqoSetTexturePool(char *texfile, char *alpfile, unsigned char alpha);
+void mqoClearTexturePool();
+GLubyte* mqoLoadTextureEx(char *texfile, char *alpfile, int *tex_size,
+		unsigned char alpha);
+int mqoLoadFile(MQO_OBJECT *mqoobj, char *filename, double scale,
+		unsigned char alpha);
+MQO_OBJECT* mqoCreateList(int num);
+int mqoCreateListObject(MQO_OBJECT *obj, int id, char *filename, double scale,
+		unsigned char alpha);
 
-void mqoCallListObject(MQO_OBJECT object[],int num);
-void mqoClearObject(MQO_OBJECT object[],int from,int num);
-void mqoDeleteObject(MQO_OBJECT * object,int num);
+void mqoCallListObject(MQO_OBJECT object[], int num);
+void mqoClearObject(MQO_OBJECT object[], int from, int num);
+void mqoDeleteObject(MQO_OBJECT * object, int num);
 void mqoGetDirectory(const char *path_file, char *path_dir);
 void mqoSnormal(glPOINT3f A, glPOINT3f B, glPOINT3f C, glPOINT3f *normal);
 void mqoReadMaterial(FILE *fp, MQO_MATDATA M[]);
 void mqoReadVertex(FILE *fp, glPOINT3f V[]);
-int	 mqoReadBVertex(FILE *fp,glPOINT3f V[]);
+int mqoReadBVertex(FILE *fp, glPOINT3f V[]);
 void mqoReadFace(FILE *fp, MQO_FACE F[]);
 void mqoReadObject(FILE *fp, MQO_OBJDATA *obj);
 
-void mqoMakeArray(MQO_MATERIAL *mat, int matpos,MQO_FACE F[], int fnum,glPOINT3f V[],
-				  glPOINT3f N[], double facet, glCOLOR4f *mcol, double scale, unsigned char alpha );
+void mqoMakeArray(MQO_MATERIAL *mat, int matpos, MQO_FACE F[], int fnum,
+		glPOINT3f V[], glPOINT3f N[], double facet, glCOLOR4f *mcol,
+		double scale, unsigned char alpha);
 
 glPOINT3f *mqoVertexNormal(MQO_OBJDATA *obj);
 
-void mqoMakePolygon(MQO_OBJDATA *readObj, MQO_OBJECT *mqoobj,
-					glPOINT3f N[], MQO_MATDATA M[], int n_mat, double scale, unsigned char alpha);
+void mqoMakePolygon(MQO_OBJDATA *readObj, MQO_OBJECT *mqoobj, glPOINT3f N[],
+		MQO_MATDATA M[], int n_mat, double scale, unsigned char alpha);
 
-void mqoMakeObjectsEx(MQO_OBJECT *mqoobj, MQO_OBJDATA obj[], int n_obj, MQO_MATDATA M[],int n_mat,
-					  double scale,unsigned char alpha);
+void mqoMakeObjectsEx(MQO_OBJECT *mqoobj, MQO_OBJDATA obj[], int n_obj,
+		MQO_MATDATA M[], int n_mat, double scale, unsigned char alpha);
 
 #ifdef __cplusplus
 }
 #endif
 
-
 /*=========================================================================
-yŠÖ”zendianConverter
-y—p“rzƒGƒ“ƒfƒBƒAƒ“•ÏŠ·
-yˆø”z
-		addr	ƒAƒhƒŒƒX
-		size	ƒTƒCƒY
+ ï¿½yï¿½Öï¿½ï¿½zendianConverter
+ ï¿½yï¿½pï¿½rï¿½zï¿½Gï¿½ï¿½ï¿½fï¿½Bï¿½Aï¿½ï¿½ï¿½ÏŠï¿½
+ ï¿½yï¿½ï¿½z
+ addr	ï¿½Aï¿½hï¿½ï¿½ï¿½X
+ size	ï¿½Tï¿½Cï¿½Y
 
-y–ß’lz‚È‚µ
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ =========================================================================*/
 
-void endianConverter(void *addr,unsigned int size)
-{
+void endianConverter(void *addr, unsigned int size) {
 	unsigned int pos;
 	char c;
-	if ( size <= 1 ) return;
-	for ( pos = 0; pos < size/2; pos++ ) {
-		c = *(((char *)addr)+pos);
-		*(((char *)addr)+pos) = *(((char *)addr)+(size-1 - pos));
-		*(((char *)addr)+(size-1 - pos)) = c;
+	if (size <= 1)
+		return;
+	for (pos = 0; pos < size / 2; pos++) {
+		c = *(((char *) addr) + pos);
+		*(((char *) addr) + pos) = *(((char *) addr) + (size - 1 - pos));
+		*(((char *) addr) + (size - 1 - pos)) = c;
 	}
 }
 
-
 /*=========================================================================
-yŠÖ”zTGAHeaderEndianConverter
-y—p“rzTGA‚Ìƒwƒbƒ_‚ÌƒGƒ“ƒfƒBƒAƒ“•ÏŠ·
-yˆø”z
-		tgah	TGA‚Ìƒwƒbƒ_
+ ï¿½yï¿½Öï¿½ï¿½zTGAHeaderEndianConverter
+ ï¿½yï¿½pï¿½rï¿½zTGAï¿½Ìƒwï¿½bï¿½_ï¿½ÌƒGï¿½ï¿½ï¿½fï¿½Bï¿½Aï¿½ï¿½ï¿½ÏŠï¿½
+ ï¿½yï¿½ï¿½z
+ tgah	TGAï¿½Ìƒwï¿½bï¿½_
 
-y–ß’lz‚È‚µ
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ =========================================================================*/
 
-void TGAHeaderEndianConverter(	STR_TGA_HEAD *tgah )
-{
-	endianConverter(&tgah->color_map_entry,sizeof(tgah->color_map_entry));
-	endianConverter(&tgah->x,sizeof(tgah->x));
-	endianConverter(&tgah->y,sizeof(tgah->y));
-	endianConverter(&tgah->width,sizeof(tgah->width));
-	endianConverter(&tgah->height,sizeof(tgah->height));
+void TGAHeaderEndianConverter(STR_TGA_HEAD *tgah) {
+	endianConverter(&tgah->color_map_entry, sizeof(tgah->color_map_entry));
+	endianConverter(&tgah->x, sizeof(tgah->x));
+	endianConverter(&tgah->y, sizeof(tgah->y));
+	endianConverter(&tgah->width, sizeof(tgah->width));
+	endianConverter(&tgah->height, sizeof(tgah->height));
 }
 
-
 /*=========================================================================
-yŠÖ”zIsExtensionSupported
-y—p“rzOpenGL‚ÌŠg’£‹@”\‚ªƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©’²‚×‚é
-yˆø”z
-		szTargetExtension	Šg’£‹@”\‚Ì–¼‘O
+ ï¿½yï¿½Öï¿½ï¿½zIsExtensionSupported
+ ï¿½yï¿½pï¿½rï¿½zOpenGLï¿½ÌŠgï¿½ï¿½ï¿½@ï¿½\ï¿½ï¿½ï¿½Tï¿½|ï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½é‚©ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×‚ï¿½
+ ï¿½yï¿½ï¿½z
+ szTargetExtension	ï¿½gï¿½ï¿½ï¿½@ï¿½\ï¿½Ì–ï¿½ï¿½O
 
-y–ß’lz1FƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚éC0F‚³‚ê‚Ä‚¢‚È‚¢
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½z1ï¿½Fï¿½Tï¿½|ï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½C0ï¿½Fï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½
+ =========================================================================*/
 
-int IsExtensionSupported( char* szTargetExtension )
-{
+int IsExtensionSupported(char* szTargetExtension) {
 	const unsigned char *pszExtensions = NULL;
 	const unsigned char *pszStart;
 	unsigned char *pszWhere, *pszTerminator;
 
-	// Extension ‚Ì–¼‘O‚ª³‚µ‚¢‚©’²‚×‚é(NULL‚â‹ó”’‚ÍNGj
-	pszWhere = (unsigned char *) strchr( szTargetExtension, ' ' );
-	if ( pszWhere || *szTargetExtension == (char)NULL )
+	// Extension ï¿½Ì–ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×‚ï¿½(NULLï¿½ï¿½ó”’‚ï¿½NGï¿½j
+	pszWhere = (unsigned char *) strchr((const char *) szTargetExtension, ' ');
+	if (pszWhere || *szTargetExtension == (char) NULL) {
 		return 0;
+	}
 
-	// Extension ‚Ì•¶š—ñ‚ğŠ“¾‚·‚é
-	pszExtensions = glGetString( GL_EXTENSIONS );
+	// Extension ï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	pszExtensions = glGetString( GL_EXTENSIONS);
 
-	// •¶š—ñ‚Ì’†‚É•K—v‚È extension ‚ª‚ ‚é‚©’²‚×‚é
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì’ï¿½ï¿½É•Kï¿½vï¿½ï¿½ extension ï¿½ï¿½ï¿½ï¿½ï¿½é‚©ï¿½ï¿½ï¿½×‚ï¿½
 	pszStart = pszExtensions;
-	for (;;)
-	{
-		pszWhere = (unsigned char *) strstr( (const char *) pszStart, szTargetExtension );
-		if ( !pszWhere )
+	for (;;) {
+		pszWhere = (unsigned char *) strstr((const char *) pszStart,
+				szTargetExtension);
+		if (!pszWhere)
 			break;
-		pszTerminator = pszWhere + strlen( szTargetExtension );
-		if ( pszWhere == pszStart || *( pszWhere - 1 ) == ' ' )
-		if ( *pszTerminator == ' ' || *pszTerminator == (char)NULL )
-			return 1;
+		pszTerminator = pszWhere + strlen(szTargetExtension);
+		if (pszWhere == pszStart || *(pszWhere - 1) == ' ')
+			if (*pszTerminator == ' ' || *pszTerminator == (char) NULL)
+				return 1;
 		pszStart = pszTerminator;
 	}
 	return 0;
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoInit
-y—p“rzƒƒ^ƒZƒRƒCƒAƒ[ƒ_‚Ì‰Šú‰»
-yˆø”z‚È‚µ
-y–ß’lz‚È‚µ
-=========================================================================*/
+ ï¿½yï¿½Öï¿½ï¿½zmqoInit
+ ï¿½yï¿½pï¿½rï¿½zï¿½ï¿½ï¿½^ï¿½Zï¿½Rï¿½Cï¿½Aï¿½ï¿½ï¿½[ï¿½_ï¿½Ìï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½zï¿½È‚ï¿½
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ =========================================================================*/
 
-void mqoInit(void)
-{
-	// ƒeƒNƒXƒ`ƒƒƒv[ƒ‹‰Šú‰»
-	memset(l_texPool,0,sizeof(l_texPool));
+void mqoInit(void) {
+	// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½vï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	memset(l_texPool, 0, sizeof(l_texPool));
 	l_texPoolnum = 0;
 
-	// ’¸“_ƒoƒbƒtƒ@‚ÌƒTƒ|[ƒg‚Ìƒ`ƒFƒbƒN
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ÌƒTï¿½|ï¿½[ï¿½gï¿½Ìƒ`ï¿½Fï¿½bï¿½N
 	g_isVBOSupported = IsExtensionSupported("GL_ARB_vertex_buffer_object");
 //	g_isVBOSupported = 0;
 
@@ -211,8 +207,8 @@ void mqoInit(void)
 	glDeleteBuffersARB = NULL;
 
 	if ( g_isVBOSupported ) {
-		// printf("OpenGL : ’¸“_ƒoƒbƒtƒ@‚ğƒTƒ|[ƒg‚µ‚Ä‚¢‚é‚Ì‚Åg—p‚µ‚Ü‚·\n");
-		// GL ŠÖ”‚Ìƒ|ƒCƒ“ƒ^‚ğŠ“¾‚·‚é
+		// printf("OpenGL : ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½Tï¿½|ï¿½[ï¿½gï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Ì‚Ågï¿½pï¿½ï¿½ï¿½Ü‚ï¿½\n");
+		// GL ï¿½Öï¿½ï¿½Ìƒ|ï¿½Cï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		glGenBuffersARB = (PFNGLGENBUFFERSARBPROC) wglGetProcAddress("glGenBuffersARB");
 		glBindBufferARB = (PFNGLBINDBUFFERARBPROC) wglGetProcAddress("glBindBufferARB");
 		glBufferDataARB = (PFNGLBUFFERDATAARBPROC) wglGetProcAddress("glBufferDataARB");
@@ -220,128 +216,123 @@ void mqoInit(void)
 	}
 #endif
 
-	// ‰Šú‰»ƒtƒ‰ƒO
+	// ï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O
 	l_GLMetaseqInitialized = 1;
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoCleanup
-y—p“rzƒƒ^ƒZƒRƒCƒAƒ[ƒ_‚ÌI—¹ˆ—
-yˆø”z‚È‚µ
-y–ß’lz‚È‚µ
-=========================================================================*/
+ ï¿½yï¿½Öï¿½ï¿½zmqoCleanup
+ ï¿½yï¿½pï¿½rï¿½zï¿½ï¿½ï¿½^ï¿½Zï¿½Rï¿½Cï¿½Aï¿½ï¿½ï¿½[ï¿½_ï¿½ÌIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½zï¿½È‚ï¿½
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ =========================================================================*/
 
-void mqoCleanup(void)
-{
-	mqoClearTexturePool();	// ƒeƒNƒXƒ`ƒƒƒv[ƒ‹‚ÌƒNƒŠƒA
+void mqoCleanup(void) {
+	mqoClearTexturePool();	// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½vï¿½[ï¿½ï¿½ï¿½ÌƒNï¿½ï¿½ï¿½A
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoSetTexturePool
-y—p“rzƒeƒNƒXƒ`ƒƒƒv[ƒ‹‚ÉƒeƒNƒXƒ`ƒƒ‚ğ“Ç‚İ‚Ş
-yˆø”z
-		texfile		ƒeƒNƒXƒ`ƒƒƒtƒ@ƒCƒ‹–¼
-		alpfile		ƒAƒ‹ƒtƒ@ƒtƒ@ƒCƒ‹–¼
-		alpha		ƒAƒ‹ƒtƒ@
+ ï¿½yï¿½Öï¿½ï¿½zmqoSetTexturePool
+ ï¿½yï¿½pï¿½rï¿½zï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½vï¿½[ï¿½ï¿½ï¿½Éƒeï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ texfile		ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½
+ alpfile		ï¿½Aï¿½ï¿½ï¿½tï¿½@ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½
+ alpha		ï¿½Aï¿½ï¿½ï¿½tï¿½@
 
-y–ß’lzƒeƒNƒXƒ`ƒƒID
-yd—lzƒeƒNƒXƒ`ƒƒ‚ª‚Ü‚¾“Ç‚İ‚Ü‚ê‚Ä‚¢‚È‚¯‚ê‚Î“Ç‚İ‚İCƒeƒNƒXƒ`ƒƒ“o˜^
-		‚·‚Å‚É“Ç‚İ‚Ü‚ê‚Ä‚¢‚ê‚Î“o˜^‚µ‚½‚à‚Ì‚ğ•Ô‚·.
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ID
+ ï¿½yï¿½dï¿½lï¿½zï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Ç‚İï¿½ï¿½Ü‚ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½Î“Ç‚İï¿½ï¿½İCï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½oï¿½^
+ ï¿½ï¿½ï¿½Å‚É“Ç‚İï¿½ï¿½Ü‚ï¿½Ä‚ï¿½ï¿½ï¿½Î“oï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½Ô‚ï¿½.
+ =========================================================================*/
 
-GLuint mqoSetTexturePool(char *texfile, char *alpfile, unsigned char alpha ) 
-{
+GLuint mqoSetTexturePool(char *texfile, char *alpfile, unsigned char alpha) {
 	int pos;
 	GLubyte *image;
 
-	for ( pos = 0; pos < l_texPoolnum; pos++ ) {
-		if ( alpha != l_texPool[pos].alpha ) {
+	for (pos = 0; pos < l_texPoolnum; pos++) {
+		if (alpha != l_texPool[pos].alpha) {
 			continue;
 		}
-		if ( texfile != NULL ) {
-			if ( strcmp(texfile,l_texPool[pos].texfile) != 0 ) {
+		if (texfile != NULL) {
+			if (strcmp(texfile, l_texPool[pos].texfile) != 0) {
 				continue;
 			}
 		}
-		if ( alpfile != NULL ) {
-			if ( strcmp(alpfile,l_texPool[pos].alpfile) != 0 ) {
+		if (alpfile != NULL) {
+			if (strcmp(alpfile, l_texPool[pos].alpfile) != 0) {
 				continue;
 			}
 		}
 		break;
 	}
-	if ( pos < l_texPoolnum ) { //‚·‚Å‚É“Ç‚İ‚İÏ‚İ
-		return  l_texPool[pos].texture_id;
+	if (pos < l_texPoolnum) { //ï¿½ï¿½ï¿½Å‚É“Ç‚İï¿½ï¿½İÏ‚ï¿½
+		return l_texPool[pos].texture_id;
 	}
-	if ( MAX_TEXTURE <= pos ) {
-		printf("%s:mqoSetTexturePool ƒeƒNƒXƒ`ƒƒ“Ç‚İ‚İ—Ìˆæ•s‘«\n",__FILE__);
+	if ( MAX_TEXTURE <= pos) {
+		printf("%s:mqoSetTexturePool ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½İ—Ìˆï¿½sï¿½ï¿½\n", __FILE__);
 		return -1;
 	}
-	image = mqoLoadTextureEx(texfile,alpfile,&l_texPool[pos].texsize,alpha);
-	if ( image == NULL ) {
+	image = mqoLoadTextureEx(texfile, alpfile, &l_texPool[pos].texsize, alpha);
+	if (image == NULL) {
 		return -1;
 	}
 
-	if ( texfile != NULL ) strncpy(l_texPool[pos].texfile,texfile,MAX_PATH);
-	if ( alpfile != NULL ) strncpy(l_texPool[pos].alpfile,alpfile,MAX_PATH);
+	if (texfile != NULL)
+		strncpy(l_texPool[pos].texfile, texfile, MAX_PATH);
+	if (alpfile != NULL)
+		strncpy(l_texPool[pos].alpfile, alpfile, MAX_PATH);
 	l_texPool[pos].alpha = alpha;
 
-	glPixelStorei(GL_UNPACK_ALIGNMENT,4);
-	glPixelStorei(GL_PACK_ALIGNMENT,4);
-	glGenTextures(1,&l_texPool[pos].texture_id);			// ƒeƒNƒXƒ`ƒƒ‚ğ¶¬
-	glBindTexture(GL_TEXTURE_2D,l_texPool[pos].texture_id);	// ƒeƒNƒXƒ`ƒƒ‚ÌŠ„‚è“–‚Ä
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+	glPixelStorei(GL_PACK_ALIGNMENT, 4);
+	glGenTextures(1, &l_texPool[pos].texture_id);			// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ğ¶ï¿½
+	glBindTexture(GL_TEXTURE_2D, l_texPool[pos].texture_id);// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌŠï¿½ï¿½è“–ï¿½ï¿½
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, l_texPool[pos].texsize, l_texPool[pos].texsize,
-					0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-	l_texPoolnum = pos+1;
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, l_texPool[pos].texsize,
+			l_texPool[pos].texsize, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	l_texPoolnum = pos + 1;
 
-	//“o˜^‚·‚ê‚ÎA“Ç‚İ‚ñ‚¾ƒoƒbƒtƒ@‚Í•s—v
+	//ï¿½oï¿½^ï¿½ï¿½ï¿½ï¿½ÎAï¿½Ç‚İï¿½ï¿½ñ‚¾ƒoï¿½bï¿½tï¿½@ï¿½Í•sï¿½v
 	free(image);
-	glBindTexture(GL_TEXTURE_2D,0);	// ƒfƒtƒHƒ‹ƒgƒeƒNƒXƒ`ƒƒ‚ÌŠ„‚è“–‚Ä
+	glBindTexture(GL_TEXTURE_2D, 0);	// ï¿½fï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌŠï¿½ï¿½è“–ï¿½ï¿½
 
 	return l_texPool[pos].texture_id;
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoClearTexturePool()
-y—p“rzƒeƒNƒXƒ`ƒƒƒv[ƒ‹‚ÌŠJ•ú
-yˆø”z‚È‚µ
-y–ß’lz‚È‚µ
-=========================================================================*/
+ ï¿½yï¿½Öï¿½ï¿½zmqoClearTexturePool()
+ ï¿½yï¿½pï¿½rï¿½zï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½vï¿½[ï¿½ï¿½ï¿½ÌŠJï¿½ï¿½
+ ï¿½yï¿½ï¿½zï¿½È‚ï¿½
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ =========================================================================*/
 
-void mqoClearTexturePool()
-{
+void mqoClearTexturePool() {
 	int pos;
-	for ( pos = 0; pos < l_texPoolnum; pos++ ) {
-		glDeleteTextures(1, &l_texPool[pos].texture_id);	// ƒeƒNƒXƒ`ƒƒî•ñ‚ğíœ
+	for (pos = 0; pos < l_texPoolnum; pos++) {
+		glDeleteTextures(1, &l_texPool[pos].texture_id);	// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½íœ
 	}
 
-	memset(l_texPool,0,sizeof(l_texPool));
+	memset(l_texPool, 0, sizeof(l_texPool));
 	l_texPoolnum = 0;
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoLoadTextureEx
-y—p“rzƒtƒ@ƒCƒ‹‚©‚çƒeƒNƒXƒ`ƒƒ‰æ‘œ‚ğì¬‚·‚é
-yˆø”z
-		texfile		ƒtƒ@ƒCƒ‹–¼
-		alpfile		ƒAƒ‹ƒtƒ@ƒtƒ@ƒCƒ‹–¼
-		tex_size	ƒeƒNƒXƒ`ƒƒ‚ÌƒTƒCƒYiˆê•Ó‚Ì’·‚³j‚ğ•Ô‚·
+ ï¿½yï¿½Öï¿½ï¿½zmqoLoadTextureEx
+ ï¿½yï¿½pï¿½rï¿½zï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½æ‘œï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ texfile		ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½
+ alpfile		ï¿½Aï¿½ï¿½ï¿½tï¿½@ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½
+ tex_size	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌƒTï¿½Cï¿½Yï¿½iï¿½ï¿½Ó‚Ì’ï¿½ï¿½ï¿½ï¿½jï¿½ï¿½Ô‚ï¿½
 
-y–ß’lzƒeƒNƒXƒ`ƒƒ‰æ‘œ‚Ö‚Ìƒ|ƒCƒ“ƒ^i¸”s‚ÍNULLj
-yd—lz24bitƒrƒbƒgƒ}ƒbƒvC‚¨‚æ‚Ñ8,24,32bit‚s‚f‚`
-		ƒTƒCƒY‚Íuˆê•Ó‚ª2‚Ìnæ‚Ì³•ûŒ`v‚ÉŒÀ’è
-		libjpeg,libpngiŠO•”ƒ‰ƒCƒuƒ‰ƒŠj‚ª—L‚ê‚ÎJPEG,PNG‚Ì“Ç‚İ‚İ‰Â”\
+ ï¿½yï¿½ß’lï¿½zï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½æ‘œï¿½Ö‚Ìƒ|ï¿½Cï¿½ï¿½ï¿½^ï¿½iï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½NULLï¿½j
+ ï¿½yï¿½dï¿½lï¿½z24bitï¿½rï¿½bï¿½gï¿½}ï¿½bï¿½vï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½8,24,32bitï¿½sï¿½fï¿½`
+ ï¿½Tï¿½Cï¿½Yï¿½Íuï¿½ï¿½Ó‚ï¿½2ï¿½ï¿½nï¿½ï¿½Ìï¿½ï¿½ï¿½`ï¿½vï¿½ÉŒï¿½ï¿½ï¿½
+ libjpeg,libpngï¿½iï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½uï¿½ï¿½ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½JPEG,PNGï¿½Ì“Ç‚İï¿½ï¿½İ‰Â”\
 =========================================================================*/
 
-GLubyte* mqoLoadTextureEx(char *texfile,char *alpfile,int *tex_size,unsigned char alpha)
-{
+GLubyte* mqoLoadTextureEx(char *texfile, char *alpfile, int *tex_size,
+		unsigned char alpha) {
 	FILE *fp;
 	size_t namelen;
 	char ext[4];
@@ -350,13 +341,13 @@ GLubyte* mqoLoadTextureEx(char *texfile,char *alpfile,int *tex_size,unsigned cha
 	int isPNG;
 	int isJPEG;
 	int other;
-	int	y,x,size;
+	int y, x, size;
 	int fl;
 	char *filename[2];
 	int width[2];
 	int sts;
 	STR_TGA_HEAD tgah;
-	GLubyte	*pImage, *pRead;
+	GLubyte *pImage, *pRead;
 
 #if DEF_USE_LIBJPEG
 	struct jpeg_decompress_struct cinfo;
@@ -365,9 +356,9 @@ GLubyte* mqoLoadTextureEx(char *texfile,char *alpfile,int *tex_size,unsigned cha
 #endif
 #if DEF_USE_LIBPNG
 	unsigned char **pngimage;
-	unsigned long   pngwidth, pngheight;
-	int				pngdepth;
-	int             color_type;
+	unsigned long pngwidth, pngheight;
+	int pngdepth;
+	int color_type;
 #endif
 
 	filename[0] = texfile;
@@ -383,121 +374,124 @@ GLubyte* mqoLoadTextureEx(char *texfile,char *alpfile,int *tex_size,unsigned cha
 #if DEF_USE_LIBPNG
 	pngimage = NULL;
 #endif
-	size = - 1;
-	for ( fl = 0; fl < 2; fl++ ) {//ƒeƒNƒXƒ`ƒƒfl=0    ƒAƒ‹ƒtƒ@fl=1
-		if ( filename[fl] == NULL ) continue;
+	size = -1;
+	for (fl = 0; fl < 2; fl++) {	//ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½fl=0    ï¿½Aï¿½ï¿½ï¿½tï¿½@ï¿½ï¿½fl=1
+		if (filename[fl] == NULL)
+			continue;
 		namelen = strlen(filename[fl]);
-		ext[0] = tolower(filename[fl][namelen-3]);
-		ext[1] = tolower(filename[fl][namelen-2]);
-		ext[2] = tolower(filename[fl][namelen-1]);
+		ext[0] = tolower(filename[fl][namelen - 3]);
+		ext[1] = tolower(filename[fl][namelen - 2]);
+		ext[2] = tolower(filename[fl][namelen - 1]);
 		ext[3] = 0x00;
-		isTGA = (strcmp(ext,"tga")==0)?1:0;
-		isPNG = (strcmp(ext,"png")==0)?1:0;
-		isJPEG = (strcmp(ext,"jpg")==0)?1:0;
+		isTGA = (strcmp(ext, "tga") == 0) ? 1 : 0;
+		isPNG = (strcmp(ext, "png") == 0) ? 1 : 0;
+		isJPEG = (strcmp(ext, "jpg") == 0) ? 1 : 0;
 		/* */
-		if ( (! isTGA) && (! isPNG) &&(! isJPEG) ) {
-			filename[fl][namelen-3] = 'b';
-			filename[fl][namelen-2] = 'm';
-			filename[fl][namelen-1] = 'p';
+		if ((!isTGA) && (!isPNG) && (!isJPEG)) {
+			filename[fl][namelen - 3] = 'b';
+			filename[fl][namelen - 2] = 'm';
+			filename[fl][namelen - 1] = 'p';
 		}
 		/* */
-		if ( fl == 1 ) { //ƒAƒ‹ƒtƒ@‚Ì“Ç‚İ‚İ‚Í‚s‚f‚`or‚o‚m‚f
-			if ( ! (isTGA || isPNG) ) {
-				printf("ƒAƒ‹ƒtƒ@‚Ìƒtƒ@ƒCƒ‹‚É‘Î‰‚Å‚«‚È‚¢¨%s\n",filename[fl]);
+		if (fl == 1) { //ï¿½Aï¿½ï¿½ï¿½tï¿½@ï¿½Ì“Ç‚İï¿½ï¿½İ‚Í‚sï¿½fï¿½`orï¿½oï¿½mï¿½f
+			if (!(isTGA || isPNG)) {
+				printf("ï¿½Aï¿½ï¿½ï¿½tï¿½@ï¿½Ìƒtï¿½@ï¿½Cï¿½ï¿½ï¿½É‘Î‰ï¿½ï¿½Å‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½%s\n", filename[fl]);
 				break;
 			}
 		}
-		if ( fp != NULL ) fclose(fp);
-		if ( (fp=fopen(filename[fl],"rb"))==NULL ) {
-			printf("%s:ƒeƒNƒXƒ`ƒƒ“Ç‚İ‚İƒGƒ‰[[%s]\n",__FILE__,filename[fl]);
+		if (fp != NULL)
+			fclose(fp);
+		if ((fp = fopen(filename[fl], "rb")) == NULL) {
+			printf("%s:ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½İƒGï¿½ï¿½ï¿½[[%s]\n", __FILE__, filename[fl]);
 			continue;
 		}
-		// ƒwƒbƒ_‚Ìƒ[ƒh
-		if ( isTGA ) {
-			fread(&tgah,sizeof(STR_TGA_HEAD),1,fp);
+		// ï¿½wï¿½bï¿½_ï¿½Ìƒï¿½ï¿½[ï¿½h
+		if (isTGA) {
+			fread(&tgah, sizeof(STR_TGA_HEAD), 1, fp);
 #if DEF_IS_LITTLE_ENDIAN
 #else
 			TGAHeaderEndianConverter(&tgah);
 #endif
 			size = width[fl] = tgah.width;
 		}
-		if ( isJPEG ) {
+		if (isJPEG) {
 #if DEF_USE_LIBJPEG
 			unsigned int i;
 			cinfo.err = jpeg_std_error( &jerr );
-			jpeg_create_decompress( &cinfo );	//‰ğ“€—pî•ñì¬
-			jpeg_stdio_src( &cinfo, fp );		//“Ç‚İ‚İƒtƒ@ƒCƒ‹w’è
-			jpeg_read_header( &cinfo, TRUE );	//jpegƒwƒbƒ_“Ç‚İ‚İ
-			jpeg_start_decompress( &cinfo );	//‰ğ“€ŠJn
+			jpeg_create_decompress( &cinfo );	//ï¿½ğ“€—pï¿½ï¿½ï¿½ì¬
+			jpeg_stdio_src( &cinfo, fp );//ï¿½Ç‚İï¿½ï¿½İƒtï¿½@ï¿½Cï¿½ï¿½ï¿½wï¿½ï¿½
+			jpeg_read_header( &cinfo, TRUE );//jpegï¿½wï¿½bï¿½_ï¿½Ç‚İï¿½ï¿½ï¿½
+			jpeg_start_decompress( &cinfo );//ï¿½ğ“€ŠJï¿½n
 
 			if ( cinfo.out_color_components == 3 && cinfo.out_color_space == JCS_RGB ) {
 				if ( jpegimage != NULL ) {
-					for (i = 0; i < cinfo.output_height; i++) free(jpegimage[i]);            // ˆÈ‰º‚Qs‚Í‚QŸŒ³”z—ñ‚ğ‰ğ•ú‚µ‚Ü‚·
+					for (i = 0; i < cinfo.output_height; i++) free(jpegimage[i]); // ï¿½È‰ï¿½ï¿½Qï¿½sï¿½Í‚Qï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
 					free(jpegimage);
 				}
-				//“Ç‚İ‚İƒf[ƒ^”z—ñ‚Ìì¬
+				//ï¿½Ç‚İï¿½ï¿½İƒfï¿½[ï¿½^ï¿½zï¿½ï¿½Ìì¬
 				jpegimage = (JSAMPARRAY)malloc( sizeof( JSAMPROW ) * cinfo.output_height );
 				for ( i = 0; i < cinfo.output_height; i++ ) {
 					jpegimage[i] = (JSAMPROW)malloc( sizeof( JSAMPLE ) * cinfo.out_color_components * cinfo.output_width );
 				}
-				//‰ğ“€ƒf[ƒ^“Ç‚İ‚İ
+				//ï¿½ğ“€ƒfï¿½[ï¿½^ï¿½Ç‚İï¿½ï¿½ï¿½
 				while( cinfo.output_scanline < cinfo.output_height ) {
 					jpeg_read_scanlines( &cinfo,
-						jpegimage + cinfo.output_scanline,
-						cinfo.output_height - cinfo.output_scanline
+							jpegimage + cinfo.output_scanline,
+							cinfo.output_height - cinfo.output_scanline
 					);
 				}
 				size = width[fl] = cinfo.output_width;
 			}
 
-			jpeg_finish_decompress( &cinfo );	//‰ğ“€I—¹
-			jpeg_destroy_decompress( &cinfo );	//‰ğ“€—pî•ñ‰ğ•ú
+			jpeg_finish_decompress( &cinfo );	//ï¿½ğ“€Iï¿½ï¿½
+			jpeg_destroy_decompress( &cinfo );//ï¿½ğ“€—pï¿½ï¿½ï¿½ï¿½ï¿½
 			if ( !(cinfo.out_color_components == 3 && cinfo.out_color_space == JCS_RGB) ) {
-				printf("JPEG ‘Î‰‚Å‚«‚È‚¢ƒtƒH[ƒ}ƒbƒg¨%s\n",filename[fl]);
+				printf("JPEG ï¿½Î‰ï¿½ï¿½Å‚ï¿½ï¿½È‚ï¿½ï¿½tï¿½Hï¿½[ï¿½}ï¿½bï¿½gï¿½ï¿½%s\n",filename[fl]);
 			}
 #else
-			printf("‚±‚ÌƒeƒNƒXƒ`ƒƒ‚Í‘Î‰‚Å‚«‚È‚¢ƒtƒH[ƒ}ƒbƒg¨%s\n",filename[fl]);
+			printf("ï¿½ï¿½ï¿½Ìƒeï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Í‘Î‰ï¿½ï¿½Å‚ï¿½ï¿½È‚ï¿½ï¿½tï¿½Hï¿½[ï¿½}ï¿½bï¿½gï¿½ï¿½%s\n", filename[fl]);
 			continue;
 #endif
 		}
-		if ( isPNG ) {
+		if (isPNG) {
 #if DEF_USE_LIBPNG
-			png_structp     png_ptr;
-			png_infop       info_ptr;
-			int             bit_depth, interlace_type;
-			unsigned int             i;
-			int j,k;
-			png_ptr = png_create_read_struct(                       // png_ptr\‘¢‘Ì‚ğŠm•ÛE‰Šú‰»‚µ‚Ü‚·
-							PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-			info_ptr = png_create_info_struct(png_ptr);             // info_ptr\‘¢‘Ì‚ğŠm•ÛE‰Šú‰»‚µ‚Ü‚·
-			png_init_io(png_ptr, fp);                               // libpng‚Éfp‚ğ’m‚ç‚¹‚Ü‚·
-			png_read_info(png_ptr, info_ptr);                       // PNGƒtƒ@ƒCƒ‹‚Ìƒwƒbƒ_‚ğ“Ç‚İ‚İ‚Ü‚·
-			png_get_IHDR(png_ptr, info_ptr, &pngwidth, &pngheight,        // IHDRƒ`ƒƒƒ“ƒNî•ñ‚ğæ“¾‚µ‚Ü‚·
-							&bit_depth, &color_type, &interlace_type,
-							&j,&k);
-			if ( pngimage != NULL ) {
-				for (i = 0; i < pngheight; i++) free(pngimage[i]);            // ˆÈ‰º‚Qs‚Í‚QŸŒ³”z—ñ‚ğ‰ğ•ú‚µ‚Ü‚·
+			png_structp png_ptr;
+			png_infop info_ptr;
+			int bit_depth, interlace_type;
+			unsigned int i;
+			int j, k;
+			png_ptr = png_create_read_struct(      // png_ptrï¿½\ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½mï¿½ÛEï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
+					PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+			info_ptr = png_create_info_struct(png_ptr); // info_ptrï¿½\ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½mï¿½ÛEï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
+			png_init_io(png_ptr, fp);                      // libpngï¿½ï¿½fpï¿½ï¿½mï¿½ç‚¹ï¿½Ü‚ï¿½
+			png_read_info(png_ptr, info_ptr);     // PNGï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ìƒwï¿½bï¿½_ï¿½ï¿½Ç‚İï¿½ï¿½İ‚Ü‚ï¿½
+			png_get_IHDR(png_ptr, info_ptr, &pngwidth, &pngheight, // IHDRï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½Ü‚ï¿½
+					&bit_depth, &color_type, &interlace_type, &j, &k);
+			if (pngimage != NULL) {
+				for (i = 0; i < pngheight; i++)
+					free(pngimage[i]);            // ï¿½È‰ï¿½ï¿½Qï¿½sï¿½Í‚Qï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
 				free(pngimage);
 			}
-			pngimage = (png_bytepp)malloc(pngheight * sizeof(png_bytep)); // ˆÈ‰º‚Rs‚Í‚QŸŒ³”z—ñ‚ğŠm•Û‚µ‚Ü‚·
+			pngimage = (png_bytepp) malloc(pngheight * sizeof(png_bytep)); // ï¿½È‰ï¿½ï¿½Rï¿½sï¿½Í‚Qï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ï¿½ï¿½mï¿½Û‚ï¿½ï¿½Ü‚ï¿½
 			i = png_get_rowbytes(png_ptr, info_ptr);
 			pngdepth = i / pngwidth;
 			for (i = 0; i < pngheight; i++)
-					pngimage[i] = (png_bytep)malloc(png_get_rowbytes(png_ptr, info_ptr));
-			png_read_image(png_ptr, pngimage);                         // ‰æ‘œƒf[ƒ^‚ğ“Ç‚İ‚İ‚Ü‚·
+				pngimage[i] = (png_bytep) malloc(
+						png_get_rowbytes(png_ptr, info_ptr));
+			png_read_image(png_ptr, pngimage);              // ï¿½æ‘œï¿½fï¿½[ï¿½^ï¿½ï¿½Ç‚İï¿½ï¿½İ‚Ü‚ï¿½
 
-			png_destroy_read_struct(                                // ‚Q‚Â‚Ì\‘¢‘Ì‚Ìƒƒ‚ƒŠ‚ğ‰ğ•ú‚µ‚Ü‚·
-	        &png_ptr, &info_ptr, (png_infopp)NULL);
+			png_destroy_read_struct(                  // ï¿½Qï¿½Â‚Ì\ï¿½ï¿½ï¿½Ì‚Ìƒï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
+					&png_ptr, &info_ptr, (png_infopp) NULL);
 			size = width[fl] = pngwidth;
 #else
-			printf("‚±‚ÌƒeƒNƒXƒ`ƒƒ‚Í‘Î‰‚Å‚«‚È‚¢ƒtƒH[ƒ}ƒbƒg¨%s\n",filename[fl]);
+			printf("ï¿½ï¿½ï¿½Ìƒeï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Í‘Î‰ï¿½ï¿½Å‚ï¿½ï¿½È‚ï¿½ï¿½tï¿½Hï¿½[ï¿½}ï¿½bï¿½gï¿½ï¿½%s\n",filename[fl]);
 			continue;
 #endif
 		}
-		if ( width[fl] == -1 ) {//ƒRƒR‚Ü‚Å‚«‚ÄƒTƒCƒY‚ªw’è‚³‚ê‚Ä‚¢‚È‚¢@@ƒrƒbƒgƒ}ƒbƒv
-			fseek(fp,14+4,SEEK_SET);		// ‰æ‘œ•‚ªŠi”[‚³‚ê‚Ä‚¢‚éˆÊ’u‚Ü‚ÅƒV[ƒN
-			fread(&size,sizeof(int),1,fp);	// BiWidth‚Ìî•ñ‚¾‚¯æ“¾
-			fseek(fp,14+40,SEEK_SET);		// ‰æ‘fƒf[ƒ^‚ªŠi”[‚³‚ê‚Ä‚¢‚éˆÊ’u‚Ü‚ÅƒV[ƒN
+		if (width[fl] == -1) {  //ï¿½Rï¿½Rï¿½Ü‚Å‚ï¿½ï¿½ÄƒTï¿½Cï¿½Yï¿½ï¿½ï¿½wï¿½è‚³ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½@ï¿½ï¿½ï¿½@ï¿½rï¿½bï¿½gï¿½}ï¿½bï¿½v
+			fseek(fp, 14 + 4, SEEK_SET);		// ï¿½æ‘œï¿½ï¿½ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Ê’uï¿½Ü‚ÅƒVï¿½[ï¿½N
+			fread(&size, sizeof(int), 1, fp);	// BiWidthï¿½Ìï¿½ñ‚¾‚ï¿½ï¿½æ“¾
+			fseek(fp, 14 + 40, SEEK_SET);	// ï¿½ï¿½fï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Ê’uï¿½Ü‚ÅƒVï¿½[ï¿½N
 #if DEF_IS_LITTLE_ENDIAN
 #else
 			endianConverter(&size,sizeof(int));
@@ -505,42 +499,38 @@ GLubyte* mqoLoadTextureEx(char *texfile,char *alpfile,int *tex_size,unsigned cha
 			width[fl] = size;
 
 		}
-		if ( width[0] != -1 && width[1] != -1 ) {
-			if ( width[0] != width[1] ) {
+		if (width[0] != -1 && width[1] != -1) {
+			if (width[0] != width[1]) {
 				sts = -1;
 				break;
 			}
 		}
-		if ( fl == 1 && isTGA ) { //ƒAƒ‹ƒtƒ@‚Ì“Ç‚İ‚İ‚Í‚s‚f‚`‚Ì‚Wƒrƒbƒgƒ‚ƒmƒNƒ‚‚’‚R‚Qƒrƒbƒgƒtƒ‹
-			if ( !(
-				(tgah.depth == 8 && tgah.type == DEF_TGA_TYPE_MONO) ||
-				(tgah.depth == 32 && tgah.type == DEF_TGA_TYPE_FULL) 
-				) ) {
+		if (fl == 1 && isTGA) { //ï¿½Aï¿½ï¿½ï¿½tï¿½@ï¿½Ì“Ç‚İï¿½ï¿½İ‚Í‚sï¿½fï¿½`ï¿½Ì‚Wï¿½rï¿½bï¿½gï¿½ï¿½ï¿½mï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½Qï¿½rï¿½bï¿½gï¿½tï¿½ï¿½
+			if (!((tgah.depth == 8 && tgah.type == DEF_TGA_TYPE_MONO)
+					|| (tgah.depth == 32 && tgah.type == DEF_TGA_TYPE_FULL))) {
 				break;
 			}
 		}
-		if ( fl == 1 && isPNG ) { //ƒAƒ‹ƒtƒ@‚Ì“Ç‚İ‚İ‚Í‚o‚m‚f‚ÌƒgƒDƒ‹[ƒJƒ‰[{ƒAƒ‹ƒtƒ@‚‚’ƒOƒŒ[ƒXƒP[ƒ‹{ƒAƒ‹ƒtƒ@
+		if (fl == 1 && isPNG) { //ï¿½Aï¿½ï¿½ï¿½tï¿½@ï¿½Ì“Ç‚İï¿½ï¿½İ‚Í‚oï¿½mï¿½fï¿½Ìƒgï¿½Dï¿½ï¿½ï¿½[ï¿½Jï¿½ï¿½ï¿½[ï¿½{ï¿½Aï¿½ï¿½ï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½[ï¿½Xï¿½Pï¿½[ï¿½ï¿½ï¿½{ï¿½Aï¿½ï¿½ï¿½tï¿½@
 #if DEF_USE_LIBPNG
-			if ( !(
-				(color_type== 6 ) ||
-				(color_type== 4 ) 
-				) ) {
+			if (!((color_type == 6) || (color_type == 4))) {
 				break;
 			}
 #endif
 		}
 
-		// ƒƒ‚ƒŠ‚ÌŠm•Û
-		if ( pImage == NULL ) {
-			pImage = (GLubyte*)malloc(sizeof(unsigned char)*size*size*4);
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÌŠmï¿½ï¿½
+		if (pImage == NULL) {
+			pImage = (GLubyte*) malloc(sizeof(unsigned char) * size * size * 4);
 		}
-		if (pImage==NULL) return NULL;
-		for (y=0; y<size; y++){
-			pRead = pImage + (size-1-y)*4*size;
-			for (x=0; x<size; x++) {
+		if (pImage == NULL)
+			return NULL;
+		for (y = 0; y < size; y++) {
+			pRead = pImage + (size - 1 - y) * 4 * size;
+			for (x = 0; x < size; x++) {
 				other = 1;
-				if ( fl == 0 ) {
-					if ( isJPEG ) {
+				if (fl == 0) {
+					if (isJPEG) {
 #if DEF_USE_LIBJPEG
 						pRead[0]= jpegimage[size-1-y][x*3];
 						pRead[1]= jpegimage[size-1-y][x*3+1];
@@ -549,77 +539,84 @@ GLubyte* mqoLoadTextureEx(char *texfile,char *alpfile,int *tex_size,unsigned cha
 						other = 0;
 #endif
 					}
-					if ( isPNG ) {
+					if (isPNG) {
 #if DEF_USE_LIBPNG
-						if ( color_type == 2 || color_type==6 ) { 
-							pRead[0]= pngimage[size-1-y][x*pngdepth];
-							pRead[1]= pngimage[size-1-y][x*pngdepth+1];
-							pRead[2]= pngimage[size-1-y][x*pngdepth+2];
+						if (color_type == 2 || color_type == 6) {
+							pRead[0] = pngimage[size - 1 - y][x * pngdepth];
+							pRead[1] = pngimage[size - 1 - y][x * pngdepth + 1];
+							pRead[2] = pngimage[size - 1 - y][x * pngdepth + 2];
 							pRead[3] = alpha;				// A
-							if ( color_type == 6 ) {
-								pRead[3]= pngimage[size-1-y][x*pngdepth+3];
+							if (color_type == 6) {
+								pRead[3] = pngimage[size - 1 - y][x * pngdepth
+										+ 3];
 							}
 						}
 						other = 0;
 #endif
 					}
-					if ( other )  {
-						fread(&pRead[2],1,1,fp);	// B
-						fread(&pRead[1],1,1,fp);	// G	
-						fread(&pRead[0],1,1,fp);	// R
+					if (other) {
+						fread(&pRead[2], 1, 1, fp);	// B
+						fread(&pRead[1], 1, 1, fp);	// G
+						fread(&pRead[0], 1, 1, fp);	// R
 						pRead[3] = alpha;				// A
-						if ( isTGA && tgah.depth == 32 ) {
-							fread(&pRead[3],1,1,fp);	// A
-							if ( alpha < pRead[3] ) pRead[3] = alpha;
+						if (isTGA && tgah.depth == 32) {
+							fread(&pRead[3], 1, 1, fp);	// A
+							if (alpha < pRead[3])
+								pRead[3] = alpha;
 						}
 					}
-				}
-				else {
-					if ( isPNG ) {
+				} else {
+					if (isPNG) {
 #if DEF_USE_LIBPNG
-						if ( color_type == 6 ) { //ƒgƒDƒ‹[ƒJƒ‰[{ƒAƒ‹ƒtƒ@
-							pRead[3]= pngimage[size-1-y][x*pngdepth+3];
+						if (color_type == 6) { //ï¿½gï¿½Dï¿½ï¿½ï¿½[ï¿½Jï¿½ï¿½ï¿½[ï¿½{ï¿½Aï¿½ï¿½ï¿½tï¿½@
+							pRead[3] = pngimage[size - 1 - y][x * pngdepth + 3];
 						}
-						if ( color_type == 4 ) { //ƒOƒŒ[ƒXƒP[ƒ‹{ƒAƒ‹ƒtƒ@
-							pRead[3]= pngimage[size-1-y][x*pngdepth+1];
+						if (color_type == 4) { //ï¿½Oï¿½ï¿½ï¿½[ï¿½Xï¿½Pï¿½[ï¿½ï¿½ï¿½{ï¿½Aï¿½ï¿½ï¿½tï¿½@
+							pRead[3] = pngimage[size - 1 - y][x * pngdepth + 1];
 						}
-						if ( alpha < pRead[3] ) pRead[3] = alpha;
+						if (alpha < pRead[3])
+							pRead[3] = alpha;
 #endif
 					}
-					if ( isTGA ) {
-						if ( tgah.depth == 32 ) { //‚¢‚ç‚È‚¢ƒf[ƒ^‚ğ“Ç‚İ”ò‚Î‚·
-							fread(wbuf,3,1,fp);	// BGR
+					if (isTGA) {
+						if (tgah.depth == 32) { //ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½Ç‚İ”ï¿½Î‚ï¿½
+							fread(wbuf, 3, 1, fp);	// BGR
 						}
-						fread(&pRead[3],1,1,fp);	// A
-						if ( alpha < pRead[3] ) pRead[3] = alpha;
+						fread(&pRead[3], 1, 1, fp);	// A
+						if (alpha < pRead[3])
+							pRead[3] = alpha;
 					}
 				}
-				pRead+=4;
+				pRead += 4;
 			}
 		}
 		fclose(fp);
 		fp = NULL;
 	}
-	if ( sts != 0 ) {
-		if ( pImage != NULL ) free(pImage);
-		if ( fp != NULL ) fclose(fp);
+	if (sts != 0) {
+		if (pImage != NULL)
+			free(pImage);
+		if (fp != NULL)
+			fclose(fp);
 	}
 #if DEF_USE_LIBPNG
-	if ( pngimage != NULL ) {
+	if (pngimage != NULL) {
 		unsigned int uy;
-		for (uy = 0; uy < pngheight; uy++) free(pngimage[uy]);            // ˆÈ‰º‚Qs‚Í‚QŸŒ³”z—ñ‚ğ‰ğ•ú‚µ‚Ü‚·
+		for (uy = 0; uy < pngheight; uy++)
+			free(pngimage[uy]);            // ï¿½È‰ï¿½ï¿½Qï¿½sï¿½Í‚Qï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
 		free(pngimage);
 	}
 #endif
 #if DEF_USE_LIBJPEG
 	if ( jpegimage != NULL ) {
 		unsigned int uy;
-		for (uy = 0; uy < cinfo.output_height; uy++) free(jpegimage[uy]);            // ˆÈ‰º‚Qs‚Í‚QŸŒ³”z—ñ‚ğ‰ğ•ú‚µ‚Ü‚·
+		for (uy = 0; uy < cinfo.output_height; uy++) free(jpegimage[uy]); // ï¿½È‰ï¿½ï¿½Qï¿½sï¿½Í‚Qï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
 		free(jpegimage);
 	}
 #endif
-	if ( size < 0 ) {
-		if ( pImage != NULL ) free(pImage);
+	if (size < 0) {
+		if (pImage != NULL)
+			free(pImage);
 		pImage = NULL;
 	}
 	*tex_size = size;
@@ -627,54 +624,54 @@ GLubyte* mqoLoadTextureEx(char *texfile,char *alpfile,int *tex_size,unsigned cha
 	return pImage;
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoLoadFile
-y—p“rzƒƒ^ƒZƒRƒCƒAƒtƒ@ƒCƒ‹(*.mqo)‚©‚çƒf[ƒ^‚ğ“Ç‚İ‚Ş
-yˆø”z
-		mqoobj		MQOƒIƒuƒWƒFƒNƒg
-		filename	ƒtƒ@ƒCƒ‹‚ÌƒpƒX
-		scale		Šg‘å—¦
-		alpha		ƒAƒ‹ƒtƒ@
+ ï¿½yï¿½Öï¿½ï¿½zmqoLoadFile
+ ï¿½yï¿½pï¿½rï¿½zï¿½ï¿½ï¿½^ï¿½Zï¿½Rï¿½Cï¿½Aï¿½tï¿½@ï¿½Cï¿½ï¿½(*.mqo)ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ mqoobj		MQOï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½g
+ filename	ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ìƒpï¿½X
+ scale		ï¿½gï¿½å—¦
+ alpha		ï¿½Aï¿½ï¿½ï¿½tï¿½@
 
-y–ß’lz¬Œ÷F1 ^ ¸”sF0
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½ï¿½ï¿½ï¿½ï¿½F1 ï¿½^ ï¿½ï¿½ï¿½sï¿½F0
+ =========================================================================*/
 
-int mqoLoadFile( MQO_OBJECT *mqoobj, char *filename, double scale, unsigned char alpha)
-{
-	FILE			*fp;
-	MQO_OBJDATA		obj[MAX_OBJECT];
-	MQO_MATDATA		*M = NULL;
+int mqoLoadFile(MQO_OBJECT *mqoobj, char *filename, double scale,
+		unsigned char alpha) {
+	FILE *fp;
+	MQO_OBJDATA obj[MAX_OBJECT];
+	MQO_MATDATA *M = NULL;
 
-	char	buf[SIZE_STR];		// •¶š—ñ“Ç‚İ‚İƒoƒbƒtƒ@
-	char	path_dir[SIZE_STR];	// ƒfƒBƒŒƒNƒgƒŠ‚ÌƒpƒX
-	char	path_tex[SIZE_STR];	// ƒeƒNƒXƒ`ƒƒƒtƒ@ƒCƒ‹‚ÌƒpƒX
-	char	path_alp[SIZE_STR];	// ƒAƒ‹ƒtƒ@ƒeƒNƒXƒ`ƒƒƒtƒ@ƒCƒ‹‚ÌƒpƒX
-	int		n_mat = 0;			// ƒ}ƒeƒŠƒAƒ‹”
-	int		n_obj = 0;			// ƒIƒuƒWƒFƒNƒg”
-	int		i;
+	char buf[SIZE_STR];		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½İƒoï¿½bï¿½tï¿½@
+	char path_dir[SIZE_STR];	// ï¿½fï¿½Bï¿½ï¿½ï¿½Nï¿½gï¿½ï¿½ï¿½Ìƒpï¿½X
+	char path_tex[SIZE_STR];	// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ìƒpï¿½X
+	char path_alp[SIZE_STR];	// ï¿½Aï¿½ï¿½ï¿½tï¿½@ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ìƒpï¿½X
+	int n_mat = 0;			// ï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½
+	int n_obj = 0;			// ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½
+	int i;
 
-	// Material‚ÆObject‚Ì“Ç‚İ‚İ
-	fp = fopen(filename,"rb");
-	if (fp==NULL) return 0;
+	// Materialï¿½ï¿½Objectï¿½Ì“Ç‚İï¿½ï¿½ï¿½
+	fp = fopen(filename, "rb");
+	if (fp == NULL)
+		return 0;
 
 	mqoobj->alpha = alpha;
-	memset(obj,0,sizeof(obj));
+	memset(obj, 0, sizeof(obj));
 
 	i = 0;
-	while ( !feof(fp) ) {
-		fgets(buf,SIZE_STR,fp);
+	while (!feof(fp)) {
+		fgets(buf, SIZE_STR, fp);
 
 		// Material
-		if (strstr(buf,"Material")) {
-			sscanf(buf,"Material %d", &n_mat);
-			M = (MQO_MATDATA*) calloc( n_mat, sizeof(MQO_MATDATA) );
-			mqoReadMaterial(fp,M);
+		if (strstr(buf, "Material")) {
+			sscanf(buf, "Material %d", &n_mat);
+			M = (MQO_MATDATA*) calloc(n_mat, sizeof(MQO_MATDATA));
+			mqoReadMaterial(fp, M);
 		}
 
 		// Object
-		if (strstr(buf,"Object")) {
-			sscanf(buf,"Object %s", obj[i].objname);
+		if (strstr(buf, "Object")) {
+			sscanf(buf, "Object %s", obj[i].objname);
 			mqoReadObject(fp, &obj[i]);
 			i++;
 		}
@@ -682,411 +679,417 @@ int mqoLoadFile( MQO_OBJECT *mqoobj, char *filename, double scale, unsigned char
 	n_obj = i;
 	fclose(fp);
 
-	// ƒpƒX‚Ìæ“¾
+	// ï¿½pï¿½Xï¿½Ìæ“¾
 	mqoGetDirectory(filename, path_dir);
 
-	// ƒeƒNƒXƒ`ƒƒ‚Ì“o˜^
-	for (i=0; i<n_mat; i++) {
+	// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Ì“oï¿½^
+	for (i = 0; i < n_mat; i++) {
 		if (M[i].useTex) {
 
-			if (strstr(M[i].texFile,":")) {
-				strcpy(path_tex, M[i].texFile);	// â‘ÎƒpƒX‚Ìê‡
+			if (strstr(M[i].texFile, ":")) {
+				strcpy(path_tex, M[i].texFile);	// ï¿½ï¿½Îƒpï¿½Xï¿½Ìê‡
 			} else {
-				sprintf(path_tex,"%s%s",path_dir,M[i].texFile);	// ‘Š‘ÎƒpƒX‚Ìê‡
+				sprintf(path_tex, "%s%s", path_dir, M[i].texFile);// ï¿½ï¿½ï¿½Îƒpï¿½Xï¿½Ìê‡
 			}
 
-			if ( M[i].alpFile[0] != (char)0 ) {
-				if (strstr(M[i].texFile,":")) {
-					strcpy(path_alp, M[i].alpFile);	// â‘ÎƒpƒX‚Ìê‡
+			if (M[i].alpFile[0] != (char) 0) {
+				if (strstr(M[i].texFile, ":")) {
+					strcpy(path_alp, M[i].alpFile);	// ï¿½ï¿½Îƒpï¿½Xï¿½Ìê‡
 				} else {
-					sprintf(path_alp,"%s%s",path_dir,M[i].alpFile);	// ‘Š‘ÎƒpƒX‚Ìê‡
+					sprintf(path_alp, "%s%s", path_dir, M[i].alpFile);// ï¿½ï¿½ï¿½Îƒpï¿½Xï¿½Ìê‡
 				}
-				M[i].texName = mqoSetTexturePool(path_tex,path_alp,alpha);
-			}
-			else {
-				M[i].texName = mqoSetTexturePool(path_tex,NULL,alpha);
+				M[i].texName = mqoSetTexturePool(path_tex, path_alp, alpha);
+			} else {
+				M[i].texName = mqoSetTexturePool(path_tex, NULL, alpha);
 			}
 		}
 	}
 
-	mqoMakeObjectsEx( mqoobj, obj, n_obj, M, n_mat, scale, alpha );
+	mqoMakeObjectsEx(mqoobj, obj, n_obj, M, n_mat, scale, alpha);
 
-	// ƒIƒuƒWƒFƒNƒg‚Ìƒf[ƒ^‚ÌŠJ•ú
-	for (i=0; i<n_obj; i++) {
+	// ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½Ìƒfï¿½[ï¿½^ï¿½ÌŠJï¿½ï¿½
+	for (i = 0; i < n_obj; i++) {
 		free(obj[i].V);
 		free(obj[i].F);
 	}
 
-	// ƒ}ƒeƒŠƒAƒ‹‚ÌŠJ•ú
+	// ï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ÌŠJï¿½ï¿½
 	free(M);
 
 	return 1;
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoCreateList
-y—p“rzMQOƒIƒuƒWƒFƒNƒg‚ğw’è”Šm•Û‚·‚é
-yˆø”znum		MQOƒIƒuƒWƒFƒNƒg‚Ì”
+ ï¿½yï¿½Öï¿½ï¿½zmqoCreateList
+ ï¿½yï¿½pï¿½rï¿½zMQOï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½wï¿½è”ï¿½mï¿½Û‚ï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½znum		MQOï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½Ìï¿½
 
-y–ß’lzMQOƒIƒuƒWƒFƒNƒg
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zMQOï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½g
+ =========================================================================*/
 
-MQO_OBJECT* mqoCreateList(int num)
-{
+MQO_OBJECT* mqoCreateList(int num) {
 	MQO_OBJECT *obj;
 
-	// ‰Šú‰»‚³‚ê‚Ä‚È‚©‚Á‚½‚ç‰Šú‰»
-	if ( ! l_GLMetaseqInitialized ) mqoInit();
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç‰ï¿½ï¿½
+	if (!l_GLMetaseqInitialized)
+		mqoInit();
 
-	// —ÌˆæŠm•Û‚Æ‰Šú‰»
-	obj = (MQO_OBJECT *)malloc(sizeof(MQO_OBJECT)*num);
-	memset(obj, 0, sizeof(MQO_OBJECT)*num);
+	// ï¿½Ìˆï¿½mï¿½Û‚Æï¿½ï¿½ï¿½
+	obj = (MQO_OBJECT *) malloc(sizeof(MQO_OBJECT) * num);
+	memset(obj, 0, sizeof(MQO_OBJECT) * num);
 
 	return obj;
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoCreateListObject
-y—p“rzƒƒ^ƒZƒRƒCƒAƒtƒ@ƒCƒ‹(*.mqo)‚©‚çMQOƒIƒuƒWƒFƒNƒg”z—ñ‚ğì¬‚·‚é
+ ï¿½yï¿½Öï¿½ï¿½zmqoCreateListObject
+ ï¿½yï¿½pï¿½rï¿½zï¿½ï¿½ï¿½^ï¿½Zï¿½Rï¿½Cï¿½Aï¿½tï¿½@ï¿½Cï¿½ï¿½(*.mqo)ï¿½ï¿½ï¿½ï¿½MQOï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½zï¿½ï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½ï¿½
 
-yˆø”zmqoobj		MQOƒIƒuƒWƒFƒNƒg
-		i			“Ç‚İ‚İæ”Ô†ii”Ô–Ú‚ÉMQOƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Şj
-		filename	ƒtƒ@ƒCƒ‹‚ÌƒpƒX
-		scale		Šg‘å—¦
-		alpha		ƒAƒ‹ƒtƒ@w’èi‘S‘Ì‚ÌƒAƒ‹ƒtƒ@’l‚ğw’èi0`255jj
+ ï¿½yï¿½ï¿½zmqoobj		MQOï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½g
+ i			ï¿½Ç‚İï¿½ï¿½İï¿½Ôï¿½ï¿½iiï¿½Ô–Ú‚ï¿½MQOï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½Şj
+ filename	ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ìƒpï¿½X
+ scale		ï¿½gï¿½å—¦
+ alpha		ï¿½Aï¿½ï¿½ï¿½tï¿½@ï¿½wï¿½ï¿½iï¿½Sï¿½Ì‚ÌƒAï¿½ï¿½ï¿½tï¿½@ï¿½lï¿½ï¿½ï¿½wï¿½ï¿½i0ï¿½`255ï¿½jï¿½j
 
-y–ß’lzƒXƒe[ƒ^ƒX@•‰FˆÙí@‚OF³í
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½Xï¿½eï¿½[ï¿½^ï¿½Xï¿½@ï¿½ï¿½ï¿½Fï¿½Ùï¿½@ï¿½Oï¿½Fï¿½ï¿½ï¿½ï¿½
+ =========================================================================*/
 
-int mqoCreateListObject(MQO_OBJECT *mqoobj, int i, char *filename, double scale, unsigned char alpha )
-{
+int mqoCreateListObject(MQO_OBJECT *mqoobj, int i, char *filename, double scale,
+		unsigned char alpha) {
 	int ret;
 	ret = 0;
-	if ( mqoobj == (MQO_OBJECT *)NULL ) return -1;
-	if (! mqoLoadFile(&mqoobj[i], filename, scale, alpha)) ret = -1; 
+	if (mqoobj == (MQO_OBJECT *) NULL)
+		return -1;
+	if (!mqoLoadFile(&mqoobj[i], filename, scale, alpha))
+		ret = -1;
 	return ret;
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoCallListObject
-y—p“rzMQOƒIƒuƒWƒFƒNƒg‚ğOpenGL‚Ì‰æ–Êã‚ÉŒÄ‚Ño‚·
-yˆø”z
-		mqoobj		MQOƒIƒuƒWƒFƒNƒg”z—ñ
-		num			”z—ñ”Ô† (0`j
+ ï¿½yï¿½Öï¿½ï¿½zmqoCallListObject
+ ï¿½yï¿½pï¿½rï¿½zMQOï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½OpenGLï¿½Ì‰ï¿½Êï¿½ÉŒÄ‚Ñoï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ mqoobj		MQOï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½zï¿½ï¿½
+ num			ï¿½zï¿½ï¿½Ôï¿½ (0ï¿½`ï¿½j
 
-y–ß’lz‚È‚µ
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ =========================================================================*/
 
-void mqoCallListObject(MQO_OBJECT mqoobj[],int num)
-{
+void mqoCallListObject(MQO_OBJECT mqoobj[], int num) {
 
-	MQO_INNER_OBJECT	*obj;
-	MQO_MATERIAL		*mat;
-	GLfloat				matenv[4];
-	GLint				bindGL_TEXTURE_2D	= 0;
-	GLboolean			isGL_TEXTURE_2D		= GL_FALSE;
-	GLboolean			isGL_BLEND			= GL_FALSE;
-	GLint				blendGL_SRC_ALPHA	= 0;
-	GLint				intFrontFace;
+	MQO_INNER_OBJECT *obj;
+	MQO_MATERIAL *mat;
+	GLfloat matenv[4];
+	GLint bindGL_TEXTURE_2D = 0;
+	GLboolean isGL_TEXTURE_2D = GL_FALSE;
+	GLboolean isGL_BLEND = GL_FALSE;
+	GLint blendGL_SRC_ALPHA = 0;
+	GLint intFrontFace;
 
-	int		o, m, offset;
-	double	dalpha;
-	char	*base;
+	int o, m, offset;
+	double dalpha;
+	char *base;
 
-	if ( mqoobj == NULL) return;
+	if (mqoobj == NULL)
+		return;
 
 	glPushMatrix();
-		//ƒƒ^ƒZƒR‚Í’¸“_‚Ì•À‚Ñ‚ª•\–Ê‚©‚ç‚İ‚Ä‰E‰ñ‚è
-		glGetIntegerv(GL_FRONT_FACE,&intFrontFace);
-		glFrontFace(GL_CW);
-		dalpha = (double)mqoobj[num].alpha/(double)255;
+	//ï¿½ï¿½ï¿½^ï¿½Zï¿½Rï¿½Í’ï¿½ï¿½_ï¿½Ì•ï¿½ï¿½Ñ‚ï¿½ï¿½\ï¿½Ê‚ï¿½ï¿½ï¿½İ‚Ä‰Eï¿½ï¿½ï¿½
+	glGetIntegerv(GL_FRONT_FACE, &intFrontFace);
+	glFrontFace(GL_CW);
+	dalpha = (double) mqoobj[num].alpha / (double) 255;
 
-		for ( o=0; o<mqoobj[num].objnum; o++ ) {	// “à•”ƒIƒuƒWƒFƒNƒgƒ‹[ƒv
+	for (o = 0; o < mqoobj[num].objnum; o++) {	// ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½[ï¿½v
 
-			obj = &mqoobj[num].obj[o];
-			if ( ! obj->isVisible ) continue;
-			glShadeModel(((obj->isShadingFlat))?GL_FLAT:GL_SMOOTH);
+		obj = &mqoobj[num].obj[o];
+		if (!obj->isVisible)
+			continue;
+		glShadeModel(((obj->isShadingFlat)) ? GL_FLAT : GL_SMOOTH);
 
-			for ( m = 0; m < obj->matnum; m++ ) {	//ƒ}ƒeƒŠƒAƒ‹ƒ‹[ƒv
+		for (m = 0; m < obj->matnum; m++) {	//ï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½v
 
-				mat = &obj->mat[m];
-				if ( mat->datanum == 0 ) continue;
+			mat = &obj->mat[m];
+			if (mat->datanum == 0)
+				continue;
 
-				if ( mat->isValidMaterialInfo ) {	// ƒ}ƒeƒŠƒAƒ‹‚Ìî•ñİ’è
-					memcpy(matenv,mat->dif,sizeof(matenv));
-					matenv[3] *= dalpha;
-					glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, matenv);
-					memcpy(matenv,mat->amb,sizeof(matenv));
-					matenv[3] *= dalpha;
-					glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, matenv);
-					memcpy(matenv,mat->spc,sizeof(matenv));
-					matenv[3] *= dalpha;
-					glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, matenv);
-					memcpy(matenv,mat->emi,sizeof(matenv));
-					matenv[3] *= dalpha;
-					glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, matenv);
-					glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, mat->power);
-				}
+			if (mat->isValidMaterialInfo) {	// ï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Ìï¿½ï¿½İ’ï¿½
+				memcpy(matenv, mat->dif, sizeof(matenv));
+				matenv[3] *= dalpha;
+				glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, matenv);
+				memcpy(matenv, mat->amb, sizeof(matenv));
+				matenv[3] *= dalpha;
+				glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, matenv);
+				memcpy(matenv, mat->spc, sizeof(matenv));
+				matenv[3] *= dalpha;
+				glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, matenv);
+				memcpy(matenv, mat->emi, sizeof(matenv));
+				matenv[3] *= dalpha;
+				glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, matenv);
+				glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, mat->power);
+			}
 
-				if ( mat->isUseTexture) {	// ƒeƒNƒXƒ`ƒƒ‚ª‚ ‚éê‡
-					glEnableClientState( GL_VERTEX_ARRAY );
-					glEnableClientState( GL_NORMAL_ARRAY );
-					glEnableClientState( GL_TEXTURE_COORD_ARRAY );
+			if (mat->isUseTexture) {	// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡
+				glEnableClientState( GL_VERTEX_ARRAY);
+				glEnableClientState( GL_NORMAL_ARRAY);
+				glEnableClientState( GL_TEXTURE_COORD_ARRAY);
 
-					isGL_TEXTURE_2D = glIsEnabled(GL_TEXTURE_2D);
-					isGL_BLEND = glIsEnabled(GL_BLEND);
-					glGetIntegerv(GL_TEXTURE_BINDING_2D,&bindGL_TEXTURE_2D);
+				isGL_TEXTURE_2D = glIsEnabled(GL_TEXTURE_2D);
+				isGL_BLEND = glIsEnabled(GL_BLEND);
+				glGetIntegerv(GL_TEXTURE_BINDING_2D, &bindGL_TEXTURE_2D);
 //					glGetIntegerv(GL_BLEND_SRC_ALPHA,&blendGL_SRC_ALPHA);
 
-					glEnable(GL_TEXTURE_2D);
-					glEnable(GL_BLEND);
-					glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+				glEnable(GL_TEXTURE_2D);
+				glEnable(GL_BLEND);
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-					glBindTexture(GL_TEXTURE_2D,mat->texture_id);
+				glBindTexture(GL_TEXTURE_2D, mat->texture_id);
 
-					if ( g_isVBOSupported ) {	// ’¸“_ƒoƒbƒtƒ@g—p
-						base = (char *)NULL;	// ƒAƒhƒŒƒX‚ÍNULL‚ªæ“ª
-						glBindBufferARB( GL_ARRAY_BUFFER_ARB, mat->VBO_id ); // ’¸“_ƒoƒbƒtƒ@‚ğŒ‹‚Ñ‚Â‚¯‚é
-					}
-					else {
-						// ’¸“_”z—ñ‚Ì‚ÍAƒAƒhƒŒƒX‚ğ‚»‚Ì‚Ü‚Ü“ü‚ê‚é
-						base = (char *)mat->vertex_t[0].point;
-					}
-
-					// ’¸“_”z—ñ‚ğİ’è
-					offset = (int)( (char *)mat->vertex_t[0].point - (char *)mat->vertex_t[0].point );
-					glVertexPointer( 3, GL_FLOAT, sizeof(VERTEX_TEXUSE) , base + offset );
-
-					// ƒeƒNƒXƒ`ƒƒÀ•W”z—ñ‚ğİ’è
-					offset = (int)((char *)mat->vertex_t[0].uv-(char *)mat->vertex_t[0].point);
-					glTexCoordPointer( 2, GL_FLOAT, sizeof(VERTEX_TEXUSE) , base + offset );
-
-					// –@ü”z—ñ‚ğİ’è
-					offset = (int)((char *)mat->vertex_t[0].normal-(char *)mat->vertex_t[0].point);
-					glNormalPointer( GL_FLOAT, sizeof(VERTEX_TEXUSE) , base+offset );
-
-					// Fİ’è
-					glColor4f(mat->color[0],mat->color[1],mat->color[2],mat->color[3]);
-
-					// •`‰æÀs
-					glDrawArrays( GL_TRIANGLES, 0, mat->datanum );
-
-					glBindTexture(GL_TEXTURE_2D,bindGL_TEXTURE_2D);
-					if( isGL_BLEND == GL_FALSE ) glDisable(GL_BLEND);
-					if( isGL_TEXTURE_2D == GL_FALSE ) glDisable(GL_TEXTURE_2D);
-
-					if ( g_isVBOSupported ) {						// ’¸“_ƒoƒbƒtƒ@g—p
-						glBindBufferARB( GL_ARRAY_BUFFER_ARB, 0 );	// ’¸“_ƒoƒbƒtƒ@‚ğƒfƒtƒHƒ‹ƒg‚Ö
-					}
-
-					glDisableClientState( GL_VERTEX_ARRAY );
-					glDisableClientState( GL_NORMAL_ARRAY );
-					glDisableClientState( GL_TEXTURE_COORD_ARRAY );
+				if (g_isVBOSupported) {	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½gï¿½p
+					base = (char *) NULL;	// ï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½NULLï¿½ï¿½ï¿½æ“ª
+					glBindBufferARB( GL_ARRAY_BUFFER_ARB, mat->VBO_id); // ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½Ñ‚Â‚ï¿½ï¿½ï¿½
+				} else {
+					// ï¿½ï¿½ï¿½_ï¿½zï¿½ï¿½Ìï¿½ï¿½ÍAï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½Ì‚Ü‚Ü“ï¿½ï¿½ï¿½
+					base = (char *) mat->vertex_t[0].point;
 				}
-				else {	// ƒeƒNƒXƒ`ƒƒ‚ª‚È‚¢ê‡
 
-					glEnableClientState( GL_VERTEX_ARRAY );
-					glEnableClientState( GL_NORMAL_ARRAY );
+				// ï¿½ï¿½ï¿½_ï¿½zï¿½ï¿½ï¿½İ’ï¿½
+				offset = (int) ((char *) mat->vertex_t[0].point
+						- (char *) mat->vertex_t[0].point);
+				glVertexPointer(3, GL_FLOAT, sizeof(VERTEX_TEXUSE),
+						base + offset);
+
+				// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½zï¿½ï¿½ï¿½İ’ï¿½
+				offset = (int) ((char *) mat->vertex_t[0].uv
+						- (char *) mat->vertex_t[0].point);
+				glTexCoordPointer(2, GL_FLOAT, sizeof(VERTEX_TEXUSE),
+						base + offset);
+
+				// ï¿½@ï¿½ï¿½zï¿½ï¿½ï¿½İ’ï¿½
+				offset = (int) ((char *) mat->vertex_t[0].normal
+						- (char *) mat->vertex_t[0].point);
+				glNormalPointer( GL_FLOAT, sizeof(VERTEX_TEXUSE),
+						base + offset);
+
+				// ï¿½Fï¿½İ’ï¿½
+				glColor4f(mat->color[0], mat->color[1], mat->color[2],
+						mat->color[3]);
+
+				// ï¿½`ï¿½ï¿½ï¿½ï¿½s
+				glDrawArrays( GL_TRIANGLES, 0, mat->datanum);
+
+				glBindTexture(GL_TEXTURE_2D, bindGL_TEXTURE_2D);
+				if (isGL_BLEND == GL_FALSE)
+					glDisable(GL_BLEND);
+				if (isGL_TEXTURE_2D == GL_FALSE)
+					glDisable(GL_TEXTURE_2D);
+
+				if (g_isVBOSupported) {						// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½gï¿½p
+					glBindBufferARB( GL_ARRAY_BUFFER_ARB, 0);// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½fï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½ï¿½
+				}
+
+				glDisableClientState( GL_VERTEX_ARRAY);
+				glDisableClientState( GL_NORMAL_ARRAY);
+				glDisableClientState( GL_TEXTURE_COORD_ARRAY);
+			} else {	// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ê‡
+
+				glEnableClientState( GL_VERTEX_ARRAY);
+				glEnableClientState( GL_NORMAL_ARRAY);
 				//	glEnableClientState( GL_COLOR_ARRAY );
 
-					isGL_BLEND = glIsEnabled(GL_BLEND);
-					glEnable(GL_BLEND);
-					glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+				isGL_BLEND = glIsEnabled(GL_BLEND);
+				glEnable(GL_BLEND);
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-					if ( g_isVBOSupported ) {	// ’¸“_ƒoƒbƒtƒ@g—p
-						base = (char *)NULL;
-						glBindBufferARB( GL_ARRAY_BUFFER_ARB, mat->VBO_id );
-					}
-					else {
-						base = (char *)mat->vertex_p[0].point;
-					}
+				if (g_isVBOSupported) {	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½gï¿½p
+					base = (char *) NULL;
+					glBindBufferARB( GL_ARRAY_BUFFER_ARB, mat->VBO_id);
+				} else {
+					base = (char *) mat->vertex_p[0].point;
+				}
 
-					// ’¸“_”z—ñ‚ğİ’è
-					offset = (int)((char *)mat->vertex_p[0].point-(char *)mat->vertex_p[0].point);
-					glVertexPointer( 3, GL_FLOAT, sizeof(VERTEX_NOTEX) , base+offset );
+				// ï¿½ï¿½ï¿½_ï¿½zï¿½ï¿½ï¿½İ’ï¿½
+				offset = (int) ((char *) mat->vertex_p[0].point
+						- (char *) mat->vertex_p[0].point);
+				glVertexPointer(3, GL_FLOAT, sizeof(VERTEX_NOTEX),
+						base + offset);
 
-					// –@ü”z—ñ‚ğİ’è
-					offset = (int)((char *)mat->vertex_p[0].normal-(char *)mat->vertex_p[0].point);
-					glNormalPointer( GL_FLOAT, sizeof(VERTEX_NOTEX) , base+offset );
+				// ï¿½@ï¿½ï¿½zï¿½ï¿½ï¿½İ’ï¿½
+				offset = (int) ((char *) mat->vertex_p[0].normal
+						- (char *) mat->vertex_p[0].point);
+				glNormalPointer( GL_FLOAT, sizeof(VERTEX_NOTEX), base + offset);
 
-					// Fİ’è
-					glColor4f(mat->color[0],mat->color[1],mat->color[2],mat->color[3]);
+				// ï¿½Fï¿½İ’ï¿½
+				glColor4f(mat->color[0], mat->color[1], mat->color[2],
+						mat->color[3]);
 				//	offset = (int)((char *)mat->vertex_p[0].color-(char *)mat->vertex_p[0].point);
 				//	glColorPointer(4,GL_FLOAT,sizeof(VERTEX_NOTEX),base+offset);
 
-					// •`‰æÀs
-					glDrawArrays( GL_TRIANGLES, 0, mat->datanum );
+				// ï¿½`ï¿½ï¿½ï¿½ï¿½s
+				glDrawArrays( GL_TRIANGLES, 0, mat->datanum);
 
-					if( isGL_BLEND == GL_FALSE ) glDisable(GL_BLEND);
-					if ( g_isVBOSupported ) {						// ’¸“_ƒoƒbƒtƒ@g—p
-						glBindBufferARB( GL_ARRAY_BUFFER_ARB, 0 );	// ’¸“_ƒoƒbƒtƒ@‚ğƒfƒtƒHƒ‹ƒg‚Ö
-					}
+				if (isGL_BLEND == GL_FALSE)
+					glDisable(GL_BLEND);
+				if (g_isVBOSupported) {						// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½gï¿½p
+					glBindBufferARB( GL_ARRAY_BUFFER_ARB, 0);// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½fï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½ï¿½
+				}
 
 				//	glDisableClientState( GL_COLOR_ARRAY );
-					glDisableClientState( GL_VERTEX_ARRAY );
-					glDisableClientState( GL_NORMAL_ARRAY );
+				glDisableClientState( GL_VERTEX_ARRAY);
+				glDisableClientState( GL_NORMAL_ARRAY);
 
-				}
 			}
 		}
+	}
 
-		//ƒƒ^ƒZƒR‚Í’¸“_‚Ì•À‚Ñ‚ª•\–Ê‚©‚ç‚İ‚Ä‰E‰ñ‚èiŒ³‚Ìİ’è‚É‚à‚Ç‚·j
-		glFrontFace(intFrontFace);
+	//ï¿½ï¿½ï¿½^ï¿½Zï¿½Rï¿½Í’ï¿½ï¿½_ï¿½Ì•ï¿½ï¿½Ñ‚ï¿½ï¿½\ï¿½Ê‚ï¿½ï¿½ï¿½İ‚Ä‰Eï¿½ï¿½ï¿½iï¿½ï¿½ï¿½Ìİ’ï¿½É‚ï¿½ï¿½Ç‚ï¿½ï¿½j
+	glFrontFace(intFrontFace);
 	glPopMatrix();
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoGetDirectory
-y—p“rzƒtƒ@ƒCƒ‹–¼‚ğŠÜ‚ŞƒpƒX•¶š—ñ‚©‚çƒfƒBƒŒƒNƒgƒŠ‚ÌƒpƒX‚Ì‚İ‚ğ’Šo‚·‚é
-yˆø”z
-		*path_file	ƒtƒ@ƒCƒ‹–¼‚ğŠÜ‚ŞƒpƒX•¶š—ñi“ü—Íj
-		*path_dir	ƒtƒ@ƒCƒ‹–¼‚ğœ‚¢‚½ƒpƒX•¶š—ñio—Íj
+ ï¿½yï¿½Öï¿½ï¿½zmqoGetDirectory
+ ï¿½yï¿½pï¿½rï¿½zï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚Şƒpï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ñ‚©‚ï¿½fï¿½Bï¿½ï¿½ï¿½Nï¿½gï¿½ï¿½ï¿½Ìƒpï¿½Xï¿½Ì‚İ‚ğ’Šoï¿½ï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ *path_file	ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚Şƒpï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½Íj
+ *path_dir	ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½pï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½oï¿½Íj
 
-y–ß’lz‚È‚µ
-yd—lz—áF
-		"C:/data/file.bmp" ¨ "C:/data/"
-		"data/file.mqo"    ¨ "data/"
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ ï¿½yï¿½dï¿½lï¿½zï¿½ï¿½F
+ "C:/data/file.bmp" ï¿½ï¿½ "C:/data/"
+ "data/file.mqo"    ï¿½ï¿½ "data/"
+ =========================================================================*/
 
-void mqoGetDirectory(const char *path_file, char *path_dir)
-{
+void mqoGetDirectory(const char *path_file, char *path_dir) {
 	char *pStr;
 	int len;
 
-	pStr = MAX( strrchr(path_file,'\\'), strrchr(path_file,'/') );
-	len = MAX((int)(pStr-path_file)+1,0);
-	strncpy(path_dir,path_file,len);
-	path_dir[len] = (char)0;
+	pStr = MAX(strrchr(path_file, '\\'), strrchr(path_file, '/'));
+	len = MAX((int )(pStr - path_file) + 1, 0);
+	strncpy(path_dir, path_file, len);
+	path_dir[len] = (char) 0;
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoSnormal
-y—p“rz–@üƒxƒNƒgƒ‹‚ğ‹‚ß‚é
-yˆø”z
-		A		3ŸŒ³À•Wã‚Ì“_A
-		B		3ŸŒ³À•Wã‚Ì“_B
-		C		3ŸŒ³À•Wã‚Ì“_C
-		*normal	ƒxƒNƒgƒ‹BA‚ÆƒxƒNƒgƒ‹BC‚Ì–@üƒxƒNƒgƒ‹i‰E‚Ë‚¶•ûŒüj
+ ï¿½yï¿½Öï¿½ï¿½zmqoSnormal
+ ï¿½yï¿½pï¿½rï¿½zï¿½@ï¿½ï¿½xï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½
+ ï¿½yï¿½ï¿½z
+ A		3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½ï¿½Ì“_A
+ B		3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½ï¿½Ì“_B
+ C		3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½ï¿½Ì“_C
+ *normal	ï¿½xï¿½Nï¿½gï¿½ï¿½BAï¿½Æƒxï¿½Nï¿½gï¿½ï¿½BCï¿½Ì–@ï¿½ï¿½xï¿½Nï¿½gï¿½ï¿½ï¿½iï¿½Eï¿½Ë‚ï¿½ï¿½ï¿½ï¿½j
 
-y–ß’lz‚È‚µ
-yd—lzƒƒ^ƒZƒRƒCƒA‚É‚¨‚¢‚Ä–Ê‚ğ\¬‚·‚é’¸“_‚Ì”Ô†‚ÍC•\¦–Ê‚©‚çŒ©‚Ä
-		Œv‰ñ‚è‚É‹Lq‚µ‚Ä‚ ‚éD‚Â‚Ü‚èC’¸“_A,B,C ‚ª‚ ‚Á‚½‚Æ‚«C
-		‹‚ß‚é‚×‚«–@ü‚ÍBA‚ÆBC‚ÌŠOÏ‚É‚æ‚Á‚Ä‹‚ß‚ç‚ê‚é
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ ï¿½yï¿½dï¿½lï¿½zï¿½ï¿½ï¿½^ï¿½Zï¿½Rï¿½Cï¿½Aï¿½É‚ï¿½ï¿½ï¿½ï¿½Ä–Ê‚ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½é’¸ï¿½_ï¿½Ì”Ôï¿½ï¿½ÍCï¿½\ï¿½ï¿½ï¿½Ê‚ï¿½ï¿½çŒ©ï¿½ï¿½
+ ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½É‹Lï¿½qï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Dï¿½Â‚Ü‚ï¿½Cï¿½ï¿½ï¿½_A,B,C ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½C
+ ï¿½ï¿½ï¿½ß‚ï¿½×‚ï¿½ï¿½@ï¿½ï¿½ï¿½BAï¿½ï¿½BCï¿½ÌŠOï¿½Ï‚É‚ï¿½ï¿½ï¿½Ä‹ï¿½ï¿½ß‚ï¿½ï¿½ï¿½
+ =========================================================================*/
 
-void mqoSnormal(glPOINT3f A, glPOINT3f B, glPOINT3f C, glPOINT3f *normal)
-{
+void mqoSnormal(glPOINT3f A, glPOINT3f B, glPOINT3f C, glPOINT3f *normal) {
 	double norm;
-	glPOINT3f vec0,vec1;
+	glPOINT3f vec0, vec1;
 
-	// ƒxƒNƒgƒ‹BA
-	vec0.x = A.x - B.x; 
+	// ï¿½xï¿½Nï¿½gï¿½ï¿½BA
+	vec0.x = A.x - B.x;
 	vec0.y = A.y - B.y;
 	vec0.z = A.z - B.z;
 
-	// ƒxƒNƒgƒ‹BC
+	// ï¿½xï¿½Nï¿½gï¿½ï¿½BC
 	vec1.x = C.x - B.x;
 	vec1.y = C.y - B.y;
 	vec1.z = C.z - B.z;
 
-	// –@üƒxƒNƒgƒ‹
+	// ï¿½@ï¿½ï¿½xï¿½Nï¿½gï¿½ï¿½
 	normal->x = vec0.y * vec1.z - vec0.z * vec1.y;
 	normal->y = vec0.z * vec1.x - vec0.x * vec1.z;
 	normal->z = vec0.x * vec1.y - vec0.y * vec1.x;
 
-	// ³‹K‰»
-	norm = normal->x * normal->x + normal->y * normal->y + normal->z * normal->z;
-	norm = sqrt ( norm );
+	// ï¿½ï¿½ï¿½Kï¿½ï¿½
+	norm = normal->x * normal->x + normal->y * normal->y
+			+ normal->z * normal->z;
+	norm = sqrt(norm);
 
 	normal->x /= norm;
 	normal->y /= norm;
 	normal->z /= norm;
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoReadMaterial
-y—p“rzƒ}ƒeƒŠƒAƒ‹î•ñ‚Ì“Ç‚İ‚İ
-yˆø”z
-		fp		ƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^
-		M		ƒ}ƒeƒŠƒAƒ‹”z—ñ
+ ï¿½yï¿½Öï¿½ï¿½zmqoReadMaterial
+ ï¿½yï¿½pï¿½rï¿½zï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ fp		ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^
+ M		ï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½zï¿½ï¿½
 
-y–ß’lz‚È‚µ
-yd—lzmqoCreateModel(), mqoCreateSequence()‚ÌƒTƒuŠÖ”D
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ ï¿½yï¿½dï¿½lï¿½zmqoCreateModel(), mqoCreateSequence()ï¿½ÌƒTï¿½uï¿½Öï¿½ï¿½D
+ =========================================================================*/
 
-void mqoReadMaterial(FILE *fp, MQO_MATDATA M[])
-{
-	GLfloat		dif, amb, emi, spc;
-	glCOLOR4f	c;
-	char		buf[SIZE_STR];
-	char		*pStrEnd, *pStr;
-	int			len;
-	int			i = 0;
+void mqoReadMaterial(FILE *fp, MQO_MATDATA M[]) {
+	GLfloat dif, amb, emi, spc;
+	glCOLOR4f c;
+	char buf[SIZE_STR];
+	char *pStrEnd, *pStr;
+	int len;
+	int i = 0;
 
 	while (1) {
-		fgets(buf,SIZE_STR,fp);	// s“Ç‚İ‚İ
-		if (strstr(buf,"}")) break;
+		fgets(buf, SIZE_STR, fp);	// ï¿½sï¿½Ç‚İï¿½ï¿½ï¿½
+		if (strstr(buf, "}"))
+			break;
 
-		pStr = strstr(buf,"col(");	// Ş¿–¼“Ç‚İ”ò‚Î‚µ
-		sscanf( pStr,
+		pStr = strstr(buf, "col(");	// ï¿½Şï¿½ï¿½ï¿½ï¿½Ç‚İ”ï¿½Î‚ï¿½
+		sscanf(pStr,
 				"col(%f %f %f %f) dif (%f) amb(%f) emi(%f) spc(%f) power(%f)",
-				&c.r, &c.g, &c.b, &c.a, &dif, &amb, &emi, &spc, &M[i].power );
+				&c.r, &c.g, &c.b, &c.a, &dif, &amb, &emi, &spc, &M[i].power);
 
-		// ’¸“_ƒJƒ‰[
+		// ï¿½ï¿½ï¿½_ï¿½Jï¿½ï¿½ï¿½[
 		M[i].col = c;
 
-		// ŠgUŒõ
+		// ï¿½gï¿½Uï¿½ï¿½
 		M[i].dif[0] = dif * c.r;
 		M[i].dif[1] = dif * c.g;
 		M[i].dif[2] = dif * c.b;
 		M[i].dif[3] = c.a;
 
-		// üˆÍŒõ
+		// ï¿½ï¿½ÍŒï¿½
 		M[i].amb[0] = amb * c.r;
 		M[i].amb[1] = amb * c.g;
 		M[i].amb[2] = amb * c.b;
 		M[i].amb[3] = c.a;
 
-		// ©ŒÈÆ–¾
+		// ï¿½ï¿½ï¿½ÈÆ–ï¿½
 		M[i].emi[0] = emi * c.r;
 		M[i].emi[1] = emi * c.g;
 		M[i].emi[2] = emi * c.b;
 		M[i].emi[3] = c.a;
 
-		// ”½ËŒõ
+		// ï¿½ï¿½ï¿½ËŒï¿½
 		M[i].spc[0] = spc * c.r;
 		M[i].spc[1] = spc * c.g;
 		M[i].spc[2] = spc * c.b;
 		M[i].spc[3] = c.a;
-		
-		// texF–Í—lƒ}ƒbƒsƒ“ƒO–¼
-		if ( (pStr = strstr(buf,"tex(")) != NULL ) {
+
+		// texï¿½Fï¿½Í—lï¿½}ï¿½bï¿½sï¿½ï¿½ï¿½Oï¿½ï¿½
+		if ((pStr = strstr(buf, "tex(")) != NULL) {
 			M[i].useTex = TRUE;
 
-			pStrEnd = strstr(pStr,")")-1;
-			len = pStrEnd - (pStr+5);
-			strncpy(M[i].texFile,pStr+5,len);
-			M[i].texFile[len] = (char)0;
-			if ( (pStr = strstr(buf,"aplane(")) != NULL ) {
-				pStrEnd = strstr(pStr,")")-1;
-				len = pStrEnd - (pStr+8);
-				strncpy(M[i].alpFile,pStr+8,len);
-				M[i].alpFile[len] = (char)0;
-			}
-			else {
-				M[i].alpFile[0] = (char)0;
+			pStrEnd = strstr(pStr, ")") - 1;
+			len = pStrEnd - (pStr + 5);
+			strncpy(M[i].texFile, pStr + 5, len);
+			M[i].texFile[len] = (char) 0;
+			if ((pStr = strstr(buf, "aplane(")) != NULL) {
+				pStrEnd = strstr(pStr, ")") - 1;
+				len = pStrEnd - (pStr + 8);
+				strncpy(M[i].alpFile, pStr + 8, len);
+				M[i].alpFile[len] = (char) 0;
+			} else {
+				M[i].alpFile[0] = (char) 0;
 			}
 
 		} else {
 			M[i].useTex = FALSE;
-			M[i].texFile[0] = (char)0;
-			M[i].alpFile[0] = (char)0;
+			M[i].texFile[0] = (char) 0;
+			M[i].alpFile[0] = (char) 0;
 		}
 
 		i++;
@@ -1094,65 +1097,61 @@ void mqoReadMaterial(FILE *fp, MQO_MATDATA M[])
 
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoReadVertex
-y—p“rz’¸“_î•ñ‚Ì“Ç‚İ‚İ
-yˆø”z
-		fp		Œ»İƒI[ƒvƒ“‚µ‚Ä‚¢‚éƒƒ^ƒZƒRƒCƒAƒtƒ@ƒCƒ‹‚Ìƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^
-		V		’¸“_‚ğŠi”[‚·‚é”z—ñ
-		
-y–ß’lz‚È‚µ
-yd—lzmqoReadObject()‚ÌƒTƒuŠÖ”
-=========================================================================*/
+ ï¿½yï¿½Öï¿½ï¿½zmqoReadVertex
+ ï¿½yï¿½pï¿½rï¿½zï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ fp		ï¿½ï¿½ï¿½İƒIï¿½[ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½éƒï¿½^ï¿½Zï¿½Rï¿½Cï¿½Aï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ìƒtï¿½@ï¿½Cï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^
+ V		ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½
 
-void mqoReadVertex(FILE *fp, glPOINT3f V[])
-{
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ ï¿½yï¿½dï¿½lï¿½zmqoReadObject()ï¿½ÌƒTï¿½uï¿½Öï¿½
+ =========================================================================*/
+
+void mqoReadVertex(FILE *fp, glPOINT3f V[]) {
 	char buf[SIZE_STR];
-	int  i=0;
+	int i = 0;
 
 	while (1) {
-		fgets(buf,SIZE_STR,fp);
-		if (strstr(buf,"}")) break;
-		sscanf(buf,"%f %f %f",&V[i].x,&V[i].y,&V[i].z);
+		fgets(buf, SIZE_STR, fp);
+		if (strstr(buf, "}"))
+			break;
+		sscanf(buf, "%f %f %f", &V[i].x, &V[i].y, &V[i].z);
 		i++;
 	}
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoReadBVertex
-y—p“rzƒoƒCƒiƒŠŒ`®‚Ì’¸“_î•ñ‚ğ“Ç‚İ‚Ş
-yˆø”z
-		fp		Œ»İƒI[ƒvƒ“‚µ‚Ä‚¢‚éƒƒ^ƒZƒRƒCƒAƒtƒ@ƒCƒ‹‚Ìƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^
-		V		’¸“_‚ğŠi”[‚·‚é”z—ñ
+ ï¿½yï¿½Öï¿½ï¿½zmqoReadBVertex
+ ï¿½yï¿½pï¿½rï¿½zï¿½oï¿½Cï¿½iï¿½ï¿½ï¿½`ï¿½ï¿½ï¿½Ì’ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ fp		ï¿½ï¿½ï¿½İƒIï¿½[ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½éƒï¿½^ï¿½Zï¿½Rï¿½Cï¿½Aï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ìƒtï¿½@ï¿½Cï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^
+ V		ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½
 
-y–ß’lz’¸“_”
-yd—lzmqoReadObject()‚ÌƒTƒuŠÖ”
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½ï¿½ï¿½_ï¿½ï¿½
+ ï¿½yï¿½dï¿½lï¿½zmqoReadObject()ï¿½ÌƒTï¿½uï¿½Öï¿½
+ =========================================================================*/
 
-int mqoReadBVertex(FILE *fp, glPOINT3f V[])
-{
-	int n_vertex,i;
+int mqoReadBVertex(FILE *fp, glPOINT3f V[]) {
+	int n_vertex, i;
 	float *wf;
 	int size;
 	char cw[256];
 	char *pStr;
 
-	fgets(cw,sizeof(cw),fp);
-	if ( (pStr = strstr(cw,"Vector")) != NULL ) {
-		sscanf(pStr,"Vector %d [%d]",&n_vertex,&size);	// ’¸“_”Aƒf[ƒ^ƒTƒCƒY‚ğ“Ç‚İ‚Ş
-	}
-	else {
+	fgets(cw, sizeof(cw), fp);
+	if ((pStr = strstr(cw, "Vector")) != NULL) {
+		sscanf(pStr, "Vector %d [%d]", &n_vertex, &size);// ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Aï¿½fï¿½[ï¿½^ï¿½Tï¿½Cï¿½Yï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
+	} else {
 		return -1;
 	}
-	//MQOƒtƒ@ƒCƒ‹‚ÌƒoƒCƒiƒŠ’¸“_ƒf[ƒ^‚ÍintelŒ`®iƒŠƒgƒ‹ƒGƒfƒBƒAƒ“j
-	wf = (float *)malloc(size);
-	fread(wf,size,1,fp);
-	for ( i = 0; i < n_vertex; i++ ) {
-		V[i].x = wf[i*3+0];
-		V[i].y = wf[i*3+1];
-		V[i].z = wf[i*3+2];
+	//MQOï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ìƒoï¿½Cï¿½iï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½fï¿½[ï¿½^ï¿½ï¿½intelï¿½`ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Gï¿½fï¿½Bï¿½Aï¿½ï¿½ï¿½j
+	wf = (float *) malloc(size);
+	fread(wf, size, 1, fp);
+	for (i = 0; i < n_vertex; i++) {
+		V[i].x = wf[i * 3 + 0];
+		V[i].y = wf[i * 3 + 1];
+		V[i].z = wf[i * 3 + 2];
 #if DEF_IS_LITTLE_ENDIAN
 #else
 		endianConverter((void *)&V[i].x,sizeof(V[i].x));
@@ -1162,93 +1161,89 @@ int mqoReadBVertex(FILE *fp, glPOINT3f V[])
 	}
 	free(wf);
 
-	// "}"‚Ü‚Å“Ç‚İ”ò‚Î‚µ
+	// "}"ï¿½Ü‚Å“Ç‚İ”ï¿½Î‚ï¿½
 	{
 		char buf[SIZE_STR];
 		while (1) {
-			fgets(buf,SIZE_STR,fp);
-			if (strstr(buf,"}")) break;
+			fgets(buf, SIZE_STR, fp);
+			if (strstr(buf, "}"))
+				break;
 		}
 	}
 
 	return n_vertex;
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoReadFace
-y—p“rz–Êî•ñ‚Ì“Ç‚İ‚İ
-yˆø”z
-		fp		ƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^
-		F		–Ê”z—ñ
-		
-y–ß’lz‚È‚µ
-yd—lzmqoReadObject()‚ÌƒTƒuŠÖ”
-=========================================================================*/
+ ï¿½yï¿½Öï¿½ï¿½zmqoReadFace
+ ï¿½yï¿½pï¿½rï¿½zï¿½Êï¿½ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ fp		ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^
+ F		ï¿½Ê”zï¿½ï¿½
 
-void mqoReadFace(FILE *fp, MQO_FACE F[])
-{
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ ï¿½yï¿½dï¿½lï¿½zmqoReadObject()ï¿½ÌƒTï¿½uï¿½Öï¿½
+ =========================================================================*/
+
+void mqoReadFace(FILE *fp, MQO_FACE F[]) {
 	char buf[SIZE_STR];
 	char *pStr;
-	int  i=0;
+	int i = 0;
 
 	while (1) {
-		fgets(buf,SIZE_STR,fp);
-		if (strstr(buf,"}")) break;
+		fgets(buf, SIZE_STR, fp);
+		if (strstr(buf, "}"))
+			break;
 
-		// –Ê‚ğ\¬‚·‚é’¸“_”
-		sscanf(buf,"%d",&F[i].n);
+		// ï¿½Ê‚ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½é’¸ï¿½_ï¿½ï¿½
+		sscanf(buf, "%d", &F[i].n);
 
-		// ’¸“_(V)‚Ì“Ç‚İ‚İ
-		if ( (pStr = strstr(buf,"V(")) != NULL ) {
+		// ï¿½ï¿½ï¿½_(V)ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
+		if ((pStr = strstr(buf, "V(")) != NULL) {
 			switch (F[i].n) {
-				case 3:
-//ƒƒ^ƒZƒR‚Í’¸“_‚Ì•À‚Ñ‚ª•\–Ê‚©‚ç‚İ‚Ä‰E‰ñ‚è
-//“Ç‚İ‚İ‚É•À‚×‘Ö‚¦‚é•û–@‚à‚ ‚éB‚¯‚ÇA•\–Ê‚Ìİ’è‚ğ
-//glFrontFace‚Å•Ï‚¦‚é‚Ù‚¤‚ªƒXƒ}[ƒgH
-					sscanf(pStr,"V(%d %d %d)",&F[i].v[0],&F[i].v[1],&F[i].v[2]);
+			case 3:
+//ï¿½ï¿½ï¿½^ï¿½Zï¿½Rï¿½Í’ï¿½ï¿½_ï¿½Ì•ï¿½ï¿½Ñ‚ï¿½ï¿½\ï¿½Ê‚ï¿½ï¿½ï¿½İ‚Ä‰Eï¿½ï¿½ï¿½
+//ï¿½Ç‚İï¿½ï¿½İï¿½ï¿½É•ï¿½ï¿½×‘Ö‚ï¿½ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Bï¿½ï¿½ï¿½ÇAï¿½\ï¿½Ê‚Ìİ’ï¿½ï¿½
+//glFrontFaceï¿½Å•Ï‚ï¿½ï¿½ï¿½Ù‚ï¿½ï¿½ï¿½ï¿½Xï¿½}ï¿½[ï¿½gï¿½H
+				sscanf(pStr, "V(%d %d %d)", &F[i].v[0], &F[i].v[1], &F[i].v[2]);
 //					sscanf(pStr,"V(%d %d %d)",&F[i].v[2],&F[i].v[1],&F[i].v[0]);
-					break;
-				case 4:
-					sscanf(pStr,"V(%d %d %d %d)",&F[i].v[0],&F[i].v[1],&F[i].v[2],&F[i].v[3]);
+				break;
+			case 4:
+				sscanf(pStr, "V(%d %d %d %d)", &F[i].v[0], &F[i].v[1],
+						&F[i].v[2], &F[i].v[3]);
 //					sscanf(pStr,"V(%d %d %d %d)",&F[i].v[3],&F[i].v[2],&F[i].v[1],&F[i].v[0]);
-					break;
-				default:
-					break;
-			}		
+				break;
+			default:
+				break;
+			}
 		}
 
-		// ƒ}ƒeƒŠƒAƒ‹(M)‚Ì“Ç‚İ‚İ
+		// ï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½(M)ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 		F[i].m = 0;
-		if ( (pStr = strstr(buf,"M(")) != NULL ) {
-			sscanf(pStr,"M(%d)",&F[i].m);
-		}
-		else { // ƒ}ƒeƒŠƒAƒ‹‚ªİ’è‚³‚ê‚Ä‚¢‚È‚¢–Ê
+		if ((pStr = strstr(buf, "M(")) != NULL) {
+			sscanf(pStr, "M(%d)", &F[i].m);
+		} else { // ï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½İ’è‚³ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½
 			F[i].m = -1;
 		}
 
-		// UVƒ}ƒbƒv(UV)‚Ì“Ç‚İ‚İ
-		if ( (pStr = strstr(buf,"UV(")) != NULL ) {
+		// UVï¿½}ï¿½bï¿½v(UV)ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
+		if ((pStr = strstr(buf, "UV(")) != NULL) {
 			switch (F[i].n) {
-				case 3:	// ’¸“_”3
-					sscanf(pStr,"UV(%f %f %f %f %f %f)",
-									&F[i].uv[0].x, &F[i].uv[0].y,
-									&F[i].uv[1].x, &F[i].uv[1].y,
-									&F[i].uv[2].x, &F[i].uv[2].y
-									);
-					break;
+			case 3:	// ï¿½ï¿½ï¿½_ï¿½ï¿½3
+				sscanf(pStr, "UV(%f %f %f %f %f %f)", &F[i].uv[0].x,
+						&F[i].uv[0].y, &F[i].uv[1].x, &F[i].uv[1].y,
+						&F[i].uv[2].x, &F[i].uv[2].y);
+				break;
 
-				case 4:	// ’¸“_”4
-					sscanf(pStr,"UV(%f %f %f %f %f %f %f %f)",
-									&F[i].uv[0].x, &F[i].uv[0].y,
-									&F[i].uv[1].x, &F[i].uv[1].y,
-									&F[i].uv[2].x, &F[i].uv[2].y,
-									&F[i].uv[3].x, &F[i].uv[3].y
-									);
-					break;
-				default:
-					break;
-			}		
+			case 4:	// ï¿½ï¿½ï¿½_ï¿½ï¿½4
+				sscanf(pStr, "UV(%f %f %f %f %f %f %f %f)", &F[i].uv[0].x,
+						&F[i].uv[0].y, &F[i].uv[1].x, &F[i].uv[1].y,
+						&F[i].uv[2].x, &F[i].uv[2].y, &F[i].uv[3].x,
+						&F[i].uv[3].y);
+				break;
+			default:
+				break;
+			}
 		}
 
 		i++;
@@ -1256,58 +1251,57 @@ void mqoReadFace(FILE *fp, MQO_FACE F[])
 
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoReadObject
-y—p“rzƒIƒuƒWƒFƒNƒgî•ñ‚Ì“Ç‚İ‚İ
-yˆø”z
-		fp		ƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^
-		obj		ƒIƒuƒWƒFƒNƒgî•ñ
+ ï¿½yï¿½Öï¿½ï¿½zmqoReadObject
+ ï¿½yï¿½pï¿½rï¿½zï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ fp		ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^
+ obj		ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½
 
-y–ß’lz‚È‚µ
-yd—lz‚±‚ÌŠÖ”‚Å‚PŒÂ‚ÌƒIƒuƒWƒFƒNƒgî•ñ‚ª“Ç‚İ‚Ü‚ê‚éD
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ ï¿½yï¿½dï¿½lï¿½zï¿½ï¿½ï¿½ÌŠÖï¿½ï¿½Å‚Pï¿½Â‚ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ñ‚ª“Ç‚İï¿½ï¿½Ü‚ï¿½ï¿½D
+ =========================================================================*/
 
-void mqoReadObject(FILE *fp, MQO_OBJDATA *obj)
-{
+void mqoReadObject(FILE *fp, MQO_OBJDATA *obj) {
 	char buf[SIZE_STR];
 
 	while (1) {
-		fgets(buf,SIZE_STR,fp);
-		if (strstr(buf,"}")) break;
+		fgets(buf, SIZE_STR, fp);
+		if (strstr(buf, "}"))
+			break;
 
 		// visible
-		if (strstr(buf,"visible ")) {
-			sscanf(buf," visible %d", &obj->visible);
+		if (strstr(buf, "visible ")) {
+			sscanf(buf, " visible %d", &obj->visible);
 		}
 
 		// shading
-		if (strstr(buf,"shading ")) {
-			sscanf(buf," shading %d", &obj->shading);
+		if (strstr(buf, "shading ")) {
+			sscanf(buf, " shading %d", &obj->shading);
 		}
 
 		// facet
-		if (strstr(buf,"facet ")) {
-			sscanf(buf," facet %f", &obj->facet);
+		if (strstr(buf, "facet ")) {
+			sscanf(buf, " facet %f", &obj->facet);
 		}
 
 		// vertex
-		if (strstr(buf,"vertex ")) {
-			sscanf(buf," vertex %d", &obj->n_vertex);
-			obj->V = (glPOINT3f*) calloc( obj->n_vertex, sizeof(glPOINT3f) );
+		if (strstr(buf, "vertex ")) {
+			sscanf(buf, " vertex %d", &obj->n_vertex);
+			obj->V = (glPOINT3f*) calloc(obj->n_vertex, sizeof(glPOINT3f));
 			mqoReadVertex(fp, obj->V);
 		}
 		// BVertex
-		if (strstr(buf,"BVertex"))	{
-			sscanf(buf," BVertex %d", &obj->n_vertex);
-			obj->V = (glPOINT3f*) calloc( obj->n_vertex, sizeof(glPOINT3f) );
-			mqoReadBVertex(fp,obj->V);
+		if (strstr(buf, "BVertex")) {
+			sscanf(buf, " BVertex %d", &obj->n_vertex);
+			obj->V = (glPOINT3f*) calloc(obj->n_vertex, sizeof(glPOINT3f));
+			mqoReadBVertex(fp, obj->V);
 		}
 
 		// face
-		if (strstr(buf,"face ")) {
-			sscanf(buf," face %d", &obj->n_face);
-			obj->F = (MQO_FACE*) calloc( obj->n_face, sizeof(MQO_FACE) );
+		if (strstr(buf, "face ")) {
+			sscanf(buf, " face %d", &obj->n_face);
+			obj->F = (MQO_FACE*) calloc(obj->n_face, sizeof(MQO_FACE));
 			mqoReadFace(fp, obj->F);
 		}
 
@@ -1315,62 +1309,64 @@ void mqoReadObject(FILE *fp, MQO_OBJDATA *obj)
 
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoMakeArray
-y—p“rz’¸“_”z—ñ‚Ìì¬
-yˆø”z
-		mat		ƒ}ƒeƒŠƒAƒ‹i‚±‚Ì’†‚É’¸“_ƒf[ƒ^‚ğŠÜ‚Şj
-		matpos	Ş¿”Ô†
-		F		–Ê
-		fnum	–Ê”
-		V		’¸“_
-		N		–@ü
-		facet	ƒXƒ€[ƒWƒ“ƒOŠp
-		mcol	F
-		scale	ƒXƒP[ƒ‹
-		alpha	ƒAƒ‹ƒtƒ@
+ ï¿½yï¿½Öï¿½ï¿½zmqoMakeArray
+ ï¿½yï¿½pï¿½rï¿½zï¿½ï¿½ï¿½_ï¿½zï¿½ï¿½Ìì¬
+ ï¿½yï¿½ï¿½z
+ mat		ï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½iï¿½ï¿½ï¿½Ì’ï¿½ï¿½É’ï¿½ï¿½_ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½Ü‚Şj
+ matpos	ï¿½Şï¿½ï¿½Ôï¿½
+ F		ï¿½ï¿½
+ fnum	ï¿½Êï¿½
+ V		ï¿½ï¿½ï¿½_
+ N		ï¿½@ï¿½ï¿½
+ facet	ï¿½Xï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½Oï¿½p
+ mcol	ï¿½F
+ scale	ï¿½Xï¿½Pï¿½[ï¿½ï¿½
+ alpha	ï¿½Aï¿½ï¿½ï¿½tï¿½@
 
-y–ß’lz‚È‚µ
-yd—lz’¸“_”z—ñ‚Í‚·‚×‚ÄOŠp‚É‚·‚é‚Ì‚ÅAlŠp‚ÍOŠp‚˜‚Q‚É•ªŠ„
-		  0  3      0    0  3
-		       ¨@¢@@¤
-		  1  2     1  2   2  
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ ï¿½yï¿½dï¿½lï¿½zï¿½ï¿½ï¿½_ï¿½zï¿½ï¿½Í‚ï¿½ï¿½×‚ÄOï¿½pï¿½É‚ï¿½ï¿½ï¿½Ì‚ÅAï¿½lï¿½pï¿½ÍOï¿½pï¿½ï¿½ï¿½Qï¿½É•ï¿½ï¿½ï¿½
+ 0  3      0    0  3
+ ï¿½ï¿½   ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½@ï¿½@ï¿½ï¿½
+ 1  2     1  2   2
+ =========================================================================*/
 
-void mqoMakeArray( MQO_MATERIAL *mat, int matpos, MQO_FACE F[], int fnum,glPOINT3f V[],
-				   glPOINT3f N[], double facet, glCOLOR4f *mcol, double scale, unsigned char alpha )
-{
+void mqoMakeArray(MQO_MATERIAL *mat, int matpos, MQO_FACE F[], int fnum,
+		glPOINT3f V[], glPOINT3f N[], double facet, glCOLOR4f *mcol,
+		double scale, unsigned char alpha) {
 	int f;
 	int i;
 	int dpos;
 	double s;
-	glPOINT3f normal;	// –@üƒxƒNƒgƒ‹
-	
+	glPOINT3f normal;	// ï¿½@ï¿½ï¿½xï¿½Nï¿½gï¿½ï¿½
+
 	dpos = 0;
 	mat->color[0] = mcol->r;
 	mat->color[1] = mcol->g;
 	mat->color[2] = mcol->b;
 	mat->color[3] = mcol->a;
-	if ( mat->isUseTexture ) {
-		for ( f = 0; f < fnum; f++ ){
-			if ( F[f].m != matpos ) continue;
-			if ( F[f].n == 3 ) {
-				mqoSnormal(V[F[f].v[0]],V[F[f].v[1]],V[F[f].v[2]],&normal);	// –@üƒxƒNƒgƒ‹‚ğŒvZ
-				for ( i = 0; i < 3; i++ ) {
-					mat->vertex_t[dpos].point[0] = V[F[f].v[i]].x*scale;
-					mat->vertex_t[dpos].point[1] = V[F[f].v[i]].y*scale;
-					mat->vertex_t[dpos].point[2] = V[F[f].v[i]].z*scale;
+	if (mat->isUseTexture) {
+		for (f = 0; f < fnum; f++) {
+			if (F[f].m != matpos)
+				continue;
+			if (F[f].n == 3) {
+				mqoSnormal(V[F[f].v[0]], V[F[f].v[1]], V[F[f].v[2]], &normal);// ï¿½@ï¿½ï¿½xï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Z
+				for (i = 0; i < 3; i++) {
+					mat->vertex_t[dpos].point[0] = V[F[f].v[i]].x * scale;
+					mat->vertex_t[dpos].point[1] = V[F[f].v[i]].y * scale;
+					mat->vertex_t[dpos].point[2] = V[F[f].v[i]].z * scale;
 					mat->vertex_t[dpos].uv[0] = F[f].uv[i].x;
 					mat->vertex_t[dpos].uv[1] = F[f].uv[i].y;
-					s = acos(normal.x*N[F[f].v[i]].x + normal.y*N[F[f].v[i]].y + normal.z*N[F[f].v[i]].z);
-					if ( facet < s ) {
-						// ƒXƒ€[ƒWƒ“ƒOŠp@ƒi’¸“_–@ü‚Æ–Ê–@ü‚ÌŠp“xj‚Ì‚Æ‚«‚Í–Ê–@ü‚ğ’¸“_–@ü‚Æ‚·‚é
+					s = acos(
+							normal.x * N[F[f].v[i]].x
+									+ normal.y * N[F[f].v[i]].y
+									+ normal.z * N[F[f].v[i]].z);
+					if (facet < s) {
+						// ï¿½Xï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½Oï¿½pï¿½@ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½_ï¿½@ï¿½ï¿½Æ–Ê–@ï¿½ï¿½ÌŠpï¿½xï¿½jï¿½Ì‚Æ‚ï¿½ï¿½Í–Ê–@ï¿½ï¿½ğ’¸“_ï¿½@ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½
 						mat->vertex_t[dpos].normal[0] = normal.x;
 						mat->vertex_t[dpos].normal[1] = normal.y;
 						mat->vertex_t[dpos].normal[2] = normal.z;
-					}
-					else {
+					} else {
 						mat->vertex_t[dpos].normal[0] = N[F[f].v[i]].x;
 						mat->vertex_t[dpos].normal[1] = N[F[f].v[i]].y;
 						mat->vertex_t[dpos].normal[2] = N[F[f].v[i]].z;
@@ -1378,44 +1374,50 @@ void mqoMakeArray( MQO_MATERIAL *mat, int matpos, MQO_FACE F[], int fnum,glPOINT
 					dpos++;
 				}
 			}
-			//‚S’¸“_ilŠpj‚Í‚R’¸“_iOŠpj‚˜‚Q‚É•ªŠ„
-			if ( F[f].n == 4 ) {
-				mqoSnormal(V[F[f].v[0]],V[F[f].v[1]],V[F[f].v[2]],&normal);	// –@üƒxƒNƒgƒ‹‚ğŒvZ
-				for ( i = 0; i < 4; i++ ) {
-					if ( i == 3 ) continue;
-					mat->vertex_t[dpos].point[0] = V[F[f].v[i]].x*scale;
-					mat->vertex_t[dpos].point[1] = V[F[f].v[i]].y*scale;
-					mat->vertex_t[dpos].point[2] = V[F[f].v[i]].z*scale;
+			//ï¿½Sï¿½ï¿½ï¿½_ï¿½iï¿½lï¿½pï¿½jï¿½Í‚Rï¿½ï¿½ï¿½_ï¿½iï¿½Oï¿½pï¿½jï¿½ï¿½ï¿½Qï¿½É•ï¿½ï¿½ï¿½
+			if (F[f].n == 4) {
+				mqoSnormal(V[F[f].v[0]], V[F[f].v[1]], V[F[f].v[2]], &normal);// ï¿½@ï¿½ï¿½xï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Z
+				for (i = 0; i < 4; i++) {
+					if (i == 3)
+						continue;
+					mat->vertex_t[dpos].point[0] = V[F[f].v[i]].x * scale;
+					mat->vertex_t[dpos].point[1] = V[F[f].v[i]].y * scale;
+					mat->vertex_t[dpos].point[2] = V[F[f].v[i]].z * scale;
 					mat->vertex_t[dpos].uv[0] = F[f].uv[i].x;
 					mat->vertex_t[dpos].uv[1] = F[f].uv[i].y;
-					s = acos(normal.x*N[F[f].v[i]].x + normal.y*N[F[f].v[i]].y + normal.z*N[F[f].v[i]].z);
-					if ( facet < s ) {
+					s = acos(
+							normal.x * N[F[f].v[i]].x
+									+ normal.y * N[F[f].v[i]].y
+									+ normal.z * N[F[f].v[i]].z);
+					if (facet < s) {
 						mat->vertex_t[dpos].normal[0] = normal.x;
 						mat->vertex_t[dpos].normal[1] = normal.y;
 						mat->vertex_t[dpos].normal[2] = normal.z;
-					}
-					else {
+					} else {
 						mat->vertex_t[dpos].normal[0] = N[F[f].v[i]].x;
 						mat->vertex_t[dpos].normal[1] = N[F[f].v[i]].y;
 						mat->vertex_t[dpos].normal[2] = N[F[f].v[i]].z;
 					}
 					dpos++;
 				}
-				mqoSnormal(V[F[f].v[0]],V[F[f].v[2]],V[F[f].v[3]],&normal);	// –@üƒxƒNƒgƒ‹‚ğŒvZ
-				for ( i = 0; i < 4; i++ ) {
-					if ( i == 1 ) continue;
-					mat->vertex_t[dpos].point[0] = V[F[f].v[i]].x*scale;
-					mat->vertex_t[dpos].point[1] = V[F[f].v[i]].y*scale;
-					mat->vertex_t[dpos].point[2] = V[F[f].v[i]].z*scale;
+				mqoSnormal(V[F[f].v[0]], V[F[f].v[2]], V[F[f].v[3]], &normal);// ï¿½@ï¿½ï¿½xï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Z
+				for (i = 0; i < 4; i++) {
+					if (i == 1)
+						continue;
+					mat->vertex_t[dpos].point[0] = V[F[f].v[i]].x * scale;
+					mat->vertex_t[dpos].point[1] = V[F[f].v[i]].y * scale;
+					mat->vertex_t[dpos].point[2] = V[F[f].v[i]].z * scale;
 					mat->vertex_t[dpos].uv[0] = F[f].uv[i].x;
 					mat->vertex_t[dpos].uv[1] = F[f].uv[i].y;
-					s = acos(normal.x*N[F[f].v[i]].x + normal.y*N[F[f].v[i]].y + normal.z*N[F[f].v[i]].z);
-					if ( facet < s ) {
+					s = acos(
+							normal.x * N[F[f].v[i]].x
+									+ normal.y * N[F[f].v[i]].y
+									+ normal.z * N[F[f].v[i]].z);
+					if (facet < s) {
 						mat->vertex_t[dpos].normal[0] = normal.x;
 						mat->vertex_t[dpos].normal[1] = normal.y;
 						mat->vertex_t[dpos].normal[2] = normal.z;
-					}
-					else {
+					} else {
 						mat->vertex_t[dpos].normal[0] = N[F[f].v[i]].x;
 						mat->vertex_t[dpos].normal[1] = N[F[f].v[i]].y;
 						mat->vertex_t[dpos].normal[2] = N[F[f].v[i]].z;
@@ -1424,29 +1426,31 @@ void mqoMakeArray( MQO_MATERIAL *mat, int matpos, MQO_FACE F[], int fnum,glPOINT
 				}
 			}
 		}
-	}
-	else {
-		if ( alpha != 255 ) {
-			mat->color[3] = (double)alpha/(double)255;
+	} else {
+		if (alpha != 255) {
+			mat->color[3] = (double) alpha / (double) 255;
 		}
-		for ( f = 0; f < fnum; f++ ){
-			if ( F[f].m != matpos ) continue;
-			if ( F[f].n == 3 ) {
-				mqoSnormal(V[F[f].v[0]],V[F[f].v[1]],V[F[f].v[2]],&normal);		// –@üƒxƒNƒgƒ‹‚ğŒvZ
-				for ( i = 0; i < 3; i++ ) {
-					mat->vertex_p[dpos].point[0] = V[F[f].v[i]].x*scale;
-					mat->vertex_p[dpos].point[1] = V[F[f].v[i]].y*scale;
-					mat->vertex_p[dpos].point[2] = V[F[f].v[i]].z*scale;
+		for (f = 0; f < fnum; f++) {
+			if (F[f].m != matpos)
+				continue;
+			if (F[f].n == 3) {
+				mqoSnormal(V[F[f].v[0]], V[F[f].v[1]], V[F[f].v[2]], &normal);// ï¿½@ï¿½ï¿½xï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Z
+				for (i = 0; i < 3; i++) {
+					mat->vertex_p[dpos].point[0] = V[F[f].v[i]].x * scale;
+					mat->vertex_p[dpos].point[1] = V[F[f].v[i]].y * scale;
+					mat->vertex_p[dpos].point[2] = V[F[f].v[i]].z * scale;
 					mat->vertex_p[dpos].normal[0] = normal.x;
 					mat->vertex_p[dpos].normal[1] = normal.y;
 					mat->vertex_p[dpos].normal[2] = normal.z;
-					s = acos(normal.x*N[F[f].v[i]].x + normal.y*N[F[f].v[i]].y + normal.z*N[F[f].v[i]].z);
-					if ( facet < s ) {
+					s = acos(
+							normal.x * N[F[f].v[i]].x
+									+ normal.y * N[F[f].v[i]].y
+									+ normal.z * N[F[f].v[i]].z);
+					if (facet < s) {
 						mat->vertex_p[dpos].normal[0] = normal.x;
 						mat->vertex_p[dpos].normal[1] = normal.y;
 						mat->vertex_p[dpos].normal[2] = normal.z;
-					}
-					else {
+					} else {
 						mat->vertex_p[dpos].normal[0] = N[F[f].v[i]].x;
 						mat->vertex_p[dpos].normal[1] = N[F[f].v[i]].y;
 						mat->vertex_p[dpos].normal[2] = N[F[f].v[i]].z;
@@ -1454,46 +1458,52 @@ void mqoMakeArray( MQO_MATERIAL *mat, int matpos, MQO_FACE F[], int fnum,glPOINT
 					dpos++;
 				}
 			}
-			//‚S’¸“_ilŠpj‚Í‚R’¸“_iOŠpj‚˜‚Q‚É•ªŠ„
-			if ( F[f].n == 4 ) {
-				mqoSnormal(V[F[f].v[0]],V[F[f].v[1]],V[F[f].v[2]],&normal);		// –@üƒxƒNƒgƒ‹‚ğŒvZ
-				for ( i = 0; i < 4; i++ ) {
-					if ( i == 3 ) continue;
-					mat->vertex_p[dpos].point[0] = V[F[f].v[i]].x*scale;
-					mat->vertex_p[dpos].point[1] = V[F[f].v[i]].y*scale;
-					mat->vertex_p[dpos].point[2] = V[F[f].v[i]].z*scale;
+			//ï¿½Sï¿½ï¿½ï¿½_ï¿½iï¿½lï¿½pï¿½jï¿½Í‚Rï¿½ï¿½ï¿½_ï¿½iï¿½Oï¿½pï¿½jï¿½ï¿½ï¿½Qï¿½É•ï¿½ï¿½ï¿½
+			if (F[f].n == 4) {
+				mqoSnormal(V[F[f].v[0]], V[F[f].v[1]], V[F[f].v[2]], &normal);// ï¿½@ï¿½ï¿½xï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Z
+				for (i = 0; i < 4; i++) {
+					if (i == 3)
+						continue;
+					mat->vertex_p[dpos].point[0] = V[F[f].v[i]].x * scale;
+					mat->vertex_p[dpos].point[1] = V[F[f].v[i]].y * scale;
+					mat->vertex_p[dpos].point[2] = V[F[f].v[i]].z * scale;
 					mat->vertex_p[dpos].normal[0] = normal.x;
 					mat->vertex_p[dpos].normal[1] = normal.y;
 					mat->vertex_p[dpos].normal[2] = normal.z;
-					s = acos(normal.x*N[F[f].v[i]].x + normal.y*N[F[f].v[i]].y + normal.z*N[F[f].v[i]].z);
-					if ( facet < s ) {
+					s = acos(
+							normal.x * N[F[f].v[i]].x
+									+ normal.y * N[F[f].v[i]].y
+									+ normal.z * N[F[f].v[i]].z);
+					if (facet < s) {
 						mat->vertex_p[dpos].normal[0] = normal.x;
 						mat->vertex_p[dpos].normal[1] = normal.y;
 						mat->vertex_p[dpos].normal[2] = normal.z;
-					}
-					else {
+					} else {
 						mat->vertex_p[dpos].normal[0] = N[F[f].v[i]].x;
 						mat->vertex_p[dpos].normal[1] = N[F[f].v[i]].y;
 						mat->vertex_p[dpos].normal[2] = N[F[f].v[i]].z;
 					}
 					dpos++;
 				}
-				mqoSnormal(V[F[f].v[0]],V[F[f].v[2]],V[F[f].v[3]],&normal);		// –@üƒxƒNƒgƒ‹‚ğŒvZ
-				for ( i = 0; i < 4; i++ ) {
-					if ( i == 1 ) continue;
-					mat->vertex_p[dpos].point[0] = V[F[f].v[i]].x*scale;
-					mat->vertex_p[dpos].point[1] = V[F[f].v[i]].y*scale;
-					mat->vertex_p[dpos].point[2] = V[F[f].v[i]].z*scale;
+				mqoSnormal(V[F[f].v[0]], V[F[f].v[2]], V[F[f].v[3]], &normal);// ï¿½@ï¿½ï¿½xï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Z
+				for (i = 0; i < 4; i++) {
+					if (i == 1)
+						continue;
+					mat->vertex_p[dpos].point[0] = V[F[f].v[i]].x * scale;
+					mat->vertex_p[dpos].point[1] = V[F[f].v[i]].y * scale;
+					mat->vertex_p[dpos].point[2] = V[F[f].v[i]].z * scale;
 					mat->vertex_p[dpos].normal[0] = normal.x;
 					mat->vertex_p[dpos].normal[1] = normal.y;
 					mat->vertex_p[dpos].normal[2] = normal.z;
-					s = acos(normal.x*N[F[f].v[i]].x + normal.y*N[F[f].v[i]].y + normal.z*N[F[f].v[i]].z);
-					if ( facet < s ) {
+					s = acos(
+							normal.x * N[F[f].v[i]].x
+									+ normal.y * N[F[f].v[i]].y
+									+ normal.z * N[F[f].v[i]].z);
+					if (facet < s) {
 						mat->vertex_p[dpos].normal[0] = normal.x;
 						mat->vertex_p[dpos].normal[1] = normal.y;
 						mat->vertex_p[dpos].normal[2] = normal.z;
-					}
-					else {
+					} else {
 						mat->vertex_p[dpos].normal[0] = N[F[f].v[i]].x;
 						mat->vertex_p[dpos].normal[1] = N[F[f].v[i]].y;
 						mat->vertex_p[dpos].normal[2] = N[F[f].v[i]].z;
@@ -1505,69 +1515,71 @@ void mqoMakeArray( MQO_MATERIAL *mat, int matpos, MQO_FACE F[], int fnum,glPOINT
 	}
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoVertexNormal
-y—p“rz’¸“_–@ü‚ÌŒvZ
-yˆø”z
-		obj			ƒIƒuƒWƒFƒNƒgî•ñ
+ ï¿½yï¿½Öï¿½ï¿½zmqoVertexNormal
+ ï¿½yï¿½pï¿½rï¿½zï¿½ï¿½ï¿½_ï¿½@ï¿½ï¿½ÌŒvï¿½Z
+ ï¿½yï¿½ï¿½z
+ obj			ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½
 
-y–ß’lz–@ü”z—ñ
-yd—lz‚S’¸“_‚Ì–Ê‚ÍOŠpŒ`‚É•ªŠ„‚µ‚ÄŒvZ
-		–ß‚è’l‚Í•K‚¸ŒÄ‚Ño‚µŒ³‚Å‰ğ•úifreej‚·‚é‚±‚ÆI
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½@ï¿½ï¿½zï¿½ï¿½
+ ï¿½yï¿½dï¿½lï¿½zï¿½Sï¿½ï¿½ï¿½_ï¿½Ì–Ê‚ÍOï¿½pï¿½`ï¿½É•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÄŒvï¿½Z
+ ï¿½ß‚ï¿½lï¿½Í•Kï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½ï¿½ï¿½Å‰ï¿½ï¿½ifreeï¿½jï¿½ï¿½ï¿½é‚±ï¿½ÆI
+ =========================================================================*/
 
-glPOINT3f * mqoVertexNormal(MQO_OBJDATA *obj)
-{
+glPOINT3f * mqoVertexNormal(MQO_OBJDATA *obj) {
 	int f;
 	int v;
 	int i;
 	double len;
-	glPOINT3f fnormal;	// –Ê–@üƒxƒNƒgƒ‹
+	glPOINT3f fnormal;	// ï¿½Ê–@ï¿½ï¿½xï¿½Nï¿½gï¿½ï¿½
 	MQO_FACE *F;
 	glPOINT3f *V;
 	glPOINT3f *ret;
 	F = obj->F;
 	V = obj->V;
-	ret = (glPOINT3f *)calloc(obj->n_vertex,sizeof(glPOINT3f));
-	//–Ê‚Ì–@ü‚ğ’¸“_‚É‘«‚µ‚İ
-	for ( f = 0; f < obj->n_face; f++ ) {
-		if ( obj->F[f].n == 3 ) {
-			mqoSnormal(V[F[f].v[0]],V[F[f].v[1]],V[F[f].v[2]],&fnormal);
-			for ( i = 0; i < 3; i++ ) {
+	ret = (glPOINT3f *) calloc(obj->n_vertex, sizeof(glPOINT3f));
+	//ï¿½Ê‚Ì–@ï¿½ï¿½ğ’¸“_ï¿½É‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	for (f = 0; f < obj->n_face; f++) {
+		if (obj->F[f].n == 3) {
+			mqoSnormal(V[F[f].v[0]], V[F[f].v[1]], V[F[f].v[2]], &fnormal);
+			for (i = 0; i < 3; i++) {
 				ret[F[f].v[i]].x += fnormal.x;
 				ret[F[f].v[i]].y += fnormal.y;
 				ret[F[f].v[i]].z += fnormal.z;
 			}
 		}
-		if ( obj->F[f].n == 4 ) {
-			mqoSnormal(V[F[f].v[0]],V[F[f].v[1]],V[F[f].v[2]],&fnormal);
-			for ( i = 0; i < 4; i++ ) {
-				if ( i == 3 ) continue;
+		if (obj->F[f].n == 4) {
+			mqoSnormal(V[F[f].v[0]], V[F[f].v[1]], V[F[f].v[2]], &fnormal);
+			for (i = 0; i < 4; i++) {
+				if (i == 3)
+					continue;
 				ret[F[f].v[i]].x += fnormal.x;
 				ret[F[f].v[i]].y += fnormal.y;
 				ret[F[f].v[i]].z += fnormal.z;
 			}
-			mqoSnormal(V[F[f].v[0]],V[F[f].v[2]],V[F[f].v[3]],&fnormal);
-			for ( i = 0; i < 4; i++ ) {
-				if ( i == 1 ) continue;
+			mqoSnormal(V[F[f].v[0]], V[F[f].v[2]], V[F[f].v[3]], &fnormal);
+			for (i = 0; i < 4; i++) {
+				if (i == 1)
+					continue;
 				ret[F[f].v[i]].x += fnormal.x;
 				ret[F[f].v[i]].y += fnormal.y;
 				ret[F[f].v[i]].z += fnormal.z;
 			}
 		}
 	}
-	//³‹K‰»
-	for ( v = 0; v < obj->n_vertex; v++ ) {
-		if ( ret[v].x == 0 && ret[v].y == 0 && ret[v].z == 0 ) {
-			//–Ê‚Ég‚í‚ê‚Ä‚È‚¢“_
+	//ï¿½ï¿½ï¿½Kï¿½ï¿½
+	for (v = 0; v < obj->n_vertex; v++) {
+		if (ret[v].x == 0 && ret[v].y == 0 && ret[v].z == 0) {
+			//ï¿½Ê‚Égï¿½ï¿½ï¿½Ä‚È‚ï¿½ï¿½_
 			continue;
 		}
-		len = sqrt(ret[v].x*ret[v].x + ret[v].y*ret[v].y + ret[v].z*ret[v].z);
-		if ( len != 0 ) {
-			ret[v].x = ret[v].x/len;
-			ret[v].y = ret[v].y/len;
-			ret[v].z = ret[v].z/len;
+		len = sqrt(
+				ret[v].x * ret[v].x + ret[v].y * ret[v].y
+						+ ret[v].z * ret[v].z);
+		if (len != 0) {
+			ret[v].x = ret[v].x / len;
+			ret[v].y = ret[v].y / len;
+			ret[v].z = ret[v].z / len;
 		}
 	}
 
@@ -1575,37 +1587,35 @@ glPOINT3f * mqoVertexNormal(MQO_OBJDATA *obj)
 }
 
 /*=========================================================================
-yŠÖ”zmqoMakePolygon
-y—p“rzƒ|ƒŠƒSƒ“‚Ì¶¬
-yˆø”z
-		readObj		“Ç‚İ‚ñ‚¾ƒIƒuƒWƒFƒNƒgî•ñ
-		mqoobj		MQOƒIƒuƒWƒFƒNƒg 
-		N[]			–@ü”z—ñ
-		M[]			ƒ}ƒeƒŠƒAƒ‹”z—ñ
-		n_mat		ƒ}ƒeƒŠƒAƒ‹”
-		scale		ƒXƒP[ƒ‹
-		alpha		ƒAƒ‹ƒtƒ@
+ ï¿½yï¿½Öï¿½ï¿½zmqoMakePolygon
+ ï¿½yï¿½pï¿½rï¿½zï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ readObj		ï¿½Ç‚İï¿½ï¿½ñ‚¾ƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½
+ mqoobj		MQOï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½g
+ N[]			ï¿½@ï¿½ï¿½zï¿½ï¿½
+ M[]			ï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½zï¿½ï¿½
+ n_mat		ï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½
+ scale		ï¿½Xï¿½Pï¿½[ï¿½ï¿½
+ alpha		ï¿½Aï¿½ï¿½ï¿½tï¿½@
 
-y–ß’lz‚È‚µ
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ =========================================================================*/
 
-void mqoMakePolygon(MQO_OBJDATA *readObj, MQO_OBJECT *mqoobj,
-					glPOINT3f N[], MQO_MATDATA M[], int n_mat, double scale, unsigned char alpha)
-{
+void mqoMakePolygon(MQO_OBJDATA *readObj, MQO_OBJECT *mqoobj, glPOINT3f N[],
+		MQO_MATDATA M[], int n_mat, double scale, unsigned char alpha) {
 
-	MQO_INNER_OBJECT		*setObj;
-	MQO_MATERIAL			*material;
-	glCOLOR4f				defcol;
-	glCOLOR4f				*pcol;
-	int						f, m, *mat_vnum;
-	int						fnum;
-	MQO_FACE				*F;
-	glPOINT3f				*V;
-	double					facet;
-
+	MQO_INNER_OBJECT *setObj;
+	MQO_MATERIAL *material;
+	glCOLOR4f defcol;
+	glCOLOR4f *pcol;
+	int f, m, *mat_vnum;
+	int fnum;
+	MQO_FACE *F;
+	glPOINT3f *V;
+	double facet;
 
 	setObj = &mqoobj->obj[mqoobj->objnum];
-	strcpy(setObj->objname,readObj->objname);
+	strcpy(setObj->objname, readObj->objname);
 	setObj->isVisible = readObj->visible;
 	setObj->isShadingFlat = (readObj->shading == 0);
 	F = readObj->F;
@@ -1613,50 +1623,54 @@ void mqoMakePolygon(MQO_OBJDATA *readObj, MQO_OBJECT *mqoobj,
 	V = readObj->V;
 	facet = readObj->facet;
 
-	// face‚Ì’†‚Å‚Ìƒ}ƒeƒŠƒAƒ‹–ˆ‚Ì’¸“_‚Ì”
-	// M=NULL‚Ì‚Æ‚«AF[].m = 0 ‚ª“ü‚Á‚Ä‚­‚é
-	if ( M == NULL ) n_mat = 1;
+	// faceï¿½Ì’ï¿½ï¿½Å‚Ìƒ}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½Ì’ï¿½ï¿½_ï¿½Ìï¿½
+	// M=NULLï¿½Ì‚Æ‚ï¿½ï¿½AF[].m = 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
+	if (M == NULL)
+		n_mat = 1;
 
-	mat_vnum = (int *)malloc(sizeof(int)*n_mat);
-	memset(mat_vnum,0,sizeof(int)*n_mat);
+	mat_vnum = (int *) malloc(sizeof(int) * n_mat);
+	memset(mat_vnum, 0, sizeof(int) * n_mat);
 
-	for ( f = 0; f < fnum; f++ ){
-		if( F[f].m < 0 ) continue; // ƒ}ƒeƒŠƒAƒ‹‚ªİ’è‚³‚ê‚Ä‚¢‚È‚¢–Ê
-		if ( F[f].n == 3 ) {
+	for (f = 0; f < fnum; f++) {
+		if (F[f].m < 0)
+			continue; // ï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½İ’è‚³ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½
+		if (F[f].n == 3) {
 			mat_vnum[F[f].m] += 3;
 		}
-		if ( F[f].n == 4 ) {
-			//‚S’¸“_ilŠpj‚Í‚R’¸“_iOŠpj‚˜‚Q‚É•ªŠ„
+		if (F[f].n == 4) {
+			//ï¿½Sï¿½ï¿½ï¿½_ï¿½iï¿½lï¿½pï¿½jï¿½Í‚Rï¿½ï¿½ï¿½_ï¿½iï¿½Oï¿½pï¿½jï¿½ï¿½ï¿½Qï¿½É•ï¿½ï¿½ï¿½
 			//  0  3      0    0  3
-			//       ¨@¢@@¤
+			//   ï¿½ï¿½   ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½@ï¿½@ï¿½ï¿½
 			//  1  2     1  2   2
-			// ‚S’¸“_‚Ì•½–Êƒf[ƒ^‚Í
-			// ‚R’¸“_‚Ì•½–Êƒf[ƒ^‚˜‚QŒÂ
-			mat_vnum[F[f].m] += 3*2;
+			// ï¿½Sï¿½ï¿½ï¿½_ï¿½Ì•ï¿½ï¿½Êƒfï¿½[ï¿½^ï¿½ï¿½
+			// ï¿½Rï¿½ï¿½ï¿½_ï¿½Ì•ï¿½ï¿½Êƒfï¿½[ï¿½^ï¿½ï¿½ï¿½Qï¿½ï¿½
+			mat_vnum[F[f].m] += 3 * 2;
 		}
-		if ( setObj->matnum < F[f].m+1 ) setObj->matnum = F[f].m+1;
+		if (setObj->matnum < F[f].m + 1)
+			setObj->matnum = F[f].m + 1;
 	}
 
-	// ƒ}ƒeƒŠƒAƒ‹•Ê‚É’¸“_”z—ñ‚ğì¬‚·‚é
-	setObj->mat = (MQO_MATERIAL *)malloc(sizeof(MQO_MATERIAL)*setObj->matnum);
-	memset(setObj->mat,0,sizeof(MQO_MATERIAL)*setObj->matnum);
+	// ï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Ê‚É’ï¿½ï¿½_ï¿½zï¿½ï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½ï¿½
+	setObj->mat = (MQO_MATERIAL *) malloc(
+			sizeof(MQO_MATERIAL) * setObj->matnum);
+	memset(setObj->mat, 0, sizeof(MQO_MATERIAL) * setObj->matnum);
 
-	for ( m = 0; m < setObj->matnum; m++ ) {
+	for (m = 0; m < setObj->matnum; m++) {
 		material = &setObj->mat[m];
 		material->datanum = mat_vnum[m];
 		material->isValidMaterialInfo = (M != NULL);
 
-		if ( mat_vnum[m] <= 0 ) continue;
-		if ( material->isValidMaterialInfo ) {
-			memcpy(material->dif,M[m].dif,sizeof(material->dif));
-			memcpy(material->amb,M[m].amb,sizeof(material->amb));
-			memcpy(material->spc,M[m].spc,sizeof(material->spc));
-			memcpy(material->emi,M[m].emi,sizeof(material->emi));
+		if (mat_vnum[m] <= 0)
+			continue;
+		if (material->isValidMaterialInfo) {
+			memcpy(material->dif, M[m].dif, sizeof(material->dif));
+			memcpy(material->amb, M[m].amb, sizeof(material->amb));
+			memcpy(material->spc, M[m].spc, sizeof(material->spc));
+			memcpy(material->emi, M[m].emi, sizeof(material->emi));
 			material->power = M[m].power;
 			material->isUseTexture = M[m].useTex;
 			pcol = &M[m].col;
-		}
-		else {
+		} else {
 			defcol.r = 1.0;
 			defcol.g = 1.0;
 			defcol.b = 1.0;
@@ -1664,112 +1678,106 @@ void mqoMakePolygon(MQO_OBJDATA *readObj, MQO_OBJECT *mqoobj,
 			material->isUseTexture = 0;
 			pcol = &defcol;
 		}
-		if ( material->isUseTexture ) {
-			material->vertex_t = (VERTEX_TEXUSE *)calloc(material->datanum,sizeof(VERTEX_TEXUSE));
+		if (material->isUseTexture) {
+			material->vertex_t = (VERTEX_TEXUSE *) calloc(material->datanum,
+					sizeof(VERTEX_TEXUSE));
 			material->texture_id = M[m].texName;
+		} else {
+			material->vertex_p = (VERTEX_NOTEX *) calloc(material->datanum,
+					sizeof(VERTEX_NOTEX));
 		}
-		else {
-			material->vertex_p = (VERTEX_NOTEX *)calloc(material->datanum,sizeof(VERTEX_NOTEX));
-		}
-		mqoMakeArray(material,m,F,fnum,V,N,facet,pcol,scale,alpha);
+		mqoMakeArray(material, m, F, fnum, V, N, facet, pcol, scale, alpha);
 		if (g_isVBOSupported) {
-			if ( material->isUseTexture ) {
-				glGenBuffersARB( 1, &material->VBO_id );
-				glBindBufferARB( GL_ARRAY_BUFFER_ARB, material->VBO_id  );
-				glBufferDataARB( GL_ARRAY_BUFFER_ARB, material->datanum*sizeof(VERTEX_TEXUSE), material->vertex_t, GL_STATIC_DRAW_ARB );
-			}
-			else {
-				glGenBuffersARB( 1, &material->VBO_id );
-				glBindBufferARB( GL_ARRAY_BUFFER_ARB, material->VBO_id  );
-				glBufferDataARB( GL_ARRAY_BUFFER_ARB, material->datanum*sizeof(VERTEX_NOTEX), material->vertex_p, GL_STATIC_DRAW_ARB );
+			if (material->isUseTexture) {
+				glGenBuffersARB(1, &material->VBO_id);
+				glBindBufferARB( GL_ARRAY_BUFFER_ARB, material->VBO_id);
+				glBufferDataARB( GL_ARRAY_BUFFER_ARB,
+						material->datanum * sizeof(VERTEX_TEXUSE),
+						material->vertex_t, GL_STATIC_DRAW_ARB);
+			} else {
+				glGenBuffersARB(1, &material->VBO_id);
+				glBindBufferARB( GL_ARRAY_BUFFER_ARB, material->VBO_id);
+				glBufferDataARB( GL_ARRAY_BUFFER_ARB,
+						material->datanum * sizeof(VERTEX_NOTEX),
+						material->vertex_p, GL_STATIC_DRAW_ARB);
 			}
 		}
 	}
 	mqoobj->objnum++;
-	if ( MAX_OBJECT <= mqoobj->objnum ) {
-		printf("MQOƒtƒ@ƒCƒ‹“Ç‚İ‚İF@Å‘åƒIƒuƒWƒFƒNƒg”‚ğ’´‚¦‚Ü‚µ‚½[%d]\n",mqoobj->objnum);
-		mqoobj->objnum = MAX_OBJECT-1;
+	if ( MAX_OBJECT <= mqoobj->objnum) {
+		printf("MQOï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ç‚İï¿½ï¿½İFï¿½@ï¿½Å‘ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ğ’´‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½[%d]\n",
+				mqoobj->objnum);
+		mqoobj->objnum = MAX_OBJECT - 1;
 	}
 
 	free(mat_vnum);
 
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoMakeObjectsEx
-y—p“rzƒIƒuƒWƒFƒNƒg‚Ìƒf[ƒ^‚©‚çƒ|ƒŠƒSƒ“ƒ‚ƒfƒ‹‚ğì¬‚·‚é
-yˆø”z
-		mqoobj	MQOƒIƒuƒWƒFƒNƒg
-		obj		ƒIƒuƒWƒFƒNƒg”z—ñ
-		n_obj	ƒIƒuƒWƒFƒNƒg‚ÌŒÂ”
-		M		ƒ}ƒeƒŠƒAƒ‹”z—ñ
-		n_mat	ƒ}ƒeƒŠƒAƒ‹‚ÌŒÂ”
-		scale	Šg‘å—¦
-		alpha	ƒAƒ‹ƒtƒ@
+ ï¿½yï¿½Öï¿½ï¿½zmqoMakeObjectsEx
+ ï¿½yï¿½pï¿½rï¿½zï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½Ìƒfï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ mqoobj	MQOï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½g
+ obj		ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½zï¿½ï¿½
+ n_obj	ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ÌŒÂï¿½
+ M		ï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½zï¿½ï¿½
+ n_mat	ï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ÌŒÂï¿½
+ scale	ï¿½gï¿½å—¦
+ alpha	ï¿½Aï¿½ï¿½ï¿½tï¿½@
 
-y–ß’lz‚È‚µ
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ =========================================================================*/
 
-void mqoMakeObjectsEx( MQO_OBJECT *mqoobj, MQO_OBJDATA obj[], int n_obj, MQO_MATDATA M[],int n_mat,
-					   double scale,unsigned char alpha)
-{
+void mqoMakeObjectsEx(MQO_OBJECT *mqoobj, MQO_OBJDATA obj[], int n_obj,
+		MQO_MATDATA M[], int n_mat, double scale, unsigned char alpha) {
 	int i;
 	glPOINT3f *N;
-	for (i=0; i<n_obj; i++) {
+	for (i = 0; i < n_obj; i++) {
 		N = mqoVertexNormal(&obj[i]);
-		mqoMakePolygon(
-				&obj[i],
-				mqoobj,
-				N,
-				M,n_mat,
-				scale,
-				alpha);
+		mqoMakePolygon(&obj[i], mqoobj, N, M, n_mat, scale, alpha);
 		free(N);
 	}
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoCreateModel
-y—p“rzMQOƒtƒ@ƒCƒ‹‚©‚çMQOƒ‚ƒfƒ‹‚ğì¬‚·‚é
-yˆø”z
-		filename	MQOƒtƒ@ƒCƒ‹
-		scale		Šg‘å—¦i1.0‚Å‚»‚Ì‚Ü‚Üj
+ ï¿½yï¿½Öï¿½ï¿½zmqoCreateModel
+ ï¿½yï¿½pï¿½rï¿½zMQOï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½MQOï¿½ï¿½ï¿½fï¿½ï¿½ï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ filename	MQOï¿½tï¿½@ï¿½Cï¿½ï¿½
+ scale		ï¿½gï¿½å—¦ï¿½i1.0ï¿½Å‚ï¿½ï¿½Ì‚Ü‚Üj
 
-y–ß’lzMQO_MODELiMQOƒ‚ƒfƒ‹j
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zMQO_MODELï¿½iMQOï¿½ï¿½ï¿½fï¿½ï¿½ï¿½j
+ =========================================================================*/
 
-MQO_MODEL mqoCreateModel(char *filename, double scale)
-{
+MQO_MODEL mqoCreateModel(char *filename, double scale) {
 	MQO_MODEL ret;
 	ret = mqoCreateList(1);
-	if ( mqoCreateListObject(ret,1-1,filename,scale,(unsigned char)255) < 0 ) {
-		mqoDeleteObject(ret,1);
+	if (mqoCreateListObject(ret, 1 - 1, filename, scale, (unsigned char) 255)
+			< 0) {
+		mqoDeleteObject(ret, 1);
 		ret = NULL;
 	}
 	return ret;
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoCreateSequenceEx
-y—p“rz˜A”Ô‚ÌMQOƒtƒ@ƒCƒ‹‚©‚çMQOƒV[ƒPƒ“ƒX‚ğì¬‚·‚é
-yˆø”z
-		format		ƒtƒ@ƒCƒ‹–¼‚Ì‘®
-		n_file		ƒtƒ@ƒCƒ‹”
-		scale		Šg‘å—¦i1.0‚Å‚»‚Ì‚Ü‚Üj
-		fade_inout	0:‚»‚Ì‚Ü‚Ü@³FƒtƒF[ƒhƒCƒ“@•‰FƒtƒF[ƒhƒAƒEƒg
-					â‘Î’l‚ÍŒø‰Ê‚ğ‚©‚¯‚éƒtƒŒ[ƒ€”
-		alpha		ƒAƒ‹ƒtƒ@
+ ï¿½yï¿½Öï¿½ï¿½zmqoCreateSequenceEx
+ ï¿½yï¿½pï¿½rï¿½zï¿½Aï¿½Ô‚ï¿½MQOï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½MQOï¿½Vï¿½[ï¿½Pï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ format		ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
+ n_file		ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½
+ scale		ï¿½gï¿½å—¦ï¿½i1.0ï¿½Å‚ï¿½ï¿½Ì‚Ü‚Üj
+ fade_inout	0:ï¿½ï¿½ï¿½Ì‚Ü‚Ü@ï¿½ï¿½ï¿½Fï¿½tï¿½Fï¿½[ï¿½hï¿½Cï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½Fï¿½tï¿½Fï¿½[ï¿½hï¿½Aï¿½Eï¿½g
+ ï¿½ï¿½Î’lï¿½ÍŒï¿½Ê‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
+ alpha		ï¿½Aï¿½ï¿½ï¿½tï¿½@
 
-y–ß’lzMQO_SEQUENCEiMQOƒV[ƒPƒ“ƒXj
-y”õlz˜A”Ô‚Í0‚©‚çŠJn
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zMQO_SEQUENCEï¿½iMQOï¿½Vï¿½[ï¿½Pï¿½ï¿½ï¿½Xï¿½j
+ ï¿½yï¿½ï¿½ï¿½lï¿½zï¿½Aï¿½Ô‚ï¿½0ï¿½ï¿½ï¿½ï¿½Jï¿½n
+ =========================================================================*/
 
 MQO_SEQUENCE mqoCreateSequenceEx(const char *format, int n_file, double scale,
-								 int fade_inout, unsigned char alpha)
-{
+		int fade_inout, unsigned char alpha) {
 	MQO_SEQUENCE retSeq;
 	int iret;
 	int seq;
@@ -1779,38 +1787,40 @@ MQO_SEQUENCE mqoCreateSequenceEx(const char *format, int n_file, double scale,
 	int frames;
 
 	retSeq.n_frame = 0;
-	if ( format == NULL ) {
+	if (format == NULL) {
 		return retSeq;
 	}
 	calAlpha = alpha;
 	frames = abs(fade_inout);
-	frames = MAX(frames,n_file);
-	setAlpha = (fade_inout<=0)?alpha:0;
+	frames = MAX(frames, n_file);
+	setAlpha = (fade_inout <= 0) ? alpha : 0;
 
 	retSeq.model = mqoCreateList(n_file);
-	for ( seq = 0; seq < frames; seq++ ) {
-		if ( seq < n_file ) {
-			sprintf(filename,format,seq);
+	for (seq = 0; seq < frames; seq++) {
+		if (seq < n_file) {
+			sprintf(filename, format, seq);
 		}
-		if ( (fade_inout !=  0) && ((frames-1) == seq) ) {
-			setAlpha = (fade_inout<0)?0:calAlpha;
+		if ((fade_inout != 0) && ((frames - 1) == seq)) {
+			setAlpha = (fade_inout < 0) ? 0 : calAlpha;
 		}
-		iret = mqoCreateListObject(retSeq.model,seq,filename,scale,(unsigned char)setAlpha);
-		if ( iret == - 1 ) {
+		iret = mqoCreateListObject(retSeq.model, seq, filename, scale,
+				(unsigned char) setAlpha);
+		if (iret == -1) {
 			seq--;
-			mqoClearObject(retSeq.model,seq,n_file-seq);
+			mqoClearObject(retSeq.model, seq, n_file - seq);
 			break;
 		}
-		if ( fade_inout !=  0 ) {
-			if ( fade_inout<0 ) {
-				if ( (n_file-seq) <= (-1*fade_inout) ) {
-					setAlpha -= (calAlpha/(-1*fade_inout));
-					if ( setAlpha < 0 ) setAlpha = 0;
+		if (fade_inout != 0) {
+			if (fade_inout < 0) {
+				if ((n_file - seq) <= (-1 * fade_inout)) {
+					setAlpha -= (calAlpha / (-1 * fade_inout));
+					if (setAlpha < 0)
+						setAlpha = 0;
 				}
-			}
-			else {
-				setAlpha += (calAlpha/fade_inout);
-				if ( calAlpha < setAlpha ) setAlpha = calAlpha;
+			} else {
+				setAlpha += (calAlpha / fade_inout);
+				if (calAlpha < setAlpha)
+					setAlpha = calAlpha;
 			}
 		}
 	}
@@ -1818,105 +1828,98 @@ MQO_SEQUENCE mqoCreateSequenceEx(const char *format, int n_file, double scale,
 	return retSeq;
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoCreateSequence
-y—p“rz˜A”Ô‚ÌMQOƒtƒ@ƒCƒ‹‚©‚çMQOƒV[ƒPƒ“ƒX‚ğì¬‚·‚é
-yˆø”z
-		format		ƒtƒ@ƒCƒ‹–¼‚ÌƒtƒH[ƒ}ƒbƒg
-		n_file		ƒtƒ@ƒCƒ‹”
-		scale		Šg‘å—¦i1.0‚Å‚»‚Ì‚Ü‚Üj
+ ï¿½yï¿½Öï¿½ï¿½zmqoCreateSequence
+ ï¿½yï¿½pï¿½rï¿½zï¿½Aï¿½Ô‚ï¿½MQOï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½MQOï¿½Vï¿½[ï¿½Pï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ format		ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½Ìƒtï¿½Hï¿½[ï¿½}ï¿½bï¿½g
+ n_file		ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½
+ scale		ï¿½gï¿½å—¦ï¿½i1.0ï¿½Å‚ï¿½ï¿½Ì‚Ü‚Üj
 
-y–ß’lzMQO_SEQUENCEiMQOƒV[ƒPƒ“ƒXj
-y”õlz˜A”Ô‚Í0‚©‚çŠJn
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zMQO_SEQUENCEï¿½iMQOï¿½Vï¿½[ï¿½Pï¿½ï¿½ï¿½Xï¿½j
+ ï¿½yï¿½ï¿½ï¿½lï¿½zï¿½Aï¿½Ô‚ï¿½0ï¿½ï¿½ï¿½ï¿½Jï¿½n
+ =========================================================================*/
 
-MQO_SEQUENCE mqoCreateSequence(const char *format, int n_file, double scale)
-{
-	return mqoCreateSequenceEx(format, n_file, scale, 0, (unsigned char)255);
+MQO_SEQUENCE mqoCreateSequence(const char *format, int n_file, double scale) {
+	return mqoCreateSequenceEx(format, n_file, scale, 0, (unsigned char) 255);
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoCallModel
-y—p“rzMQOƒ‚ƒfƒ‹‚ğOpenGL‚Ì‰æ–Êã‚ÉŒÄ‚Ño‚·
-yˆø”z
-		model		MQOƒ‚ƒfƒ‹
+ ï¿½yï¿½Öï¿½ï¿½zmqoCallModel
+ ï¿½yï¿½pï¿½rï¿½zMQOï¿½ï¿½ï¿½fï¿½ï¿½ï¿½ï¿½OpenGLï¿½Ì‰ï¿½Êï¿½ÉŒÄ‚Ñoï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ model		MQOï¿½ï¿½ï¿½fï¿½ï¿½
 
-y–ß’lz‚È‚µ
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ =========================================================================*/
 
-void mqoCallModel(MQO_MODEL model)
-{
+void mqoCallModel(MQO_MODEL model) {
 	mqoCallListObject(model, 0);
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoCallSequence
-y—p“rzMQOƒV[ƒPƒ“ƒX‚ğOpenGL‚Ì‰æ–Ê‚ÉŒÄ‚Ño‚·
-yˆø”z
-		seq		MQOƒV[ƒPƒ“ƒX
-		i		ƒtƒŒ[ƒ€”Ô†
+ ï¿½yï¿½Öï¿½ï¿½zmqoCallSequence
+ ï¿½yï¿½pï¿½rï¿½zMQOï¿½Vï¿½[ï¿½Pï¿½ï¿½ï¿½Xï¿½ï¿½OpenGLï¿½Ì‰ï¿½Ê‚ÉŒÄ‚Ñoï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ seq		MQOï¿½Vï¿½[ï¿½Pï¿½ï¿½ï¿½X
+ i		ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ôï¿½
 
-y–ß’lz‚È‚µ
-yd—lzMQOƒV[ƒPƒ“ƒX‚Ì’†‚©‚çw’è‚µ‚½ƒtƒŒ[ƒ€”Ô†‚Ìƒ‚ƒfƒ‹‚ğŒÄ‚Ño‚·
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ ï¿½yï¿½dï¿½lï¿½zMQOï¿½Vï¿½[ï¿½Pï¿½ï¿½ï¿½Xï¿½Ì’ï¿½ï¿½ï¿½ï¿½ï¿½wï¿½è‚µï¿½ï¿½ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ôï¿½ï¿½Ìƒï¿½ï¿½fï¿½ï¿½ï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½
+ =========================================================================*/
 
-void mqoCallSequence(MQO_SEQUENCE seq, int i)
-{
-	if ( i>=0 && i<seq.n_frame ) {
-		mqoCallListObject(seq.model,i);
+void mqoCallSequence(MQO_SEQUENCE seq, int i) {
+	if (i >= 0 && i < seq.n_frame) {
+		mqoCallListObject(seq.model, i);
 	}
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoClearObject
-y—p“rzMQOƒIƒuƒWƒFƒNƒg‚ÌƒNƒŠƒA
-yˆø”z
-		object	MQOƒIƒuƒWƒFƒNƒg”z—ñ
-		from	íœŠJn”Ô†i0`j
-		num		íœ‚·‚éŒÂ”
+ ï¿½yï¿½Öï¿½ï¿½zmqoClearObject
+ ï¿½yï¿½pï¿½rï¿½zMQOï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ÌƒNï¿½ï¿½ï¿½A
+ ï¿½yï¿½ï¿½z
+ object	MQOï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½zï¿½ï¿½
+ from	ï¿½íœï¿½Jï¿½nï¿½Ôï¿½ï¿½i0ï¿½`ï¿½j
+ num		ï¿½íœï¿½ï¿½ï¿½ï¿½Âï¿½
 
-y–ß’lz‚È‚µ
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ =========================================================================*/
 
-void mqoClearObject( MQO_OBJECT object[], int from, int num ) 
-{
-	int					loop, o, m;
-	MQO_INNER_OBJECT	*obj;
-	MQO_MATERIAL		*mat;
+void mqoClearObject(MQO_OBJECT object[], int from, int num) {
+	int loop, o, m;
+	MQO_INNER_OBJECT *obj;
+	MQO_MATERIAL *mat;
 
-	if ( object == NULL ) return;
+	if (object == NULL)
+		return;
 
-	for ( loop = from; loop < from + num; loop++ ) {
-		for ( o = 0; o < (object+from)->objnum; o++ ) {
+	for (loop = from; loop < from + num; loop++) {
+		for (o = 0; o < (object + from)->objnum; o++) {
 
-			obj = &(object+loop)->obj[o];
-			for ( m = 0; m < obj->matnum; m++ ) {
+			obj = &(object + loop)->obj[o];
+			for (m = 0; m < obj->matnum; m++) {
 				mat = &obj->mat[m];
-				if ( mat->datanum <= 0 ) continue;
-				if ( g_isVBOSupported ) {
-					// ’¸“_ƒoƒbƒtƒ@‚Ìíœ
-					glDeleteBuffersARB( 1, &mat->VBO_id );
+				if (mat->datanum <= 0)
+					continue;
+				if (g_isVBOSupported) {
+					// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Ìíœ
+					glDeleteBuffersARB(1, &mat->VBO_id);
 				}
 
-				// ’¸“_”z—ñ‚Ìíœ
-				if ( mat->isUseTexture ) {
-					if ( mat->vertex_t != NULL ) {
+				// ï¿½ï¿½ï¿½_ï¿½zï¿½ï¿½Ìíœ
+				if (mat->isUseTexture) {
+					if (mat->vertex_t != NULL) {
 						free(mat->vertex_t);
 						mat->vertex_t = NULL;
 					}
-				}
-				else {
-					if ( mat->vertex_p != NULL ) {
+				} else {
+					if (mat->vertex_p != NULL) {
 						free(mat->vertex_p);
 						mat->vertex_p = NULL;
 					}
 				}
 			}
-			if ( obj->mat != NULL ) {
+			if (obj->mat != NULL) {
 				free(obj->mat);
 				obj->mat = NULL;
 			}
@@ -1926,52 +1929,46 @@ void mqoClearObject( MQO_OBJECT object[], int from, int num )
 
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoDeleteObject
-y—p“rzMQOƒIƒuƒWƒFƒNƒg‚ğíœ‚·‚é
-yˆø”z
-		object	MQOƒIƒuƒWƒFƒNƒg”z—ñ
-		num		íœ‚·‚éŒÂ”
+ ï¿½yï¿½Öï¿½ï¿½zmqoDeleteObject
+ ï¿½yï¿½pï¿½rï¿½zMQOï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½íœï¿½ï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ object	MQOï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½zï¿½ï¿½
+ num		ï¿½íœï¿½ï¿½ï¿½ï¿½Âï¿½
 
-y–ß’lz‚È‚µ
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ =========================================================================*/
 
-void mqoDeleteObject(MQO_OBJECT object[], int num)
-{
-	mqoClearObject(object,0,num);
+void mqoDeleteObject(MQO_OBJECT object[], int num) {
+	mqoClearObject(object, 0, num);
 	free(object);
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoDeleteModel
-y—p“rzMQOƒ‚ƒfƒ‹‚ğíœ‚·‚é
-yˆø”z
-		model	MQOƒ‚ƒfƒ‹
+ ï¿½yï¿½Öï¿½ï¿½zmqoDeleteModel
+ ï¿½yï¿½pï¿½rï¿½zMQOï¿½ï¿½ï¿½fï¿½ï¿½ï¿½ï¿½ï¿½íœï¿½ï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ model	MQOï¿½ï¿½ï¿½fï¿½ï¿½
 
-y–ß’lz‚È‚µ
-y”õlzíœˆ—‚ğs‚Á‚½•Ï”‚ğÄ—˜—p‚·‚é‰Â”\«‚ª‚ ‚éê‡‚Í
-		‚±‚ÌŠÖ”‚ÌÀsŒã‚ÉNULL‚ğ‘ã“ü‚µ‚Ä‚¨‚­‚±‚Æ
-=========================================================================*/
+ ï¿½yï¿½ß’lï¿½zï¿½È‚ï¿½
+ ï¿½yï¿½ï¿½ï¿½lï¿½zï¿½íœï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½ï¿½Ä—ï¿½ï¿½pï¿½ï¿½ï¿½ï¿½Â”\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½ï¿½
+ ï¿½ï¿½ï¿½ÌŠÖï¿½ï¿½Ìï¿½ï¿½sï¿½ï¿½ï¿½NULLï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ =========================================================================*/
 
-void mqoDeleteModel(MQO_MODEL model)
-{
-	mqoDeleteObject(model,1);
+void mqoDeleteModel(MQO_MODEL model) {
+	mqoDeleteObject(model, 1);
 }
 
-
 /*=========================================================================
-yŠÖ”zmqoDeleteSequence
-y—p“rzMQOƒV[ƒPƒ“ƒX‚ğíœ‚·‚é
-yˆø”z
-		seq		MQOƒV[ƒPƒ“ƒX
+ ï¿½yï¿½Öï¿½ï¿½zmqoDeleteSequence
+ ï¿½yï¿½pï¿½rï¿½zMQOï¿½Vï¿½[ï¿½Pï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½íœï¿½ï¿½ï¿½ï¿½
+ ï¿½yï¿½ï¿½z
+ seq		MQOï¿½Vï¿½[ï¿½Pï¿½ï¿½ï¿½X
 
-y”õlzíœˆ—‚ğs‚Á‚½•Ï”‚ğÄ—˜—p‚·‚é‰Â”\«‚ª‚ ‚éê‡‚Í
-		‚±‚ÌŠÖ”‚ÌÀsŒã‚ÉNULL‚ğ‘ã“ü‚µ‚Ä‚¨‚­‚±‚Æ
-=========================================================================*/
+ ï¿½yï¿½ï¿½ï¿½lï¿½zï¿½íœï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½ï¿½Ä—ï¿½ï¿½pï¿½ï¿½ï¿½ï¿½Â”\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½ï¿½
+ ï¿½ï¿½ï¿½ÌŠÖï¿½ï¿½Ìï¿½ï¿½sï¿½ï¿½ï¿½NULLï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ =========================================================================*/
 
-void mqoDeleteSequence(MQO_SEQUENCE seq)
-{
-	mqoDeleteObject( seq.model, seq.n_frame );
+void mqoDeleteSequence(MQO_SEQUENCE seq) {
+	mqoDeleteObject(seq.model, seq.n_frame);
 }

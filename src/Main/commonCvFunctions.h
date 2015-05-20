@@ -1,81 +1,96 @@
 /*M///////////////////////////////////////////////////////////////////////////////////////
-//
-//  IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
-//
-//  By downloading, copying, installing or using the software you agree to this license.
-//  If you do not agree to this license, do not download, install,
-//  copy or use the software.
-//
-//
-//                           License Agreement
-//
-// Copyright (C) 2012, Takuya MINAGAWA.
-// Third party copyrights are property of their respective owners.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights to
-// use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-// of the Software, and to permit persons to whom the Software is furnished to do
-// so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
-// PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-// SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
-//M*/
+ //
+ //  IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
+ //
+ //  By downloading, copying, installing or using the software you agree to this license.
+ //  If you do not agree to this license, do not download, install,
+ //  copy or use the software.
+ //
+ //
+ //                           License Agreement
+ //
+ // Copyright (C) 2012, Takuya MINAGAWA.
+ // Third party copyrights are property of their respective owners.
+ //
+ // Permission is hereby granted, free of charge, to any person obtaining a copy
+ // of this software and associated documentation files (the "Software"), to deal
+ // in the Software without restriction, including without limitation the rights to
+ // use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+ // of the Software, and to permit persons to whom the Software is furnished to do
+ // so, subject to the following conditions:
+ //
+ // The above copyright notice and this permission notice shall be included in all
+ // copies or substantial portions of the Software.
+ //
+ // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ // INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ // PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ // HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ //
+ //M*/
 #ifndef __COMMON_CV_FUNCTIONS__
 #define __COMMON_CV_FUNCTIONS__
 
 #include <opencv2/core/core.hpp>
 #include <fstream>
 
-namespace cvar{
+namespace cvar {
 
 //! Write cv::Mat as binary
 /*!
-\param[out] ofs output file stream
-\param[in] out_mat mat to save
-*/
+ \param[out] ofs output file stream
+ \param[in] out_mat mat to save
+ */
 void writeMatBinary(std::ofstream& ofs, const cv::Mat& out_mat);
 
 //! Read cv::Mat from binary
 /*!
-\param[in] ifs input file stream
-\param[out] in_mat mat to load
-*/
+ \param[in] ifs input file stream
+ \param[out] in_mat mat to load
+ */
 void readMatBinary(std::ifstream& ifs, cv::Mat& in_mat);
 
-cv::Mat transPointVecToMat(std::vector<cv::Point2f>& pt_vec, std::vector<unsigned char>& mask);	// Point2f\‘¢‘Ì‚ğMatŒ^‚Ö•ÏŠ·
+cv::Mat transPointVecToMat(std::vector<cv::Point2f>& pt_vec,
+		std::vector<unsigned char>& mask);	// Point2fï¿½\ï¿½ï¿½ï¿½Ì‚ï¿½Matï¿½^ï¿½Ö•ÏŠï¿½
 cv::Mat transPointVecToMat(std::vector<cv::Point2f>& pt_vec);
-cv::Mat transPointVecToMatHom(std::vector<cv::Point2f>& pt_vec);	// Point2f\‘¢‘Ì‚ğÄŸÀ•W‚É‚µ‚ÄMatŒ^‚Ö•ÏŠ·
-cv::Mat transPointVecToMat2D(std::vector<cv::Point2f>& pt_vec, std::vector<unsigned char>& mask);	// Point2f\‘¢‘Ì‚ğMatŒ^‚Ö•ÏŠ·
+cv::Mat transPointVecToMatHom(std::vector<cv::Point2f>& pt_vec);// Point2fï¿½\ï¿½ï¿½ï¿½Ì‚ï¿½Äï¿½ï¿½ï¿½ï¿½Wï¿½É‚ï¿½ï¿½ï¿½Matï¿½^ï¿½Ö•ÏŠï¿½
+cv::Mat transPointVecToMat2D(std::vector<cv::Point2f>& pt_vec,
+		std::vector<unsigned char>& mask);	// Point2fï¿½\ï¿½ï¿½ï¿½Ì‚ï¿½Matï¿½^ï¿½Ö•ÏŠï¿½
 cv::Mat transPointVecToMat2D(std::vector<cv::Point2f>& pt_vec);
-std::vector<cv::Point2f> calcAffineTransformRect(cv::Size& regimg_size, cv::Mat& transMat);
-std::vector<cv::Point2f> calcAffineTransformPoints(std::vector<cv::Point2f>& pts_vec, cv::Mat& transMat);
-//int checkPointsDistance(std::vector<cv::Point2f> &src_pts, std::vector<cv::Point2f> &dest_pts, double dist_threshold, std::vector<unsigned char>& status);	// ƒAƒtƒBƒ“•ÏŠ·Œã‚Ì2‚Â‚Ì“_‚Ì‹——£‚ªè‡’lˆÈã‚Ì‚à‚Ì‚Ístatus‚ğ0‚É‚·‚é
-bool checkRectShape(std::vector<cv::Point2f>& rect_pt);	// Ë‰e•ÏŠ·‚µ‚½‹éŒ`‚ÌŒ`ó‚ğƒ`ƒFƒbƒN‚·‚é
-cv::Mat createMask(cv::Size img_size, std::vector<cv::Point2f>& pts);	// pts‚Åw’è‚µ‚½4“_‚ğˆÍ‚Şƒ}ƒXƒN‚ğì¬‚·‚é
-int checkInsideArea(std::vector<cv::Point2f>& points, std::vector<cv::Point2f>& corner_pts, std::vector<unsigned char>& status);
-bool checkPtInsideImage(cv::Size img_size, std::vector<cv::Point2f>& pts);	// pts‚ª‰æ‘œ—Ìˆæ“à‚É‚ ‚é‚©‚Ì”»’è
+std::vector<cv::Point2f> calcAffineTransformRect(cv::Size& regimg_size,
+		cv::Mat& transMat);
+std::vector<cv::Point2f> calcAffineTransformPoints(
+		std::vector<cv::Point2f>& pts_vec, cv::Mat& transMat);
+//int checkPointsDistance(std::vector<cv::Point2f> &src_pts, std::vector<cv::Point2f> &dest_pts, double dist_threshold, std::vector<unsigned char>& status);	// ï¿½Aï¿½tï¿½Bï¿½ï¿½ï¿½ÏŠï¿½ï¿½ï¿½ï¿½2ï¿½Â‚Ì“_ï¿½Ì‹ï¿½ï¿½ï¿½ï¿½ï¿½è‡’lï¿½Èï¿½Ì‚ï¿½ï¿½Ì‚ï¿½statusï¿½ï¿½0ï¿½É‚ï¿½ï¿½ï¿½
+bool checkRectShape(std::vector<cv::Point2f>& rect_pt);	// ï¿½Ë‰eï¿½ÏŠï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½`ï¿½ÌŒ`ï¿½ï¿½ï¿½ï¿½`ï¿½Fï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½
+cv::Mat createMask(cv::Size img_size, std::vector<cv::Point2f>& pts);// ptsï¿½Åwï¿½è‚µï¿½ï¿½4ï¿½_ï¿½ï¿½ï¿½Í‚Şƒ}ï¿½Xï¿½Nï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½ï¿½
+int checkInsideArea(std::vector<cv::Point2f>& points,
+		std::vector<cv::Point2f>& corner_pts,
+		std::vector<unsigned char>& status);
+bool checkPtInsideImage(cv::Size img_size, std::vector<cv::Point2f>& pts);// ptsï¿½ï¿½ï¿½æ‘œï¿½Ìˆï¿½ï¿½ï¿½É‚ï¿½ï¿½é‚©ï¿½Ì”ï¿½ï¿½ï¿½
 //double erf(double x);	// error function
 
-void resizeMatChannel(cv::Mat& src_mat, cv::Mat& dest_mat, double val = 0);	// src_mat‚Ìƒ`ƒƒƒlƒ‹”‚ğchannel‚É•ÏŠ·B‹ó‚¢‚½ƒ`ƒƒƒlƒ‹‚Éval‚ğ“ü‚ê‚é
-template<typename _Tp> void resizeMatChannelType(cv::Mat& src_mat, cv::Mat& dest_mat, double val = 0);	// src_mat‚Ìƒ`ƒƒƒlƒ‹”‚ğchannel‚É•ÏŠ·B‹ó‚¢‚½ƒ`ƒƒƒlƒ‹‚Éval‚ğ“ü‚ê‚é
-void setChannelValue(cv::Mat& dest_mat, int channel, double val = 0);	// w’èƒ`ƒƒƒlƒ‹‚Ì’l‚ğval‚Éİ’è
-template <typename _Tp> void setChannelValueType(cv::Mat& dest_mat, int channel, double val = 0);	// w’èƒ`ƒƒƒlƒ‹‚Ì’l‚ğval‚Éİ’è
+void resizeMatChannel(cv::Mat& src_mat, cv::Mat& dest_mat, double val = 0);	// src_matï¿½Ìƒ`ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½channelï¿½É•ÏŠï¿½ï¿½Bï¿½ó‚¢‚ï¿½ï¿½`ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½ï¿½valï¿½ï¿½ï¿½ï¿½ï¿½
+template<typename _Tp> void resizeMatChannelType(cv::Mat& src_mat,
+		cv::Mat& dest_mat, double val = 0);	// src_matï¿½Ìƒ`ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½channelï¿½É•ÏŠï¿½ï¿½Bï¿½ó‚¢‚ï¿½ï¿½`ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½ï¿½valï¿½ï¿½ï¿½ï¿½ï¿½
+void setChannelValue(cv::Mat& dest_mat, int channel, double val = 0);// ï¿½wï¿½ï¿½`ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½Ì’lï¿½ï¿½valï¿½Éİ’ï¿½
+template<typename _Tp> void setChannelValueType(cv::Mat& dest_mat, int channel,
+		double val = 0);	// ï¿½wï¿½ï¿½`ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½Ì’lï¿½ï¿½valï¿½Éİ’ï¿½
 
-std::vector<cv::Point2f> scalePoints(std::vector<cv::Point2f>& point_vec, double scale);
-void decomposeHomography(cv::Mat& H_mat, cv::Mat& camera_matrix, cv::Mat& rotation, cv::Mat& translation);		// ƒzƒ‚ƒOƒ‰ƒtƒB‚ğ‰ñ“]s—ñ‚Æ•Àis—ñ‚Ö•ÏX
-template<typename _Tp> void decomposeHomographyType(cv::Mat& H_mat, cv::Mat& camera_matrix, cv::Mat& rotation, cv::Mat& translation);
-void decomposeHomography(cv::Mat& H_mat, cv::Mat& camera_matrix, cv::Mat& rotation, cv::Mat& translation, cv::Point2f marker_center);		// ƒzƒ‚ƒOƒ‰ƒtƒB‚ğ‰ñ“]s—ñ‚Æ•Àis—ñ‚Ö•ÏX
-template<typename _Tp> void decomposeHomographyType(cv::Mat& H_mat, cv::Mat& camera_matrix, cv::Mat& rotation, cv::Mat& translation, cv::Point2f marker_center);
+std::vector<cv::Point2f> scalePoints(std::vector<cv::Point2f>& point_vec,
+		double scale);
+void decomposeHomography(cv::Mat& H_mat, cv::Mat& camera_matrix,
+		cv::Mat& rotation, cv::Mat& translation);// ï¿½zï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½tï¿½Bï¿½ï¿½ï¿½ï¿½]ï¿½sï¿½ï¿½Æ•ï¿½ï¿½iï¿½sï¿½ï¿½Ö•ÏX
+template<typename _Tp> void decomposeHomographyType(cv::Mat& H_mat,
+		cv::Mat& camera_matrix, cv::Mat& rotation, cv::Mat& translation);
+void decomposeHomography(cv::Mat& H_mat, cv::Mat& camera_matrix,
+		cv::Mat& rotation, cv::Mat& translation, cv::Point2f marker_center);// ï¿½zï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½tï¿½Bï¿½ï¿½ï¿½ï¿½]ï¿½sï¿½ï¿½Æ•ï¿½ï¿½iï¿½sï¿½ï¿½Ö•ÏX
+template<typename _Tp> void decomposeHomographyType(cv::Mat& H_mat,
+		cv::Mat& camera_matrix, cv::Mat& rotation, cv::Mat& translation,
+		cv::Point2f marker_center);
 
-};
+}
+;
 #endif

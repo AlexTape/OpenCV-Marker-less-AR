@@ -2,214 +2,209 @@
 #define __GLMETASEQ_H__
 
 /*=========================================================================================
-	ƒƒ^ƒZƒRƒCƒA‚Åì¬‚µ‚½ƒ‚ƒfƒ‹(*.mqo)‚ðOpenGLã‚É“Ç‚Ýž‚ÞŠÖ”‚ð‚Ü‚Æ‚ß‚½C/C++—pƒwƒbƒ_
-=========================================================================================*/
+ ï¿½ï¿½ï¿½^ï¿½Zï¿½Rï¿½Cï¿½Aï¿½Åì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½ï¿½(*.mqo)ï¿½ï¿½OpenGLï¿½ï¿½É“Ç‚Ýï¿½ï¿½ÞŠÖï¿½ï¿½ï¿½ï¿½Ü‚Æ‚ß‚ï¿½C/C++ï¿½pï¿½wï¿½bï¿½_
+ =========================================================================================*/
 
 /*
-GLMetaseq
-The MIT License
-Copyright (c) 2009 Sunao Hashimoto and Keisuke Konishi
+ GLMetaseq
+ The MIT License
+ Copyright (c) 2009 Sunao Hashimoto and Keisuke Konishi
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
 
 
-GLMetaseq
-MITƒ‰ƒCƒZƒ“ƒX
-Copyright (c) 2009 Sunao Hashimoto and Keisuke Konishi
+ GLMetaseq
+ MITï¿½ï¿½ï¿½Cï¿½Zï¿½ï¿½ï¿½X
+ Copyright (c) 2009 Sunao Hashimoto and Keisuke Konishi
 
-ˆÈ‰º‚É’è‚ß‚éðŒ‚É]‚¢A–{ƒ\ƒtƒgƒEƒFƒA‚¨‚æ‚ÑŠÖ˜A•¶‘‚Ìƒtƒ@ƒCƒ‹iˆÈ‰ºuƒ\ƒtƒg
-ƒEƒFƒAvj‚Ì•¡»‚ðŽæ“¾‚·‚é‚·‚×‚Ä‚Ìl‚É‘Î‚µAƒ\ƒtƒgƒEƒFƒA‚ð–³§ŒÀ‚Éˆµ‚¤‚±‚Æ‚ð
-–³ž‚Å‹–‰Â‚µ‚Ü‚·B‚±‚ê‚É‚ÍAƒ\ƒtƒgƒEƒFƒA‚Ì•¡»‚ðŽg—pA•¡ŽÊA•ÏXAŒ‹‡AŒfÚA
-”Ð•zAƒTƒuƒ‰ƒCƒZƒ“ƒXA‚¨‚æ‚Ñ/‚Ü‚½‚Í”Ì”„‚·‚éŒ —˜A‚¨‚æ‚Ñƒ\ƒtƒgƒEƒFƒA‚ð’ñ‹Ÿ‚·‚é
-‘ŠŽè‚É“¯‚¶‚±‚Æ‚ð‹–‰Â‚·‚éŒ —˜‚à–³§ŒÀ‚ÉŠÜ‚Ü‚ê‚Ü‚·B 
+ ï¿½È‰ï¿½ï¿½É’ï¿½ß‚ï¿½ï¿½ï¿½ï¿½ï¿½É]ï¿½ï¿½ï¿½Aï¿½{ï¿½\ï¿½tï¿½gï¿½Eï¿½Fï¿½Aï¿½ï¿½ï¿½ï¿½ÑŠÖ˜Aï¿½ï¿½ï¿½ï¿½ï¿½Ìƒtï¿½@ï¿½Cï¿½ï¿½ï¿½iï¿½È‰ï¿½ï¿½uï¿½\ï¿½tï¿½g
+ ï¿½Eï¿½Fï¿½Aï¿½vï¿½jï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½é‚·ï¿½×‚Ä‚Ìlï¿½É‘Î‚ï¿½ï¿½Aï¿½\ï¿½tï¿½gï¿½Eï¿½Fï¿½Aï¿½ð–³ï¿½ï¿½ï¿½ï¿½Éˆï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½
+ ï¿½ï¿½ï¿½ï¿½ï¿½Å‹ï¿½ï¿½Â‚ï¿½ï¿½Ü‚ï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½É‚ÍAï¿½\ï¿½tï¿½gï¿½Eï¿½Fï¿½Aï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½gï¿½pï¿½Aï¿½ï¿½ï¿½ÊAï¿½ÏXï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½fï¿½ÚA
+ ï¿½Ð•zï¿½Aï¿½Tï¿½uï¿½ï¿½ï¿½Cï¿½Zï¿½ï¿½ï¿½Xï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½Ü‚ï¿½ï¿½Í”Ì”ï¿½ï¿½ï¿½ï¿½éŒ ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½Ñƒ\ï¿½tï¿½gï¿½Eï¿½Fï¿½Aï¿½ï¿½ñ‹Ÿ‚ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½É“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½éŒ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÉŠÜ‚Ü‚ï¿½Ü‚ï¿½ï¿½B
 
-ã‹L‚Ì’˜ìŒ •\Ž¦‚¨‚æ‚Ñ–{‹–‘ø•\Ž¦‚ðAƒ\ƒtƒgƒEƒFƒA‚Ì‚·‚×‚Ä‚Ì•¡»‚Ü‚½‚Íd—v‚È•”•ª
-‚É‹LÚ‚·‚é‚à‚Ì‚Æ‚µ‚Ü‚·B 
+ ï¿½ï¿½Lï¿½Ì’ï¿½ï¿½ìŒ ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ–{ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½\ï¿½tï¿½gï¿½Eï¿½Fï¿½Aï¿½Ì‚ï¿½ï¿½×‚Ä‚Ì•ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Ídï¿½vï¿½È•ï¿½ï¿½ï¿½
+ ï¿½É‹Lï¿½Ú‚ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚Æ‚ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-ƒ\ƒtƒgƒEƒFƒA‚ÍuŒ»ó‚Ì‚Ü‚Üv‚ÅA–¾Ž¦‚Å‚ ‚é‚©ˆÃ–Ù‚Å‚ ‚é‚©‚ð–â‚í‚¸A‰½‚ç‚Ì•ÛØ
-‚à‚È‚­’ñ‹Ÿ‚³‚ê‚Ü‚·B‚±‚±‚Å‚¢‚¤•ÛØ‚Æ‚ÍA¤•i«A“Á’è‚Ì–Ú“I‚Ö‚Ì“K‡«A‚¨‚æ‚Ñ
-Œ —˜”ñNŠQ‚É‚Â‚¢‚Ä‚Ì•ÛØ‚àŠÜ‚Ý‚Ü‚·‚ªA‚»‚ê‚ÉŒÀ’è‚³‚ê‚é‚à‚Ì‚Å‚Í‚ ‚è‚Ü‚¹‚ñB 
-ìŽÒ‚Ü‚½‚Í’˜ìŒ ŽÒ‚ÍAŒ_–ñsˆ×A•s–@sˆ×A‚Ü‚½‚Í‚»‚êˆÈŠO‚Å‚ ‚ë‚¤‚ÆAƒ\ƒtƒg
-ƒEƒFƒA‚É‹Nˆö‚Ü‚½‚ÍŠÖ˜A‚µA‚ ‚é‚¢‚Íƒ\ƒtƒgƒEƒFƒA‚ÌŽg—p‚Ü‚½‚Í‚»‚Ì‘¼‚Ìˆµ‚¢‚É
-‚æ‚Á‚Ä¶‚¶‚éˆêØ‚Ì¿‹A‘¹ŠQA‚»‚Ì‘¼‚Ì‹`–±‚É‚Â‚¢‚Ä‰½‚ç‚ÌÓ”C‚à•‰‚í‚È‚¢‚à‚Ì
-‚Æ‚µ‚Ü‚·B 
-*/
+ ï¿½\ï¿½tï¿½gï¿½Eï¿½Fï¿½Aï¿½Íuï¿½ï¿½ï¿½ï¿½Ì‚Ü‚Üvï¿½ÅAï¿½ï¿½ï¿½ï¿½ï¿½Å‚ï¿½ï¿½é‚©ï¿½Ã–Ù‚Å‚ï¿½ï¿½é‚©ï¿½ï¿½ï¿½í‚¸ï¿½Aï¿½ï¿½ï¿½ï¿½Ì•Ûï¿½
+ ï¿½ï¿½ï¿½È‚ï¿½ï¿½ñ‹Ÿ‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½ï¿½ÛØ‚Æ‚ÍAï¿½ï¿½ï¿½iï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½Ì–Ú“Iï¿½Ö‚Ì“Kï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½Qï¿½É‚Â‚ï¿½ï¿½Ä‚Ì•ÛØ‚ï¿½ï¿½Ü‚Ý‚Ü‚ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ÉŒï¿½ï¿½è‚³ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚Å‚Í‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½B
+ ï¿½ï¿½Ò‚Ü‚ï¿½ï¿½Í’ï¿½ï¿½ìŒ ï¿½Ò‚ÍAï¿½_ï¿½ï¿½sï¿½×Aï¿½sï¿½@ï¿½sï¿½×Aï¿½Ü‚ï¿½ï¿½Í‚ï¿½ï¿½ï¿½ÈŠOï¿½Å‚ï¿½ï¿½ë‚¤ï¿½ÆAï¿½\ï¿½tï¿½g
+ ï¿½Eï¿½Fï¿½Aï¿½É‹Nï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ÍŠÖ˜Aï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½é‚¢ï¿½Íƒ\ï¿½tï¿½gï¿½Eï¿½Fï¿½Aï¿½ÌŽgï¿½pï¿½Ü‚ï¿½ï¿½Í‚ï¿½ï¿½Ì‘ï¿½ï¿½Ìˆï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø‚Ìï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Qï¿½Aï¿½ï¿½ï¿½Ì‘ï¿½ï¿½Ì‹`ï¿½ï¿½ï¿½É‚Â‚ï¿½ï¿½Ä‰ï¿½ï¿½ï¿½ÌÓ”Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½Æ‚ï¿½ï¿½Ü‚ï¿½ï¿½B
+ */
 
 /*
-----------------------------------------------------------------------------------------
-	1. ‚±‚Ìƒwƒbƒ_‚ðŽg‚¤ã‚Å‚Ì’ˆÓ“_
-----------------------------------------------------------------------------------------
-  
-	œ“Ç‚Ýž‚Ý‰Â”\‚ÈƒeƒNƒXƒ`ƒƒ‚Ì‰æ‘œŒ`Ž®‚ÍbmpCtgaCjpegCpng
-	@‚½‚¾‚µ
-	@@jpeg‚Ì“Ç‚Ýž‚Ý‚É‚ÍJPEGƒ‰ƒCƒuƒ‰ƒŠilibjpeg.lib, jpeglib.hj‚ª•Ê“r•K—v
-	@@jpeg‚Ì“Ç‚Ýž‚Ý‚ð—LŒø‚É‚·‚é‚É‚ÍC‚±‚Ìƒwƒbƒ_‚Ì DEF_USE_LIBJPEG ‚ð 1 ‚É‚·‚é‚±‚Æ
+ ----------------------------------------------------------------------------------------
+ 1. ï¿½ï¿½ï¿½Ìƒwï¿½bï¿½_ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½Å‚Ì’ï¿½ï¿½Ó“_
+ ----------------------------------------------------------------------------------------
 
-	@	png‚Ì“Ç‚Ýž‚Ý‚É‚ÍPNGƒ‰ƒCƒuƒ‰ƒŠilibpng.lib, zlib.lib, png.h ,zlib.hj‚ª•Ê“r•K—v
-	@@png‚Ì“Ç‚Ýž‚Ý‚ð—LŒø‚É‚·‚é‚É‚ÍC‚±‚Ìƒwƒbƒ_‚Ì DEF_USE_LIBPNG  ‚ð 1 ‚É‚·‚é‚±‚Æ
+ ï¿½ï¿½ï¿½Ç‚Ýï¿½ï¿½Ý‰Â”\ï¿½Èƒeï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Ì‰æ‘œï¿½`ï¿½ï¿½ï¿½ï¿½bmpï¿½Ctgaï¿½Cjpegï¿½Cpng
+ ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½@ï¿½@jpegï¿½Ì“Ç‚Ýï¿½ï¿½Ý‚É‚ï¿½JPEGï¿½ï¿½ï¿½Cï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ilibjpeg.lib, jpeglib.hï¿½jï¿½ï¿½ï¿½Ê“rï¿½Kï¿½v
+ ï¿½@ï¿½@jpegï¿½Ì“Ç‚Ýï¿½ï¿½Ý‚ï¿½Lï¿½ï¿½É‚ï¿½ï¿½ï¿½É‚ÍCï¿½ï¿½ï¿½Ìƒwï¿½bï¿½_ï¿½ï¿½ DEF_USE_LIBJPEG ï¿½ï¿½ 1 ï¿½É‚ï¿½ï¿½é‚±ï¿½ï¿½
 
-	œƒeƒNƒXƒ`ƒƒ‰æ‘œ‚ÌƒTƒCƒY‚Íuˆê•Ó‚ª2‚ÌnæƒTƒCƒY(64,128,256c)‚Ì³•ûŒ`v‚ÉŒÀ‚é
+ ï¿½@	pngï¿½Ì“Ç‚Ýï¿½ï¿½Ý‚É‚ï¿½PNGï¿½ï¿½ï¿½Cï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ilibpng.lib, zlib.lib, png.h ,zlib.hï¿½jï¿½ï¿½ï¿½Ê“rï¿½Kï¿½v
+ ï¿½@ï¿½@pngï¿½Ì“Ç‚Ýï¿½ï¿½Ý‚ï¿½Lï¿½ï¿½É‚ï¿½ï¿½ï¿½É‚ÍCï¿½ï¿½ï¿½Ìƒwï¿½bï¿½_ï¿½ï¿½ DEF_USE_LIBPNG  ï¿½ï¿½ 1 ï¿½É‚ï¿½ï¿½é‚±ï¿½ï¿½
 
-
-----------------------------------------------------------------------------------------
-	2. Žg‚¢•û(1) 1‚Â‚ÌMQOƒtƒ@ƒCƒ‹‚ð“Ç‚Ýž‚ñ‚Å•\Ž¦‚·‚éê‡
-----------------------------------------------------------------------------------------
-
-	(1) ‰Šú‰»iARToolKit‚Ìê‡CargInit()‚ÌŒã‚ÉŽg—pj
-
-		mqoInit();
-
-	(2) ƒtƒ@ƒCƒ‹‚©‚ç‚Ìƒ‚ƒfƒ‹‚Ì“Ç‚Ýž‚Ý
-
-		MQO_MODEL model;
-		model = mqoCreateModel( "mario.mqo", 1.0 );
-
-	(3) ƒ‚ƒfƒ‹‚ÌŒÄ‚Ño‚µ
-		
-		mqoCallModel( model );
-
-	(4) ƒ‚ƒfƒ‹‚ÌÁ‹Ž
-
-		mqoDeleteModel( model );
-
-	(5) I—¹ˆ—iƒvƒƒOƒ‰ƒ€I—¹Žž‚É‚â‚Á‚Ä‚­‚¾‚³‚¢j
-
-		mqoCleanup();
-
-----------------------------------------------------------------------------------------
-	3. Žg‚¢•û(2) ˜A”Ôƒtƒ@ƒCƒ‹‚ð“Ç‚Ýž‚ñ‚Å•\Ž¦‚·‚éê‡
-----------------------------------------------------------------------------------------
-
-	(1) ‰Šú‰»iARToolKit‚Ìê‡CargInit()‚ÌŒã‚ÉŽg—pj
-
-		mqoInit();
-
-	(2) ˜A”ÔƒV[ƒPƒ“ƒX‚Ìì¬
-	
-	  @—áFmario0.mqo ` mario9.mqo ‚ð“Ç‚Ýž‚Þ
-
-		MQO_SEQUENCE seq;
-		seq = mqoCreateSequence( "mario%d.mqo", 10, 1.0 );
-
-	(3) ˜A”ÔƒV[ƒPƒ“ƒX‚ÌŽw’èƒtƒŒ[ƒ€‚ÌŒÄ‚Ño‚µii‚ÍƒtƒŒ[ƒ€”Ô†j
-		
-		mqoCallSequence( seq, i );
-
-	(4) ˜A”ÔƒV[ƒPƒ“ƒX‚ÌÁ‹Ž
-
-		mqoDeleteSequence( seq );
-
-	(5) I—¹ˆ—iƒvƒƒOƒ‰ƒ€I—¹Žž‚É‚â‚Á‚Ä‚­‚¾‚³‚¢j
-
-		mqoCleanup();
-
-----------------------------------------------------------------------------------------
-	4. Žå‚ÈŽd—l
-----------------------------------------------------------------------------------------
-
-	œ•\Ž¦‹@”\
-	EƒTƒ|[ƒg‚µ‚Ä‚¢‚éMQOƒtƒ@ƒCƒ‹‚Ìƒo[ƒWƒ‡ƒ“‚ÍuMetasequoia Ver1.0/2.0`2.4v
-
-	E‘Î‰ž‚µ‚Ä‚¢‚éÞŽ¿î•ñ
-	@FiŒõj
-	@ƒeƒNƒXƒ`ƒƒƒ}ƒbƒviƒoƒ“ƒvƒ}ƒbƒv”ñ‘Î‰ž^UVƒ}ƒbƒsƒ“ƒO‚Ì‚Ýj
-
-	E‘Î‰ž‚µ‚Ä‚¢‚éƒIƒuƒWƒFƒNƒgî•ñ
-	@•\Ž¦^”ñ•\Ž¦‚ÌØ‚è‘Ö‚¦
-	@ƒXƒ€[ƒWƒ“ƒO‚Ì—L–³
-	@’¸“_–@ü‚ðŒˆ‚ß‚é‚Æ‚«‚ÌƒXƒ€[ƒWƒ“ƒOŠp
-	@’¸“_î•ñ
-	@–Êî•ñi’¸“_ƒJƒ‰[”ñ‘Î‰žj
-
-	E‹È–ÊE‹¾–ÊE‰ñ“]‘Ì‚É‚Í”ñ‘Î‰ž
-	Eƒƒ^ƒ{[ƒ‹‚Í”ñ‘Î‰ž
-
-	œŽd—l
-	Eƒ`ƒƒƒ“ƒN–¼‚ÍŒ´‘¥‚Æ‚µ‚Ä‘å•¶Žš‚Æ¬•¶Žš‚Ì‹æ•Ê‚ð‚µ‚È‚¢‚±‚Æ‚É‚È‚Á‚Ä‚¢‚é‚ª
-	@‹æ•Ê‚µ‚Ä‚µ‚Ü‚Á‚Ä‚¢‚éD
-	EƒeƒNƒXƒ`ƒƒ‚ÌƒpƒX‚É‘½ƒoƒCƒg•¶Žš‚ð‚Â‚©‚Á‚Ä‚¢‚Ä
-	@‚»‚Ì‚È‚©‚É'\'(0x5c)‚â'/'(0x2f)‚ª‚Í‚¢‚Á‚Ä‚¢‚é‚Æ‚¤‚Ü‚­ƒeƒNƒXƒ`ƒƒ‚ª“Ç‚ß‚È‚¢D
-	E–¢’…F‚Ìƒ}ƒeƒŠƒAƒ‹‚É‘Î‰ž‚µ‚Ä‚¢‚È‚¢D
-	@Objectƒ`ƒƒƒ“ƒN¨faceƒ`ƒƒƒ“ƒN‚ÌÞŽ¿ƒCƒ“ƒfƒbƒNƒXiM(%d)j‚ª-1‚É–¢‘Î‰žD
-
-*/
+ ï¿½ï¿½ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½æ‘œï¿½ÌƒTï¿½Cï¿½Yï¿½Íuï¿½ï¿½Ó‚ï¿½2ï¿½ï¿½nï¿½ï¿½Tï¿½Cï¿½Y(64,128,256ï¿½c)ï¿½Ìï¿½ï¿½ï¿½`ï¿½vï¿½ÉŒï¿½ï¿½ï¿½
 
 
+ ----------------------------------------------------------------------------------------
+ 2. ï¿½gï¿½ï¿½ï¿½ï¿½(1) 1ï¿½Â‚ï¿½MQOï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½Ç‚Ýï¿½ï¿½ï¿½Å•\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡
+ ----------------------------------------------------------------------------------------
+
+ (1) ï¿½ï¿½ï¿½ï¿½iARToolKitï¿½Ìê‡ï¿½CargInit()ï¿½ÌŒï¿½ÉŽgï¿½pï¿½j
+
+ mqoInit();
+
+ (2) ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒï¿½ï¿½fï¿½ï¿½ï¿½Ì“Ç‚Ýï¿½ï¿½ï¿½
+
+ MQO_MODEL model;
+ model = mqoCreateModel( "mario.mqo", 1.0 );
+
+ (3) ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½ÌŒÄ‚Ñoï¿½ï¿½
+
+ mqoCallModel( model );
+
+ (4) ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
+
+ mqoDeleteModel( model );
+
+ (5) ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½vï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½j
+
+ mqoCleanup();
+
+ ----------------------------------------------------------------------------------------
+ 3. ï¿½gï¿½ï¿½ï¿½ï¿½(2) ï¿½Aï¿½Ôƒtï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½Ç‚Ýï¿½ï¿½ï¿½Å•\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡
+ ----------------------------------------------------------------------------------------
+
+ (1) ï¿½ï¿½ï¿½ï¿½iARToolKitï¿½Ìê‡ï¿½CargInit()ï¿½ÌŒï¿½ÉŽgï¿½pï¿½j
+
+ mqoInit();
+
+ (2) ï¿½Aï¿½ÔƒVï¿½[ï¿½Pï¿½ï¿½ï¿½Xï¿½Ìì¬
+
+ ï¿½@ï¿½ï¿½Fmario0.mqo ï¿½` mario9.mqo ï¿½ï¿½Ç‚Ýï¿½ï¿½ï¿½
+
+ MQO_SEQUENCE seq;
+ seq = mqoCreateSequence( "mario%d.mqo", 10, 1.0 );
+
+ (3) ï¿½Aï¿½ÔƒVï¿½[ï¿½Pï¿½ï¿½ï¿½Xï¿½ÌŽwï¿½ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ÌŒÄ‚Ñoï¿½ï¿½ï¿½iiï¿½Íƒtï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ôï¿½ï¿½j
+
+ mqoCallSequence( seq, i );
+
+ (4) ï¿½Aï¿½ÔƒVï¿½[ï¿½Pï¿½ï¿½ï¿½Xï¿½Ìï¿½ï¿½ï¿½
+
+ mqoDeleteSequence( seq );
+
+ (5) ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½vï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½j
+
+ mqoCleanup();
+
+ ----------------------------------------------------------------------------------------
+ 4. ï¿½ï¿½ÈŽdï¿½l
+ ----------------------------------------------------------------------------------------
+
+ ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½@ï¿½\
+	ï¿½Eï¿½Tï¿½|ï¿½[ï¿½gï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½MQOï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ìƒoï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ÍuMetasequoia Ver1.0/2.0ï¿½`2.4ï¿½v
+
+ ï¿½Eï¿½Î‰ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ÞŽï¿½ï¿½ï¿½ï¿½
+ ï¿½@ï¿½Fï¿½iï¿½ï¿½ï¿½j
+ ï¿½@ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½}ï¿½bï¿½vï¿½iï¿½oï¿½ï¿½ï¿½vï¿½}ï¿½bï¿½vï¿½ï¿½Î‰ï¿½ï¿½^UVï¿½}ï¿½bï¿½sï¿½ï¿½ï¿½Oï¿½Ì‚Ýj
+
+ ï¿½Eï¿½Î‰ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½
+ ï¿½@ï¿½\ï¿½ï¿½ï¿½^ï¿½ï¿½\ï¿½ï¿½ï¿½ÌØ‚ï¿½Ö‚ï¿½
+ ï¿½@ï¿½Xï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½Oï¿½Ì—Lï¿½ï¿½
+ ï¿½@ï¿½ï¿½ï¿½_ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½Æ‚ï¿½ï¿½ÌƒXï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½Oï¿½p
+ ï¿½@ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½
+ ï¿½@ï¿½Êï¿½ï¿½iï¿½ï¿½ï¿½_ï¿½Jï¿½ï¿½ï¿½[ï¿½ï¿½Î‰ï¿½ï¿½j
+
+ ï¿½Eï¿½È–ÊEï¿½ï¿½ï¿½ÊEï¿½ï¿½]ï¿½Ì‚É‚Í”ï¿½Î‰ï¿½
+ ï¿½Eï¿½ï¿½ï¿½^ï¿½{ï¿½[ï¿½ï¿½ï¿½Í”ï¿½Î‰ï¿½
+
+ ï¿½ï¿½ï¿½dï¿½l
+ ï¿½Eï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½ÍŒï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½Ä‘å•¶ï¿½ï¿½ï¿½Æï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‹ï¿½Ê‚ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½Æ‚É‚È‚ï¿½ï¿½Ä‚ï¿½ï¿½é‚ª
+ ï¿½@ï¿½ï¿½Ê‚ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½D
+ ï¿½Eï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Ìƒpï¿½Xï¿½É‘ï¿½ï¿½oï¿½Cï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
+ ï¿½@ï¿½ï¿½ï¿½Ì‚È‚ï¿½ï¿½ï¿½'\'(0x5c)ï¿½ï¿½'/'(0x2f)ï¿½ï¿½ï¿½Í‚ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½Ü‚ï¿½ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚ß‚È‚ï¿½ï¿½D
+ ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½Ìƒ}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½É‘Î‰ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½D
+ ï¿½@Objectï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½faceï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ÌÞŽï¿½ï¿½Cï¿½ï¿½ï¿½fï¿½bï¿½Nï¿½Xï¿½iM(%d)ï¿½jï¿½ï¿½-1ï¿½É–ï¿½ï¿½Î‰ï¿½ï¿½D
+
+ */
 
 /*=========================================================================
-yƒ†[ƒU‚ª”CˆÓ‚ÅÝ’èz
-=========================================================================*/
+ ï¿½yï¿½ï¿½ï¿½[ï¿½Uï¿½ï¿½ï¿½Cï¿½Ó‚ÅÝ’ï¿½z
+ =========================================================================*/
 
-#define MAX_TEXTURE				100			// ƒeƒNƒXƒ`ƒƒ‚ÌÅ‘åŽæ‚èˆµ‚¢”
-#define MAX_OBJECT				50			// 1ŒÂ‚ÌMQOƒtƒ@ƒCƒ‹“à‚ÌÅ‘åƒIƒuƒWƒFƒNƒg”
-#define SIZE_STR				256			// •¶Žš—ñƒoƒbƒtƒ@‚ÌƒTƒCƒY
-#define DEF_IS_LITTLE_ENDIAN	1			// ƒGƒ“ƒfƒBƒAƒ“Žw’èiintelŒn=1j
-#define DEF_USE_LIBJPEG			0			// libjpeg‚ÌŽg—pi1:Žg—p 0:–¢Žg—pj
-#define DEF_USE_LIBPNG			1			// libpng ‚ÌŽg—pi1:Žg—p 0:–¢Žg—pj
-
-
+#define MAX_TEXTURE				100			// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌÅ‘ï¿½ï¿½èˆµï¿½ï¿½ï¿½ï¿½
+#define MAX_OBJECT				50			// 1ï¿½Â‚ï¿½MQOï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ÌÅ‘ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½
+#define SIZE_STR				256			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½bï¿½tï¿½@ï¿½ÌƒTï¿½Cï¿½Y
+#define DEF_IS_LITTLE_ENDIAN	1			// ï¿½Gï¿½ï¿½ï¿½fï¿½Bï¿½Aï¿½ï¿½ï¿½wï¿½ï¿½iintelï¿½n=1ï¿½j
+#define DEF_USE_LIBJPEG			0			// libjpegï¿½ÌŽgï¿½pï¿½i1:ï¿½gï¿½p 0:ï¿½ï¿½ï¿½gï¿½pï¿½j
+#define DEF_USE_LIBPNG			1			// libpng ï¿½ÌŽgï¿½pï¿½i1:ï¿½gï¿½p 0:ï¿½ï¿½ï¿½gï¿½pï¿½j
 
 /*=========================================================================
-yƒRƒ“ƒpƒCƒ‹ƒIƒvƒVƒ‡ƒ“z
-=========================================================================*/
+ ï¿½yï¿½Rï¿½ï¿½ï¿½pï¿½Cï¿½ï¿½ï¿½Iï¿½vï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½z
+ =========================================================================*/
 
-// JPEG‚ðŽg—p‚·‚é
+// JPEGï¿½ï¿½ï¿½gï¿½pï¿½ï¿½ï¿½ï¿½
 #ifdef D_JPEG
-	#undef	DEF_USE_LIBJPEG
-	#define	DEF_USE_LIBJPEG 1
+#undef	DEF_USE_LIBJPEG
+#define	DEF_USE_LIBJPEG 1
 #endif
 
-// JPEG‚ðŽg—p‚µ‚È‚¢
+// JPEGï¿½ï¿½ï¿½gï¿½pï¿½ï¿½ï¿½È‚ï¿½
 #ifdef D_NO_JPEG
-	#undef	DEF_USE_LIBJPEG
-	#define	DEF_USE_LIBJPEG 0
+#undef	DEF_USE_LIBJPEG
+#define	DEF_USE_LIBJPEG 0
 #endif
 
-// PNG‚ðŽg—p‚·‚é
+// PNGï¿½ï¿½ï¿½gï¿½pï¿½ï¿½ï¿½ï¿½
 #ifdef D_PNG
-	#undef	DEF_USE_LIBPNG
-	#define	DEF_USE_LIBPNG 1
+#undef	DEF_USE_LIBPNG
+#define	DEF_USE_LIBPNG 1
 #endif
 
-// PNG‚ðŽg—p‚µ‚È‚¢
+// PNGï¿½ï¿½ï¿½gï¿½pï¿½ï¿½ï¿½È‚ï¿½
 #ifdef D_NO_PNG
-	#undef	DEF_USE_LIBPNG
-	#define	DEF_USE_LIBPNG 0
+#undef	DEF_USE_LIBPNG
+#define	DEF_USE_LIBPNG 0
 #endif
-
 
 /*=========================================================================
-yƒwƒbƒ_z
-=========================================================================*/
+ ï¿½yï¿½wï¿½bï¿½_ï¿½z
+ =========================================================================*/
 
 #ifdef WIN32
-	#include <windows.h>
+#include <windows.h>
 #else
-	#ifndef MAX_PATH
-		#define MAX_PATH    256
-	#endif
-	#ifndef TRUE
-		#define TRUE    (1==1)
-	#endif
-	#ifndef FALSE
-	    #define FALSE   (1!=1)
-	#endif
+#ifndef MAX_PATH
+#define MAX_PATH    256
+#endif
+#ifndef TRUE
+#define TRUE    (1==1)
+#endif
+#ifndef FALSE
+#define FALSE   (1!=1)
+#endif
 #endif
 
 #include <stdio.h>
@@ -217,61 +212,57 @@ Copyright (c) 2009 Sunao Hashimoto and Keisuke Konishi
 #include <math.h>
 
 #ifdef __APPLE__
-	#include <OpenGL/gl.h>
-	#include <OpenGL/glu.h>
-	#include <GLUT/glut.h>
-	#include <OpenGL/glext.h>
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+#include <GLUT/glut.h>
+#include <OpenGL/glext.h>
 #else
-	#include <GL/gl.h>
-	#include <GL/glu.h>
-	#include <GL/glut.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
 //	#include <gl/glext.h>
 #endif
 
-
 /*=========================================================================
-y‹@”\Ý’èz libjpegŽg—pÝ’è
-=========================================================================*/
+ ï¿½yï¿½@ï¿½\ï¿½Ý’ï¿½z libjpegï¿½gï¿½pï¿½Ý’ï¿½
+ =========================================================================*/
 
 #if DEF_USE_LIBJPEG
 
-	#define XMD_H // INT16‚ÆINT32‚ÌÄ’è‹`ƒGƒ‰[‚ð–h‚®
-	#ifdef FAR
-		#undef FAR
-	#endif
+#define XMD_H // INT16ï¿½ï¿½INT32ï¿½ÌÄ’ï¿½`ï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½hï¿½ï¿½
+#ifdef FAR
+#undef FAR
+#endif
 
-	#include "jpeglib.h"
-	#pragma comment(lib,"libjpeg.lib")
+#include "jpeglib.h"
+#pragma comment(lib,"libjpeg.lib")
 
 #endif
 
-
 /*=========================================================================
-y‹@”\Ý’èz libpngŽg—pÝ’è
-=========================================================================*/
+ ï¿½yï¿½@ï¿½\ï¿½Ý’ï¿½z libpngï¿½gï¿½pï¿½Ý’ï¿½
+ =========================================================================*/
 
 #if DEF_USE_LIBPNG
 
-	#include "png.h"
-	#include "zlib.h"
-	#pragma comment(lib,"libpng.lib")
-	#pragma comment(lib,"zlib.lib")
+#include "png.h"
+#include "zlib.h"
+//#pragma comment(lib,"libpng.lib")
+//#pragma comment(lib,"zlib.lib")
 
 #endif
 
-
 /*=========================================================================
-yƒ}ƒNƒ’è‹`z Å‘å’lƒ}ƒNƒ
-=========================================================================*/
+ ï¿½yï¿½}ï¿½Nï¿½ï¿½ï¿½ï¿½`ï¿½z ï¿½Å‘ï¿½lï¿½}ï¿½Nï¿½ï¿½
+ =========================================================================*/
 
 #ifndef MAX
-	#define MAX(a, b)  (((a) > (b)) ? (a) : (b))
+#define MAX(a, b)  (((a) > (b)) ? (a) : (b))
 #endif
 
-
 /*=========================================================================
-yŒ^’è‹`z TGAƒtƒH[ƒ}ƒbƒg
-=========================================================================*/
+ ï¿½yï¿½^ï¿½ï¿½`ï¿½z TGAï¿½tï¿½Hï¿½[ï¿½}ï¿½bï¿½g
+ =========================================================================*/
 
 #define DEF_TGA_COLOR_MAP_FLAG_VALID	1
 #define DEF_TGA_TYPE_NON				0
@@ -287,23 +278,22 @@ Copyright (c) 2009 Sunao Hashimoto and Keisuke Konishi
 #define DEF_TGA_BIT_INFO_TOP_TO_DOWN	0x20
 
 typedef struct {
-	unsigned char	id;
-	unsigned char	color_map_flag;
-	unsigned char	type;
-	unsigned short	color_map_entry;
-	unsigned char	color_map_entry_size;
-	unsigned short	x;
-	unsigned short	y;
-	unsigned short	width;
-	unsigned short	height;
-	unsigned char	depth;
-	unsigned char	bit_info;
+	unsigned char id;
+	unsigned char color_map_flag;
+	unsigned char type;
+	unsigned short color_map_entry;
+	unsigned char color_map_entry_size;
+	unsigned short x;
+	unsigned short y;
+	unsigned short width;
+	unsigned short height;
+	unsigned char depth;
+	unsigned char bit_info;
 } STR_TGA_HEAD;
 
-
 /*=========================================================================
-yŒ^’è‹`z OpenGL—pF\‘¢‘Ì (4Ffloat)
-=========================================================================*/
+ ï¿½yï¿½^ï¿½ï¿½`ï¿½z OpenGLï¿½pï¿½Fï¿½\ï¿½ï¿½ï¿½ï¿½ (4ï¿½Ffloat)
+ =========================================================================*/
 typedef struct {
 	GLfloat r;
 	GLfloat g;
@@ -311,237 +301,216 @@ typedef struct {
 	GLfloat a;
 } glCOLOR4f;
 
-
 /*=========================================================================
-yŒ^’è‹`z OpenGL—p‚QŽŸŒ³À•W\‘¢‘Ì (float)
-=========================================================================*/
+ ï¿½yï¿½^ï¿½ï¿½`ï¿½z OpenGLï¿½pï¿½Qï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½\ï¿½ï¿½ï¿½ï¿½ (float)
+ =========================================================================*/
 typedef struct {
 	GLfloat x;
 	GLfloat y;
 } glPOINT2f;
 
-
 /*=========================================================================
-yŒ^’è‹`z OpenGL—p‚RŽŸŒ³À•W\‘¢‘Ì (float)
-=========================================================================*/
+ ï¿½yï¿½^ï¿½ï¿½`ï¿½z OpenGLï¿½pï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½\ï¿½ï¿½ï¿½ï¿½ (float)
+ =========================================================================*/
 typedef struct tag_glPOINT3f {
 	GLfloat x;
 	GLfloat y;
 	GLfloat z;
 } glPOINT3f;
 
-
 /*=========================================================================
-yŒ^’è‹`z –Êî•ñ\‘¢‘Ì
-=========================================================================*/
+ ï¿½yï¿½^ï¿½ï¿½`ï¿½z ï¿½Êï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½
+ =========================================================================*/
 typedef struct {
-	int			n;		// 1‚Â‚Ì–Ê‚ð\¬‚·‚é’¸“_‚Ì”i3`4j
-	int			m;		// –Ê‚ÌÞŽ¿”Ô†
-	int			v[4];	// ’¸“_”Ô†‚ðŠi”[‚µ‚½”z—ñ
-	glPOINT2f	uv[4];	// UVƒ}ƒbƒv
+	int n;		// 1ï¿½Â‚Ì–Ê‚ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½é’¸ï¿½_ï¿½Ìï¿½ï¿½i3ï¿½`4ï¿½j
+	int m;		// ï¿½Ê‚ÌÞŽï¿½ï¿½Ôï¿½
+	int v[4];	// ï¿½ï¿½ï¿½_ï¿½Ôï¿½ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½
+	glPOINT2f uv[4];	// UVï¿½}ï¿½bï¿½v
 } MQO_FACE;
 
-
 /*=========================================================================
-yŒ^’è‹`z ÞŽ¿î•ñ\‘¢‘Ìiƒtƒ@ƒCƒ‹‚©‚çî•ñ‚ð“Ç‚Ýž‚ÞÛ‚ÉŽg—pj
-=========================================================================*/
+ ï¿½yï¿½^ï¿½ï¿½`ï¿½z ï¿½ÞŽï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½Ìiï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚Ýï¿½ï¿½ÞÛ‚ÉŽgï¿½pï¿½j
+ =========================================================================*/
 typedef struct {
-	glCOLOR4f	col;				// F
-	GLfloat		dif[4];				// ŠgŽUŒõ
-	GLfloat		amb[4];				// ŽüˆÍŒõ
-	GLfloat		emi[4];				// Ž©ŒÈÆ–¾
-	GLfloat		spc[4];				// ”½ŽËŒõ
-	GLfloat		power;				// ”½ŽËŒõ‚Ì‹­‚³
-	int			useTex;				// ƒeƒNƒXƒ`ƒƒ‚Ì—L–³
-	char		texFile[SIZE_STR];	// ƒeƒNƒXƒ`ƒƒƒtƒ@ƒCƒ‹
-	char		alpFile[SIZE_STR];	// ƒAƒ‹ƒtƒ@ƒeƒNƒXƒ`ƒƒƒtƒ@ƒCƒ‹
-	GLuint		texName;			// ƒeƒNƒXƒ`ƒƒ–¼
+	glCOLOR4f col;				// ï¿½F
+	GLfloat dif[4];				// ï¿½gï¿½Uï¿½ï¿½
+	GLfloat amb[4];				// ï¿½ï¿½ÍŒï¿½
+	GLfloat emi[4];				// ï¿½ï¿½ï¿½ÈÆ–ï¿½
+	GLfloat spc[4];				// ï¿½ï¿½ï¿½ËŒï¿½
+	GLfloat power;				// ï¿½ï¿½ï¿½ËŒï¿½ï¿½Ì‹ï¿½ï¿½ï¿½
+	int useTex;				// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Ì—Lï¿½ï¿½
+	char texFile[SIZE_STR];	// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½tï¿½@ï¿½Cï¿½ï¿½
+	char alpFile[SIZE_STR];	// ï¿½Aï¿½ï¿½ï¿½tï¿½@ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½tï¿½@ï¿½Cï¿½ï¿½
+	GLuint texName;			// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½
 } MQO_MATDATA;
 
-
 /*=========================================================================
-yŒ^’è‹`z ƒIƒuƒWƒFƒNƒg\‘¢‘Ìiƒp[ƒc‚PŒÂ‚Ìƒf[ƒ^j
-=========================================================================*/
+ ï¿½yï¿½^ï¿½ï¿½`ï¿½z ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½\ï¿½ï¿½ï¿½Ìiï¿½pï¿½[ï¿½cï¿½Pï¿½Â‚Ìƒfï¿½[ï¿½^ï¿½j
+ =========================================================================*/
 typedef struct {
-	char		objname[SIZE_STR];	// ƒp[ƒc–¼
-	int			visible;			// ‰ÂŽ‹ó‘Ô
-	int			shading;			// ƒVƒF[ƒfƒBƒ“ƒOi0:ƒtƒ‰ƒbƒg^1:ƒOƒ[j
-	float		facet;				// ƒXƒ€[ƒWƒ“ƒOŠp
-	int			n_face;				// –Ê”
-	int			n_vertex;			// ’¸“_”
-	MQO_FACE	*F;					// –Ê
-	glPOINT3f	*V;					// ’¸“_
+	char objname[SIZE_STR];	// ï¿½pï¿½[ï¿½cï¿½ï¿½
+	int visible;			// ï¿½ÂŽï¿½ï¿½ï¿½ï¿½
+	int shading;			// ï¿½Vï¿½Fï¿½[ï¿½fï¿½Bï¿½ï¿½ï¿½Oï¿½i0:ï¿½tï¿½ï¿½ï¿½bï¿½gï¿½^1:ï¿½Oï¿½ï¿½ï¿½[ï¿½j
+	float facet;				// ï¿½Xï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½Oï¿½p
+	int n_face;				// ï¿½Êï¿½
+	int n_vertex;			// ï¿½ï¿½ï¿½_ï¿½ï¿½
+	MQO_FACE *F;					// ï¿½ï¿½
+	glPOINT3f *V;					// ï¿½ï¿½ï¿½_
 } MQO_OBJDATA;
 
-
 /*=========================================================================
-yŒ^’è‹`z ƒeƒNƒXƒ`ƒƒƒv[ƒ‹
-=========================================================================*/
+ ï¿½yï¿½^ï¿½ï¿½`ï¿½z ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½vï¿½[ï¿½ï¿½
+ =========================================================================*/
 typedef struct {
-	GLuint			texture_id;			// ƒeƒNƒXƒ`ƒƒID
-	int				texsize;			// ƒeƒNƒXƒ`ƒƒƒTƒCƒY
-	char			texfile[MAX_PATH];	// ƒeƒNƒXƒ`ƒƒƒtƒ@ƒCƒ‹
-	char			alpfile[MAX_PATH];	// ƒAƒ‹ƒtƒ@ƒeƒNƒXƒ`ƒƒƒtƒ@ƒCƒ‹
-	unsigned char	alpha;				// ƒAƒ‹ƒtƒ@
+	GLuint texture_id;			// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ID
+	int texsize;			// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Tï¿½Cï¿½Y
+	char texfile[MAX_PATH];	// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½tï¿½@ï¿½Cï¿½ï¿½
+	char alpfile[MAX_PATH];	// ï¿½Aï¿½ï¿½ï¿½tï¿½@ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½tï¿½@ï¿½Cï¿½ï¿½
+	unsigned char alpha;				// ï¿½Aï¿½ï¿½ï¿½tï¿½@
 } TEXTURE_POOL;
 
-
 /*=========================================================================
-yŒ^’è‹`z ’¸“_ƒf[ƒ^iƒeƒNƒXƒ`ƒƒŽg—pŽžj
-=========================================================================*/
-typedef struct {		
-	GLfloat point[3];	// ’¸“_”z—ñ (x, y, z)
-	GLfloat normal[3];	// –@ü”z—ñ (x, y, z)
-	GLfloat uv[2];		// UV”z—ñ (u, v)
+ ï¿½yï¿½^ï¿½ï¿½`ï¿½z ï¿½ï¿½ï¿½_ï¿½fï¿½[ï¿½^ï¿½iï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½gï¿½pï¿½ï¿½ï¿½j
+ =========================================================================*/
+typedef struct {
+	GLfloat point[3];	// ï¿½ï¿½ï¿½_ï¿½zï¿½ï¿½ (x, y, z)
+	GLfloat normal[3];	// ï¿½@ï¿½ï¿½zï¿½ï¿½ (x, y, z)
+	GLfloat uv[2];		// UVï¿½zï¿½ï¿½ (u, v)
 } VERTEX_TEXUSE;
 
-
 /*=========================================================================
-yŒ^’è‹`z ’¸“_ƒf[ƒ^iƒeƒNƒXƒ`ƒƒ•sŽg—pŽžj
-=========================================================================*/
+ ï¿½yï¿½^ï¿½ï¿½`ï¿½z ï¿½ï¿½ï¿½_ï¿½fï¿½[ï¿½^ï¿½iï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½sï¿½gï¿½pï¿½ï¿½ï¿½j
+ =========================================================================*/
 typedef struct {
-	GLfloat point[3];	// ’¸“_”z—ñ (x, y, z)
-	GLfloat normal[3];	// –@ü”z—ñ (x, y, z)
+	GLfloat point[3];	// ï¿½ï¿½ï¿½_ï¿½zï¿½ï¿½ (x, y, z)
+	GLfloat normal[3];	// ï¿½@ï¿½ï¿½zï¿½ï¿½ (x, y, z)
 } VERTEX_NOTEX;
 
-
 /*=========================================================================
-yŒ^’è‹`z ƒ}ƒeƒŠƒAƒ‹î•ñiƒ}ƒeƒŠƒAƒ‹•Ê‚É’¸“_”z—ñ‚ðŽ‚Âj
-=========================================================================*/
+ ï¿½yï¿½^ï¿½ï¿½`ï¿½z ï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½iï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Ê‚É’ï¿½ï¿½_ï¿½zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âj
+ =========================================================================*/
 typedef struct {
-	int				isValidMaterialInfo;// ƒ}ƒeƒŠƒAƒ‹î•ñ‚Ì—LŒø/–³Œø
-	int				isUseTexture;		// ƒeƒNƒXƒ`ƒƒ‚Ì—L–³FUSE_TEXTURE / NOUSE_TEXTURE
-	GLuint			texture_id;			// ƒeƒNƒXƒ`ƒƒ‚Ì–¼‘O(OpenGL)
-	GLuint			VBO_id;				// ’¸“_ƒoƒbƒtƒ@‚ÌID(OpenGL)@‘Î‰ž‚µ‚Ä‚éŽž‚¾‚¯Žg—p
-	int				datanum;			// ’¸“_”
-	GLfloat			color[4];			// F”z—ñ (r, g, b, a)
-	GLfloat			dif[4];				// ŠgŽUŒõ
-	GLfloat			amb[4];				// ŽüˆÍŒõ
-	GLfloat			emi[4];				// Ž©ŒÈÆ–¾
-	GLfloat			spc[4];				// ”½ŽËŒõ
-	GLfloat			power;				// ”½ŽËŒõ‚Ì‹­‚³
-	VERTEX_NOTEX	*vertex_p;			// ƒ|ƒŠƒSƒ“‚Ì‚Ý‚ÌŽž‚Ì’¸“_”z—ñ
-	VERTEX_TEXUSE	*vertex_t;			// ƒeƒNƒXƒ`ƒƒŽg—pŽž‚Ì’¸“_”z—ñ
+	int isValidMaterialInfo;	// ï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½Ì—Lï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
+	int isUseTexture;		// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Ì—Lï¿½ï¿½ï¿½FUSE_TEXTURE / NOUSE_TEXTURE
+	GLuint texture_id;			// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Ì–ï¿½ï¿½O(OpenGL)
+	GLuint VBO_id;				// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ID(OpenGL)ï¿½@ï¿½Î‰ï¿½ï¿½ï¿½ï¿½Ä‚éŽžï¿½ï¿½ï¿½ï¿½ï¿½gï¿½p
+	int datanum;			// ï¿½ï¿½ï¿½_ï¿½ï¿½
+	GLfloat color[4];			// ï¿½Fï¿½zï¿½ï¿½ (r, g, b, a)
+	GLfloat dif[4];				// ï¿½gï¿½Uï¿½ï¿½
+	GLfloat amb[4];				// ï¿½ï¿½ÍŒï¿½
+	GLfloat emi[4];				// ï¿½ï¿½ï¿½ÈÆ–ï¿½
+	GLfloat spc[4];				// ï¿½ï¿½ï¿½ËŒï¿½
+	GLfloat power;				// ï¿½ï¿½ï¿½ËŒï¿½ï¿½Ì‹ï¿½ï¿½ï¿½
+	VERTEX_NOTEX *vertex_p;			// ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Ì‚Ý‚ÌŽï¿½ï¿½Ì’ï¿½ï¿½_ï¿½zï¿½ï¿½
+	VERTEX_TEXUSE *vertex_t;			// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½gï¿½pï¿½ï¿½ï¿½Ì’ï¿½ï¿½_ï¿½zï¿½ï¿½
 } MQO_MATERIAL;
 
-
 /*=========================================================================
-yŒ^’è‹`z “à•”ƒIƒuƒWƒFƒNƒgi1‚Â‚Ìƒp[ƒc‚ðŠÇ—j
-=========================================================================*/
+ ï¿½yï¿½^ï¿½ï¿½`ï¿½z ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½i1ï¿½Â‚Ìƒpï¿½[ï¿½cï¿½ï¿½ï¿½Ç—ï¿½ï¿½j
+ =========================================================================*/
 typedef struct {
-	char			objname[SIZE_STR];		// ƒIƒuƒWƒFƒNƒg–¼
-	int				isVisible;				// 0F”ñ•\Ž¦@‚»‚Ì‘¼F•\Ž¦
-	int				isShadingFlat;			// ƒVƒF[ƒfƒBƒ“ƒOƒ‚[ƒh
-	int				matnum;					// Žg—pƒ}ƒeƒŠƒAƒ‹”
-	MQO_MATERIAL	*mat;					// ƒ}ƒeƒŠƒAƒ‹”z—ñ
+	char objname[SIZE_STR];		// ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½
+	int isVisible;				// 0ï¿½Fï¿½ï¿½\ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½Ì‘ï¿½ï¿½Fï¿½\ï¿½ï¿½
+	int isShadingFlat;			// ï¿½Vï¿½Fï¿½[ï¿½fï¿½Bï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½[ï¿½h
+	int matnum;					// ï¿½gï¿½pï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½
+	MQO_MATERIAL *mat;					// ï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½zï¿½ï¿½
 } MQO_INNER_OBJECT;
 
-
 /*=========================================================================
-yŒ^’è‹`z MQOƒIƒuƒWƒFƒNƒgi1‚Â‚Ìƒ‚ƒfƒ‹‚ðŠÇ—j@¦MQO_MODEL‚ÌŽÀ‘Ì
-=========================================================================*/
+ ï¿½yï¿½^ï¿½ï¿½`ï¿½z MQOï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½i1ï¿½Â‚Ìƒï¿½ï¿½fï¿½ï¿½ï¿½ï¿½ï¿½Ç—ï¿½ï¿½jï¿½@ï¿½ï¿½MQO_MODELï¿½ÌŽï¿½ï¿½ï¿½
+ =========================================================================*/
 typedef struct {
-	unsigned char		alpha;				// ’¸“_”z—ñì¬Žž‚ÉŽw’è‚³‚ê‚½ƒAƒ‹ƒtƒ@’liŽQÆ—pj
-	int					objnum;				// “à•”ƒIƒuƒWƒFƒNƒg”
-	MQO_INNER_OBJECT	obj[MAX_OBJECT];	// “à•”ƒIƒuƒWƒFƒNƒg”z—ñ
+	unsigned char alpha;				// ï¿½ï¿½ï¿½_ï¿½zï¿½ï¿½ì¬ï¿½ï¿½ï¿½ÉŽwï¿½è‚³ï¿½ê‚½ï¿½Aï¿½ï¿½ï¿½tï¿½@ï¿½lï¿½iï¿½Qï¿½Æ—pï¿½j
+	int objnum;				// ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½
+	MQO_INNER_OBJECT obj[MAX_OBJECT];	// ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½zï¿½ï¿½
 } MQO_OBJECT;
 
+/*=========================================================================
+ ï¿½yï¿½^ï¿½ï¿½`ï¿½z MQO_MODELï¿½\ï¿½ï¿½ï¿½ï¿½
+ =========================================================================*/
+typedef MQO_OBJECT * MQO_MODEL;		// MQO_MODELï¿½Í“ÆŽï¿½ï¿½`ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½Ì‚Ö‚ÌƒAï¿½hï¿½ï¿½ï¿½X
 
 /*=========================================================================
-yŒ^’è‹`z MQO_MODEL\‘¢‘Ì
-=========================================================================*/
-typedef MQO_OBJECT * MQO_MODEL;		// MQO_MODEL‚Í“ÆŽ©Œ`Ž®\‘¢‘Ì‚Ö‚ÌƒAƒhƒŒƒX
-
-
-/*=========================================================================
-yŒ^’è‹`z MQOƒV[ƒPƒ“ƒX
-=========================================================================*/
+ ï¿½yï¿½^ï¿½ï¿½`ï¿½z MQOï¿½Vï¿½[ï¿½Pï¿½ï¿½ï¿½X
+ =========================================================================*/
 typedef struct {
-	MQO_MODEL	model;		// ƒ‚ƒfƒ‹
-	int			n_frame;	// ƒtƒŒ[ƒ€”
+	MQO_MODEL model;		// ï¿½ï¿½ï¿½fï¿½ï¿½
+	int n_frame;	// ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
 } MQO_SEQUENCE;
 
-
 /*=========================================================================
-yŒ^’è‹`z glext.h ‚©‚ç‚Ì VBO Extension ‚Ì’è‹`
-=========================================================================*/
+ ï¿½yï¿½^ï¿½ï¿½`ï¿½z glext.h ï¿½ï¿½ï¿½ï¿½ï¿½ VBO Extension ï¿½Ì’ï¿½`
+ =========================================================================*/
 #ifdef WIN32
-	#define GL_ARRAY_BUFFER_ARB	0x8892
-	#define GL_STATIC_DRAW_ARB	0x88E4
-	typedef void (APIENTRY * PFNGLBINDBUFFERARBPROC)    (GLenum target, GLuint buffer);
-	typedef void (APIENTRY * PFNGLDELETEBUFFERSARBPROC) (GLsizei n, const GLuint *buffers);
-	typedef void (APIENTRY * PFNGLGENBUFFERSARBPROC)    (GLsizei n, GLuint *buffers);
-	typedef void (APIENTRY * PFNGLBUFFERDATAARBPROC)    (GLenum target, int size, const GLvoid *data, GLenum usage);
+#define GL_ARRAY_BUFFER_ARB	0x8892
+#define GL_STATIC_DRAW_ARB	0x88E4
+typedef void (APIENTRY * PFNGLBINDBUFFERARBPROC) (GLenum target, GLuint buffer);
+typedef void (APIENTRY * PFNGLDELETEBUFFERSARBPROC) (GLsizei n, const GLuint *buffers);
+typedef void (APIENTRY * PFNGLGENBUFFERSARBPROC) (GLsizei n, GLuint *buffers);
+typedef void (APIENTRY * PFNGLBUFFERDATAARBPROC) (GLenum target, int size, const GLvoid *data, GLenum usage);
 #endif
 
-
 /*=========================================================================
-yƒOƒ[ƒoƒ‹•Ï”’è‹`z
-=========================================================================*/
+ ï¿½yï¿½Oï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½`ï¿½z
+ =========================================================================*/
 
 #ifdef __GLMETASEQ_C__
-	#define __GLMETASEQ_C__EXTERN
+#define __GLMETASEQ_C__EXTERN
 #else
-	#define __GLMETASEQ_C__EXTERN extern
+#define __GLMETASEQ_C__EXTERN extern
 #endif
 
-__GLMETASEQ_C__EXTERN int g_isVBOSupported;	// OpenGL‚Ì’¸“_ƒoƒbƒtƒ@‚ÌƒTƒ|[ƒg—L–³
+__GLMETASEQ_C__EXTERN int g_isVBOSupported;	// OpenGLï¿½Ì’ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ÌƒTï¿½|ï¿½[ï¿½gï¿½Lï¿½ï¿½
 
 #ifdef WIN32	
-	// VBO Extension ŠÖ”‚Ìƒ|ƒCƒ“ƒ^
-	__GLMETASEQ_C__EXTERN PFNGLGENBUFFERSARBPROC glGenBuffersARB;		// VBO –¼‘O¶¬
-	__GLMETASEQ_C__EXTERN PFNGLBINDBUFFERARBPROC glBindBufferARB;		// VBO Œ‹‚Ñ‚Â‚¯
-	__GLMETASEQ_C__EXTERN PFNGLBUFFERDATAARBPROC glBufferDataARB;		// VBO ƒf[ƒ^ƒ[ƒh
-	__GLMETASEQ_C__EXTERN PFNGLDELETEBUFFERSARBPROC glDeleteBuffersARB;	// VBO íœ
+// VBO Extension ï¿½Öï¿½ï¿½Ìƒ|ï¿½Cï¿½ï¿½ï¿½^
+__GLMETASEQ_C__EXTERN PFNGLGENBUFFERSARBPROC glGenBuffersARB;// VBO ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½
+__GLMETASEQ_C__EXTERN PFNGLBINDBUFFERARBPROC glBindBufferARB;// VBO ï¿½ï¿½ï¿½Ñ‚Â‚ï¿½
+__GLMETASEQ_C__EXTERN PFNGLBUFFERDATAARBPROC glBufferDataARB;// VBO ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½[ï¿½h
+__GLMETASEQ_C__EXTERN PFNGLDELETEBUFFERSARBPROC glDeleteBuffersARB;// VBO ï¿½íœ
 #endif
 
 #undef __GLMETASEQ_C__EXTERN
 
-
 /*=========================================================================
-yŠÖ”éŒ¾z
-=========================================================================*/
+ ï¿½yï¿½Öï¿½ï¿½éŒ¾ï¿½z
+ =========================================================================*/
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-
-// ‰Šú‰»
+// ï¿½ï¿½ï¿½ï¿½
 void mqoInit(void);
 
-// I—¹ˆ—
+// ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void mqoCleanup(void);
 
-// ƒ‚ƒfƒ‹¶¬
-MQO_MODEL	 mqoCreateModel(char *filename, double scale);
+// ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+MQO_MODEL mqoCreateModel(char *filename, double scale);
 
-// ƒV[ƒPƒ“ƒX¶¬
+// ï¿½Vï¿½[ï¿½Pï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½
 MQO_SEQUENCE mqoCreateSequence(const char *format, int n_file, double scale);
 
-// ƒV[ƒPƒ“ƒX¶¬iŠg’£”Åj
+// ï¿½Vï¿½[ï¿½Pï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½iï¿½gï¿½ï¿½ï¿½Åj
 MQO_SEQUENCE mqoCreateSequenceEx(const char *format, int n_file, double scale,
-								 int fade_inout, unsigned char alpha);
+		int fade_inout, unsigned char alpha);
 
-// ƒ‚ƒfƒ‹ŒÄ‚Ño‚µ
+// ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½
 void mqoCallModel(MQO_MODEL model);
 
-// ƒV[ƒPƒ“ƒXŒÄ‚Ño‚µ
+// ï¿½Vï¿½[ï¿½Pï¿½ï¿½ï¿½Xï¿½Ä‚Ñoï¿½ï¿½
 void mqoCallSequence(MQO_SEQUENCE seq, int i);
 
-// ƒ‚ƒfƒ‹‚Ìíœ
+// ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½Ìíœ
 void mqoDeleteModel(MQO_MODEL model);
 
-// ƒV[ƒPƒ“ƒX‚Ìíœ
+// ï¿½Vï¿½[ï¿½Pï¿½ï¿½ï¿½Xï¿½Ìíœ
 void mqoDeleteSequence(MQO_SEQUENCE seq);
-
 
 #ifdef __cplusplus
 }
 #endif
-
-
-
 
 #endif	// -- end of header --
 
