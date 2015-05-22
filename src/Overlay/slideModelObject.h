@@ -65,20 +65,20 @@ namespace cvar {
                 int size_fix_mode;
                 int fixed_size;
 
-                int morph_interval;	// �t���[���Ԑ؂�ւ��C���^�[�o���i�t���[�����j
-                int spread_interval;	// �摜�g��ؑփC���^�[�o���i�t���[�����j
+                int morph_interval;	// Inter-frame switching interval (the number of frames)
+                int spread_interval;// Image enlargement switching interval (the number of frames)
 
             protected:
-                int slide_status;	// ���݂̕\���X�e�[�^�X
-                static const int SLIDE_INIT = 0x00;	// �P�Ԗڂ̃X���C�h�̓��ߏ���
-                static const int SLIDE_ALPHA = 0x01;// �Q�Ԗڈȍ~�̃X���C�h�̓��ߏ���
-                static const int SLIDE_NORM = 0x02;	// �ʏ�̃X���C�h�d���\��
-                static const int SLIDE_PRESPREAD = 0x04;// �X���C�h�g�又���O�̓��ߏ���
-                static const int SLIDE_SPREADING = 0x08;	// �g�又��
-                static const int SLIDE_LARGEALPHA = 0x0f;// �g��X���C�h�̓��ߏ���
-                static const int SLIDE_LARGE = 0x10;	// �g��\��
-                static const int SLIDE_NORMLAST = 0x20;	// �ŏI�X���C�h�i�d���\���j
-                static const int SLIDE_LARGELAST = 0x40;// �ŏI�X���C�h(�g��\��)
+                int slide_status;	// The current display status
+                static const int SLIDE_INIT = 0x00;	// Transparent processing of the first slide
+                static const int SLIDE_ALPHA = 0x01;// Transparent processing of the second and subsequent slide
+                static const int SLIDE_NORM = 0x02;	// Normal slide superimposed display
+                static const int SLIDE_PRESPREAD = 0x04;// Slide enlargement process before the transmission processing
+                static const int SLIDE_SPREADING = 0x08;// Enlargement process
+                static const int SLIDE_LARGEALPHA = 0x0f;// Transparent processing of expansion slide
+                static const int SLIDE_LARGE = 0x10;	// View larger image
+                static const int SLIDE_NORMLAST = 0x20;	// The final slide (superimposed display)
+                static const int SLIDE_LARGELAST = 0x40;// The final slide (view larger)
                 std::vector<SLIDE_INFO*> slide_vec;
                 std::vector<SLIDE_INFO*> spread_slide_vec;
                 std::vector<SLIDE_INFO*>::iterator slide_itr;
@@ -96,7 +96,7 @@ namespace cvar {
                 double fore_dist;
 
             public:
-                // modelObject���\�b�h�̃I�[�o�[���C�h
+                // Overriding modelObject method
                 void init();
                 void loadModelFile(std::string filename);
                 void drawModel(int& frame_id);

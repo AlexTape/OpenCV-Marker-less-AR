@@ -132,22 +132,22 @@ namespace cvar {
                 void clearVoteTables();
                 void releaseImgVoteMap();
 
-            private:
-                std::multimap<int, featureInfo> feature_KPT_map;// feature_id���L�[��keypoint_id��img_id������
-                std::map<int, cv::KeyPoint> keypoint_map;// keypoint_id���L�[��KeyPoint������
-                std::map<int, imageInfo> imgInfo_map;// img_id���L�[��feature_num������
-                std::map<int, std::vector<featureVote>*> imgVote_map;// img_id���L�[��voteTable������
+        private:
+        std::multimap<int,featureInfo> feature_KPT_map;// Search keypoint_id and img_id the feature_id to key
+        std::map<int,cv::KeyPoint> keypoint_map;// Search KeyPoint to key keypoint_id
+        std::map<int,imageInfo> imgInfo_map;// Search feature_num to key img_id
+        std::map<int,std::vector<featureVote>*> imgVote_map;// Search voteTable to key img_id
 
-//	int visual_word_num;	// visual word�̐�
-                int imageNum;	// �o�^�摜����
-                int featureNum;	// �o�^�����_��
-                int voteNum;
-                float threshold;	// �����_�}�b�`�̂������l(0 - 1)
-                float geo_threshold;
-                double dist_diff_threshold;	// �Ή��_�̈ʒu�Ɋւ��鋖�e�덷(�摜�T�C�Y�̔�F0 - 1)
-//	double angle_diff_threshold;	// �Ή��_�̊p�x�Ɋւ��鋖�e�덷 180�x�~(0 - 1)
-//	double scale_diff_threshold;	// �Ή��_�̃X�P�[���Ɋւ��鋖�e�덷 (�T�C�Y�̔�F> 1)
-        };
+//	int visual_word_num;	// The number of visual word
+        int imageNum;// Registration number of images
+        int featureNum;// Registered feature points
+        int voteNum;
+        float threshold;// Feature points match threshold (0 - 1)
+        float geo_threshold;
+        double dist_diff_threshold;// The tolerance on the position of the corresponding point (the ratio of the image size: 0 - 1)
+//	double angle_diff_threshold;	// Tolerance 180 degrees �~ about the angle of the corresponding point (0 - 1)
+//	double scale_diff_threshold;	// Tolerance on the scale of the corresponding point (the ratio of the size:> 1)
+    };
 
     }
     ;

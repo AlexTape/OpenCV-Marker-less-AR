@@ -45,7 +45,7 @@ namespace cvar {
                 ~mqoSeqModelObject(void);
 
             public:
-                MQO_SEQUENCE model_seq;	// ���f���\����
+                MQO_SEQUENCE model_seq;	// Model structure
 
             public:
                 void init();

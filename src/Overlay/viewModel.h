@@ -35,19 +35,19 @@
 
 #include <opencv2/core/core.hpp>
 #include "modelObjectFactory.h"
-//#include "GLMetaseq.h"	// ���f�����[�_
+//#include "GLMetaseq.h"	// Model loader
 
 namespace cvar {
     namespace overlay {
 
         typedef struct {
-                modelObject* model;	// ���f���N���X
-                double scale;	// ���f���̃T�C�Y���w��
-                std::string modelFilename;	// ���f���t�@�C���ւ̃p�X
-                cv::Mat initRot;// ����ʒu�ւ�3�~3��]�s��i�}�[�J�[��Z=0��X-Y���ʂŁAZ��+����AY��+���s���j
-                cv::Mat initTrans;	// ����ʒu�ւ̈ړ�����
-                cv::Point2f markerCenter;	// �}�[�J�[���S�ʒu
-                cv::Size markerSize;	// �}�[�J�[�T�C�Y
+                modelObject* model;	// Model class
+                double scale;	// It specifies the size of the model
+                std::string modelFilename;	// The path to the model file
+                cv::Mat initRot;// 3 �~ 3 rotation matrix to the initial position (in the XY plane of markers Z = 0, Z is + direction is up, Y is + direction of depth)
+                cv::Mat initTrans;// Movement component to the initial position
+                cv::Point2f markerCenter;	// Marker center position
+                cv::Size markerSize;	// Marker Size
         } MODEL_INFO;
 
         class viewModel {
@@ -91,8 +91,8 @@ namespace cvar {
             public:
                 cv::Mat resized_frame;
 
-                int two_power_width;	// 2�̗ݏ�ɍ��킹�邽�߂̃��T�C�Y��T�C�Y
-                int two_power_height;	// 512��1024�����肪�K��
+                int two_power_width;// Resize destination size to match the power of two
+                int two_power_height;	// 512 or appropriate per 1024
 
                 int window_width;
                 int window_height;
@@ -100,12 +100,12 @@ namespace cvar {
                 int capture_width;
                 int capture_height;
 
-                unsigned int texture[1];
-//	MQO_MODEL g_mqoModel;	// MQO���f��
-                double aspect_rate;			// �L���v�`���̏c����
-                float focal_length;		// �œ_����
+                GLuint texture[1];
+//	MQO_MODEL g_mqoModel;	// MQO model
+                double aspect_rate;			// Aspect ratio of capture
+                float focal_length;		// Focal length
 
-                cv::Mat cameraMatrix;	// �J�����p�����[�^�s��
+                cv::Mat cameraMatrix;	// Camera parameter matrix
 
 //	double model_scale;
                 std::map<int, MODEL_INFO> model_map;
@@ -125,8 +125,8 @@ namespace cvar {
             public:
                 bool init(cv::Size& frame_size, cv::Mat& cameraMat);
                 bool init(cv::Size& frame_size, cv::Mat& cameraMat, int type);
-                void resize(int win_w, int win_h);	// �E�B���h�E�T�C�Y�ύX�֐�
-                void updateTexture(cv::Mat& frame);	// �X�V�֐�
+                void resize(int win_w, int win_h);// Window size change function
+                void updateTexture(cv::Mat& frame);	// Update function
                 void release();
                 void exitFunc();
 

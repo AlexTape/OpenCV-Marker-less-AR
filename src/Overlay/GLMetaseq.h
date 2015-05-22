@@ -2,7 +2,7 @@
 #define __GLMETASEQ_H__
 
 /*=========================================================================================
- ���^�Z�R�C�A�ō쐬�������f��(*.mqo)��OpenGL��ɓǂݍ��ފ֐����܂Ƃ߂�C/C++�p�w�b�_
+ C / C ++ header which model you have created a (* .mqo) summarizes the function to read on the OpenGL in Metasequoia
  =========================================================================================*/
 
 /*
@@ -30,167 +30,148 @@
 
 
  GLMetaseq
- MIT���C�Z���X
+ MIT License
  Copyright (c) 2009 Sunao Hashimoto and Keisuke Konishi
 
- �ȉ��ɒ�߂�����ɏ]���A�{�\�t�g�E�F�A����ъ֘A�����̃t�@�C���i�ȉ��u�\�t�g
- �E�F�A�v�j�̕������擾���邷�ׂĂ̐l�ɑ΂��A�\�t�g�E�F�A�𖳐����Ɉ������Ƃ�
- �����ŋ����܂��B����ɂ́A�\�t�g�E�F�A�̕������g�p�A���ʁA�ύX�A�����A�f�ځA
- �Еz�A�T�u���C�Z���X�A�����/�܂��͔̔����錠���A����у\�t�g�E�F�A��񋟂���
- ����ɓ������Ƃ������錠�����������Ɋ܂܂�܂��B
-
- ��L�̒��쌠�\������і{����\�����A�\�t�g�E�F�A�̂��ׂĂ̕����܂��͏d�v�ȕ���
- �ɋL�ڂ�����̂Ƃ��܂��B
-
- �\�t�g�E�F�A�́u����̂܂܁v�ŁA�����ł��邩�Öقł��邩���킸�A����̕ۏ�
- ���Ȃ��񋟂���܂��B�����ł����ۏ؂Ƃ́A���i���A����̖ړI�ւ̓K�����A�����
- ������N�Q�ɂ��Ă̕ۏ؂��܂݂܂����A����Ɍ��肳�����̂ł͂���܂���B
- ��҂܂��͒��쌠�҂́A�_��s�ׁA�s�@�s�ׁA�܂��͂���ȊO�ł��낤�ƁA�\�t�g
- �E�F�A�ɋN���܂��͊֘A���A���邢�̓\�t�g�E�F�A�̎g�p�܂��͂��̑��̈�����
- ����Đ������؂̐����A���Q�A���̑��̋`���ɂ��ĉ���̐ӔC������Ȃ�����
- �Ƃ��܂��B
- */
-
-/*
+ /*
  ----------------------------------------------------------------------------------------
- 1. ���̃w�b�_���g����ł̒��ӓ_
+ 1. Notes on using this header
  ----------------------------------------------------------------------------------------
+ 
+ ��Readable image format of texture bmp, tga, jpeg, png
+ But
+ jpeg read in the JPEG library (libjpeg.lib, jpeglib.h) is required separately
+ To enable the reading of the jpeg is making the DEF_USE_LIBJPEG of this header to 1
+ PNG library to read the png (libpng.lib, zlib.lib, png.h, zlib.h) is required separately
+ To enable the reading of the png is making the DEF_USE_LIBPNG of this header to 1
 
- ���ǂݍ��݉\�ȃe�N�X�`���̉摜�`����bmp�Ctga�Cjpeg�Cpng
- �@������
- �@�@jpeg�̓ǂݍ��݂ɂ�JPEG���C�u�����ilibjpeg.lib, jpeglib.h�j���ʓr�K�v
- �@�@jpeg�̓ǂݍ��݂�L��ɂ���ɂ́C���̃w�b�_�� DEF_USE_LIBJPEG �� 1 �ɂ��邱��
-
- �@	png�̓ǂݍ��݂ɂ�PNG���C�u�����ilibpng.lib, zlib.lib, png.h ,zlib.h�j���ʓr�K�v
- �@�@png�̓ǂݍ��݂�L��ɂ���ɂ́C���̃w�b�_�� DEF_USE_LIBPNG  �� 1 �ɂ��邱��
-
- ���e�N�X�`���摜�̃T�C�Y�́u��ӂ�2��n��T�C�Y(64,128,256�c)�̐���`�v�Ɍ���
+ ��The size of the texture image is limited to a "square of one side 2 of the n-th power size (64, 128, 256 ...)"
 
 
  ----------------------------------------------------------------------------------------
- 2. �g����(1) 1��MQO�t�@�C����ǂݍ���ŕ\������ꍇ
+ 2. If you want to load and display how to use (1) one of MQO file
  ----------------------------------------------------------------------------------------
 
- (1) ����iARToolKit�̏ꍇ�CargInit()�̌�Ɏg�p�j
+ (1) Initialization (in the case of ARToolKit, is used after the argInit ())
 
  mqoInit();
 
- (2) �t�@�C������̃��f���̓ǂݍ���
+ (2) Reading of the model from a file
 
  MQO_MODEL model;
  model = mqoCreateModel( "mario.mqo", 1.0 );
 
- (3) ���f���̌Ăяo��
-
+ (3) Call model
+ 
  mqoCallModel( model );
 
- (4) ���f���̏���
+ (4) Model erasure of
 
  mqoDeleteModel( model );
 
- (5) �I�������i�v���O�����I�����ɂ���Ă��������j
+ (5) End processing (Please do at the end of the program)
 
  mqoCleanup();
 
  ----------------------------------------------------------------------------------------
- 3. �g����(2) �A�ԃt�@�C����ǂݍ���ŕ\������ꍇ
+ 3. How to use (2) If you want to view by reading the serial number file
  ----------------------------------------------------------------------------------------
 
- (1) ����iARToolKit�̏ꍇ�CargInit()�̌�Ɏg�p�j
+ (1) Initialization (in the case of ARToolKit, is used after the argInit ())
 
  mqoInit();
 
- (2) �A�ԃV�[�P���X�̍쐬
-
- �@��Fmario0.mqo �` mario9.mqo ��ǂݍ���
+ (2) Creating a serial number sequence
+ 
+ �@Example: I read the mario0.mqo ~ mario9.mqo
 
  MQO_SEQUENCE seq;
  seq = mqoCreateSequence( "mario%d.mqo", 10, 1.0 );
 
- (3) �A�ԃV�[�P���X�̎w��t���[���̌Ăяo���ii�̓t���[���ԍ��j
-
+ (3) Call of the specified frame of the sequence number sequence (i is the frame number)
+ 
  mqoCallSequence( seq, i );
 
- (4) �A�ԃV�[�P���X�̏���
+ (4) Erasure of the serial number sequence
 
  mqoDeleteSequence( seq );
 
- (5) �I�������i�v���O�����I�����ɂ���Ă��������j
+ (5) End processing (Please do at the end of the program)
 
  mqoCleanup();
 
  ----------------------------------------------------------------------------------------
- 4. ��Ȏd�l
+ 4. Main Specifications
  ----------------------------------------------------------------------------------------
 
- ���\���@�\
-	�E�T�|�[�g���Ă���MQO�t�@�C���̃o�[�W�����́uMetasequoia Ver1.0/2.0�`2.4�v
+ ��Display function
+ ? The supported versions of MQO file that is "Metasequoia Ver1.0 / 2.0 ~ 2.4"
 
- �E�Ή����Ă���ގ����
- �@�F�i���j
- �@�e�N�X�`���}�b�v�i�o���v�}�b�v��Ή��^UV�}�b�s���O�̂݁j
+ - Correspondingly, it has material information
+ Color (light)
+ Texture map (bump map non-compliant / UV mapping only)
 
- �E�Ή����Ă���I�u�W�F�N�g���
- �@�\���^��\���̐؂�ւ�
- �@�X���[�W���O�̗L��
- �@���_�@������߂�Ƃ��̃X���[�W���O�p
- �@���_���
- �@�ʏ��i���_�J���[��Ή��j
+ - Correspondingly, are the object information
+ Switching of display / hide
+ The presence or absence of smoothing
+ Smoothing angle when determining the vertex normals
+ Vertex information
+ Surface information (vertex color not supported)
 
- �E�ȖʁE���ʁE��]�̂ɂ͔�Ή�
- �E���^�{�[���͔�Ή�
+ And surfaces, the mirror surface and rotating body is non-compliant
+ �E Metaball non-compliant
 
- ���d�l
- �E�`�����N���͌����Ƃ��đ啶���Ə������̋�ʂ����Ȃ����ƂɂȂ��Ă��邪
- �@��ʂ��Ă��܂��Ă���D
- �E�e�N�X�`���̃p�X�ɑ��o�C�g�����������Ă���
- �@���̂Ȃ���'\'(0x5c)��'/'(0x2f)���͂����Ă���Ƃ��܂��e�N�X�`�����ǂ߂Ȃ��D
- �E�����F�̃}�e���A���ɑΉ����Ă��Ȃ��D
- �@Object�`�����N��face�`�����N�̍ގ��C���f�b�N�X�iM(%d)�j��-1�ɖ��Ή��D
+ �� Specifications
+ Chunk name, are supposed to be does not distinguish between uppercase and lowercase letters in principle but
+ We've distinguished.
+ ? The path of the texture you're using a multi-byte character
+ That among the '\' (0x5c) �� '/' (0x2f) is not read well texture and has entered.
+ - In the non-colored materials are not compatible.
+ Object chunk �� face chunk of material index (M (% d)) is not supported to -1.
 
  */
 
 /*=========================================================================
- �y���[�U���C�ӂŐݒ�z
+ [Set by the user at any]
  =========================================================================*/
 
-#define MAX_TEXTURE				100			// �e�N�X�`���̍ő��舵����
-#define MAX_OBJECT				50			// 1��MQO�t�@�C�����̍ő�I�u�W�F�N�g��
-#define SIZE_STR				256			// ������o�b�t�@�̃T�C�Y
-#define DEF_IS_LITTLE_ENDIAN	1			// �G���f�B�A���w��iintel�n=1�j
-#define DEF_USE_LIBJPEG			0			// libjpeg�̎g�p�i1:�g�p 0:���g�p�j
-#define DEF_USE_LIBPNG			1			// libpng �̎g�p�i1:�g�p 0:���g�p�j
+#define MAX_TEXTURE				100			// Maximum handling number of texture
+#define MAX_OBJECT				50			// The maximum number of objects in one of MQO file
+#define SIZE_STR				256			// String buffer size
+#define DEF_IS_LITTLE_ENDIAN	1			// Endian designation (intel system = 1)
+#define DEF_USE_LIBJPEG			0			// use of libjpeg (1: use 0: Not used)
+#define DEF_USE_LIBPNG			1			// use of libpng (1: use 0: Not used)
 
 /*=========================================================================
  �y�R���p�C���I�v�V�����z
  =========================================================================*/
 
-// JPEG���g�p����
+// I use JPEG
 #ifdef D_JPEG
 #undef	DEF_USE_LIBJPEG
 #define	DEF_USE_LIBJPEG 1
 #endif
 
-// JPEG���g�p���Ȃ�
+// I do not want to use the JPEG
 #ifdef D_NO_JPEG
 #undef	DEF_USE_LIBJPEG
 #define	DEF_USE_LIBJPEG 0
 #endif
 
-// PNG���g�p����
+// I use PNG
 #ifdef D_PNG
 #undef	DEF_USE_LIBPNG
 #define	DEF_USE_LIBPNG 1
 #endif
 
-// PNG���g�p���Ȃ�
+// I do not want to use the PNG
 #ifdef D_NO_PNG
 #undef	DEF_USE_LIBPNG
 #define	DEF_USE_LIBPNG 0
 #endif
 
 /*=========================================================================
- �y�w�b�_�z
+ [Header]
  =========================================================================*/
 
 #ifdef WIN32
@@ -224,12 +205,12 @@
 #endif
 
 /*=========================================================================
- �y�@�\�ݒ�z libjpeg�g�p�ݒ�
+ [Function settings] libjpeg use setting
  =========================================================================*/
 
 #if DEF_USE_LIBJPEG
 
-#define XMD_H // INT16��INT32�̍Ē�`�G���[��h��
+#define XMD_H // It prevents the redefinition error of INT16 and INT32
 #ifdef FAR
 #undef FAR
 #endif
@@ -240,20 +221,20 @@
 #endif
 
 /*=========================================================================
- �y�@�\�ݒ�z libpng�g�p�ݒ�
+ [Function settings] libpng use setting
  =========================================================================*/
 
 #if DEF_USE_LIBPNG
 
 #include "png.h"
 #include "zlib.h"
-//#pragma comment(lib,"libpng.lib")
-//#pragma comment(lib,"zlib.lib")
+#pragma comment(lib,"libpng.lib")
+#pragma comment(lib,"zlib.lib")
 
 #endif
 
 /*=========================================================================
- �y�}�N����`�z �ő�l�}�N��
+ [Macro definitions] maximum macro
  =========================================================================*/
 
 #ifndef MAX
@@ -261,7 +242,7 @@
 #endif
 
 /*=========================================================================
- �y�^��`�z TGA�t�H�[�}�b�g
+ [Type definition] TGA format
  =========================================================================*/
 
 #define DEF_TGA_COLOR_MAP_FLAG_VALID	1
@@ -292,7 +273,7 @@ typedef struct {
 } STR_TGA_HEAD;
 
 /*=========================================================================
- �y�^��`�z OpenGL�p�F�\���� (4�Ffloat)
+ [Type definition] color structure for OpenGL (4 colors float)
  =========================================================================*/
 typedef struct {
         GLfloat r;
@@ -302,7 +283,7 @@ typedef struct {
 } glCOLOR4f;
 
 /*=========================================================================
- �y�^��`�z OpenGL�p�Q�������W�\���� (float)
+ [Type definition] 2-dimensional coordinate structure for OpenGL (float)
  =========================================================================*/
 typedef struct {
         GLfloat x;
@@ -310,7 +291,7 @@ typedef struct {
 } glPOINT2f;
 
 /*=========================================================================
- �y�^��`�z OpenGL�p�R�������W�\���� (float)
+ [Type definition three-dimensional coordinate structure for OpenGL (float)
  =========================================================================*/
 typedef struct tag_glPOINT3f {
         GLfloat x;
@@ -319,127 +300,127 @@ typedef struct tag_glPOINT3f {
 } glPOINT3f;
 
 /*=========================================================================
- �y�^��`�z �ʏ��\����
+ [Type definition] surface information structure
  =========================================================================*/
 typedef struct {
-        int n;		// 1�̖ʂ��\�����钸�_�̐��i3�`4�j
-        int m;		// �ʂ̍ގ��ԍ�
-        int v[4];	// ���_�ԍ����i�[�����z��
-        glPOINT2f uv[4];	// UV�}�b�v
+        int n;		// The number of vertices of the one face (3-4)
+        int m;		// Surface material number of
+        int v[4];	// Array that contains the vertex number
+        glPOINT2f uv[4];	// UV map
 } MQO_FACE;
 
 /*=========================================================================
- �y�^��`�z �ގ����\���́i�t�@�C���������ǂݍ��ލۂɎg�p�j
+ [Type definition] material information structure (used to read information from a file)
  =========================================================================*/
 typedef struct {
-        glCOLOR4f col;				// �F
-        GLfloat dif[4];				// �g�U��
-        GLfloat amb[4];				// ��͌�
-        GLfloat emi[4];				// ���ȏƖ�
-        GLfloat spc[4];				// ���ˌ�
-        GLfloat power;				// ���ˌ��̋���
-        int useTex;				// �e�N�X�`���̗L��
-        char texFile[SIZE_STR];	// �e�N�X�`���t�@�C��
-        char alpFile[SIZE_STR];	// �A���t�@�e�N�X�`���t�@�C��
-        GLuint texName;			// �e�N�X�`����
+        glCOLOR4f col;				// Color
+        GLfloat dif[4];				// Diffusion light
+        GLfloat amb[4];				// Surrounding light
+        GLfloat emi[4];				// Self-lighting
+        GLfloat spc[4];				// Reflected light
+        GLfloat power;				// The strength of the reflected light
+        int useTex;				// The presence or absence of texture
+        char texFile[SIZE_STR];	// Texture file
+        char alpFile[SIZE_STR];	// Alpha texture file
+        GLuint texName;			// Texture name
 } MQO_MATDATA;
 
 /*=========================================================================
- �y�^��`�z �I�u�W�F�N�g�\���́i�p�[�c�P�̃f�[�^�j
+ [Type definition] object structure (part one of the data)
  =========================================================================*/
 typedef struct {
-        char objname[SIZE_STR];	// �p�[�c��
-        int visible;			// �����
-        int shading;			// �V�F�[�f�B���O�i0:�t���b�g�^1:�O���[�j
-        float facet;				// �X���[�W���O�p
-        int n_face;				// �ʐ�
-        int n_vertex;			// ���_��
-        MQO_FACE *F;					// ��
-        glPOINT3f *V;					// ���_
+        char objname[SIZE_STR];	// Part name
+        int visible;			// Visible
+        int shading;			// Shading (0: Flat / 1: glow)
+        float facet;				// Smoothing angle
+        int n_face;				// Number of surfaces
+        int n_vertex;			// The number of vertices
+        MQO_FACE *F;					// Surface
+        glPOINT3f *V;					// Vertex
 } MQO_OBJDATA;
 
 /*=========================================================================
- �y�^��`�z �e�N�X�`���v�[��
+ [Type definition] texture pool
  =========================================================================*/
 typedef struct {
-        GLuint texture_id;			// �e�N�X�`��ID
-        int texsize;			// �e�N�X�`���T�C�Y
-        char texfile[MAX_PATH];	// �e�N�X�`���t�@�C��
-        char alpfile[MAX_PATH];	// �A���t�@�e�N�X�`���t�@�C��
-        unsigned char alpha;				// �A���t�@
+        GLuint texture_id;			// Texture ID
+        int texsize;			// Texture size
+        char texfile[MAX_PATH];	// Texture file
+        char alpfile[MAX_PATH];	// Alpha texture file
+        unsigned char alpha;				// Alpha
 } TEXTURE_POOL;
 
 /*=========================================================================
- �y�^��`�z ���_�f�[�^�i�e�N�X�`���g�p���j
+ [Type definition] vertex data (when the texture is used)
  =========================================================================*/
 typedef struct {
-        GLfloat point[3];	// ���_�z�� (x, y, z)
-        GLfloat normal[3];	// �@��z�� (x, y, z)
-        GLfloat uv[2];		// UV�z�� (u, v)
+        GLfloat point[3];	// Vertex array (x, y, z)
+        GLfloat normal[3];	// Normal array (x, y, z)
+        GLfloat uv[2];		// UV array (u, v)
 } VERTEX_TEXUSE;
 
 /*=========================================================================
- �y�^��`�z ���_�f�[�^�i�e�N�X�`���s�g�p���j
+ [Type definition] vertex data (when the texture is not used)
  =========================================================================*/
 typedef struct {
-        GLfloat point[3];	// ���_�z�� (x, y, z)
-        GLfloat normal[3];	// �@��z�� (x, y, z)
+        GLfloat point[3];	// Vertex array (x, y, z)
+        GLfloat normal[3];	// Normal array (x, y, z)
 } VERTEX_NOTEX;
 
 /*=========================================================================
- �y�^��`�z �}�e���A�����i�}�e���A���ʂɒ��_�z������j
+ [Type definition] material information (I have the material by the vertex array)
  =========================================================================*/
 typedef struct {
-        int isValidMaterialInfo;	// �}�e���A�����̗L��/����
-        int isUseTexture;		// �e�N�X�`���̗L���FUSE_TEXTURE / NOUSE_TEXTURE
-        GLuint texture_id;			// �e�N�X�`���̖��O(OpenGL)
-        GLuint VBO_id;			// ���_�o�b�t�@��ID(OpenGL)�@�Ή����Ă鎞�����g�p
-        int datanum;			// ���_��
-        GLfloat color[4];			// �F�z�� (r, g, b, a)
-        GLfloat dif[4];				// �g�U��
-        GLfloat amb[4];				// ��͌�
-        GLfloat emi[4];				// ���ȏƖ�
-        GLfloat spc[4];				// ���ˌ�
-        GLfloat power;				// ���ˌ��̋���
-        VERTEX_NOTEX *vertex_p;			// �|���S���݂̂̎��̒��_�z��
-        VERTEX_TEXUSE *vertex_t;			// �e�N�X�`���g�p���̒��_�z��
+        int isValidMaterialInfo;	// Enable / Disable of material information
+        int isUseTexture;// The presence or absence of texture: USE_TEXTURE / NOUSE_TEXTURE
+        GLuint texture_id;			// Texture of the name (OpenGL)
+        GLuint VBO_id;// Use only when you are corresponding ID of the vertex buffer (OpenGL)
+        int datanum;			// The number of vertices
+        GLfloat color[4];			// Color arrangement (r, g, b, a)
+        GLfloat dif[4];				// Diffusion light
+        GLfloat amb[4];				// Surrounding light
+        GLfloat emi[4];				// Self-lighting
+        GLfloat spc[4];				// Reflected light
+        GLfloat power;				// The strength of the reflected light
+        VERTEX_NOTEX *vertex_p;	// Vertex array at the time of the polygon only
+        VERTEX_TEXUSE *vertex_t;	// Vertex array at the time of texture use
 } MQO_MATERIAL;
 
 /*=========================================================================
- �y�^��`�z �����I�u�W�F�N�g�i1�̃p�[�c���Ǘ��j
+ [Type definition] internal object (managing one of the parts)
  =========================================================================*/
 typedef struct {
-        char objname[SIZE_STR];		// �I�u�W�F�N�g��
-        int isVisible;				// 0�F��\���@���̑��F�\��
-        int isShadingFlat;			// �V�F�[�f�B���O���[�h
-        int matnum;					// �g�p�}�e���A����
-        MQO_MATERIAL *mat;					// �}�e���A���z��
+        char objname[SIZE_STR];		// Object name
+        int isVisible;				// 0: Hide Others: Display
+        int isShadingFlat;			// Shading mode
+        int matnum;					// The number of used material
+        MQO_MATERIAL *mat;					// Materials array
 } MQO_INNER_OBJECT;
 
 /*=========================================================================
- �y�^��`�z MQO�I�u�W�F�N�g�i1�̃��f�����Ǘ��j�@��MQO_MODEL�̎���
+ [Type definition (managing one of the models) MQO object �� MQO_MODEL entities
  =========================================================================*/
 typedef struct {
-        unsigned char alpha;			// ���_�z��쐬���Ɏw�肳�ꂽ�A���t�@�l�i�Q�Ɨp�j
-        int objnum;				// �����I�u�W�F�N�g��
-        MQO_INNER_OBJECT obj[MAX_OBJECT];	// �����I�u�W�F�N�g�z��
+        unsigned char alpha;// Vertex array created during the specified alpha value (for reference)
+        int objnum;				// Internal number of objects
+        MQO_INNER_OBJECT obj[MAX_OBJECT];	// Internal object array
 } MQO_OBJECT;
 
 /*=========================================================================
- �y�^��`�z MQO_MODEL�\����
+ [Type definition] MQO_MODEL structure
  =========================================================================*/
-typedef MQO_OBJECT * MQO_MODEL;		// MQO_MODEL�͓Ǝ��`���\���̂ւ̃A�h���X
+typedef MQO_OBJECT * MQO_MODEL;	// MQO_MODEL the address to your own format structure
 
 /*=========================================================================
- �y�^��`�z MQO�V�[�P���X
+ [Type definition] MQO sequence
  =========================================================================*/
 typedef struct {
-        MQO_MODEL model;		// ���f��
-        int n_frame;	// �t���[����
+        MQO_MODEL model;		// Model
+        int n_frame;	// The number of frames
 } MQO_SEQUENCE;
 
 /*=========================================================================
- �y�^��`�z glext.h ����� VBO Extension �̒�`
+ Definition of VBO Extension from the [type definition] glext.h
  =========================================================================*/
 #ifdef WIN32
 #define GL_ARRAY_BUFFER_ARB	0x8892
@@ -451,7 +432,7 @@ typedef void (APIENTRY * PFNGLBUFFERDATAARBPROC) (GLenum target, int size, const
 #endif
 
 /*=========================================================================
- �y�O���[�o���ϐ���`�z
+ [Global variable definition]
  =========================================================================*/
 
 #ifdef __GLMETASEQ_C__
@@ -460,53 +441,53 @@ typedef void (APIENTRY * PFNGLBUFFERDATAARBPROC) (GLenum target, int size, const
 #define __GLMETASEQ_C__EXTERN extern
 #endif
 
-__GLMETASEQ_C__EXTERN int g_isVBOSupported;	// OpenGL�̒��_�o�b�t�@�̃T�|�[�g�L��
+__GLMETASEQ_C__EXTERN int g_isVBOSupported;	// Support the presence or absence of OpenGL vertex buffer of
 
 #ifdef WIN32	
 // VBO Extension �֐��̃|�C���^
-__GLMETASEQ_C__EXTERN PFNGLGENBUFFERSARBPROC glGenBuffersARB;// VBO ���O����
-__GLMETASEQ_C__EXTERN PFNGLBINDBUFFERARBPROC glBindBufferARB;// VBO ���т�
-__GLMETASEQ_C__EXTERN PFNGLBUFFERDATAARBPROC glBufferDataARB;// VBO �f�[�^���[�h
-__GLMETASEQ_C__EXTERN PFNGLDELETEBUFFERSARBPROC glDeleteBuffersARB;// VBO �폜
+__GLMETASEQ_C__EXTERN PFNGLGENBUFFERSARBPROC glGenBuffersARB;// VBO name generation
+__GLMETASEQ_C__EXTERN PFNGLBINDBUFFERARBPROC glBindBufferARB;// VBO Tied
+__GLMETASEQ_C__EXTERN PFNGLBUFFERDATAARBPROC glBufferDataARB;// VBO Data load
+__GLMETASEQ_C__EXTERN PFNGLDELETEBUFFERSARBPROC glDeleteBuffersARB;// VBO Delete
 #endif
 
 #undef __GLMETASEQ_C__EXTERN
 
 /*=========================================================================
- �y�֐��錾�z
+ [Function declaration]
  =========================================================================*/
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-// ����
+// Initialization
     void mqoInit(void);
 
-// �I������
+// End processing
     void mqoCleanup(void);
 
-// ���f������
+// Model generation
     MQO_MODEL mqoCreateModel(char *filename, double scale);
 
-// �V�[�P���X����
+// Sequence generation
     MQO_SEQUENCE mqoCreateSequence(const char *format, int n_file,
             double scale);
 
-// �V�[�P���X�����i�g���Łj
+// Sequence generation (extended version)
     MQO_SEQUENCE mqoCreateSequenceEx(const char *format, int n_file,
             double scale, int fade_inout, unsigned char alpha);
 
-// ���f���Ăяo��
+// Model call
     void mqoCallModel(MQO_MODEL model);
 
-// �V�[�P���X�Ăяo��
+// Sequence call
     void mqoCallSequence(MQO_SEQUENCE seq, int i);
 
-// ���f���̍폜
+// Delete the model
     void mqoDeleteModel(MQO_MODEL model);
 
-// �V�[�P���X�̍폜
+// Delete the sequence
     void mqoDeleteSequence(MQO_SEQUENCE seq);
 
 #ifdef __cplusplus

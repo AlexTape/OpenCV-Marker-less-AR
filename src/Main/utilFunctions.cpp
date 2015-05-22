@@ -40,7 +40,7 @@ using namespace cv;
 
 namespace cvar {
 
-// CSV�t�@�C������s����쐬����
+// You want to create a matrix from a CSV file
     CvMat* loadCsvFileAsMatrix(char* filename, int cv_type) {
         FILE* fp;
 
@@ -169,7 +169,7 @@ namespace cvar {
         waitKey(0);
     }
 
-// �w��T�C�Y���͂ݏo��_���T�C�Y���ߖT�_�ɋߎ�
+// To approximate the point that protrude a specified size to the size in the vicinity of point
     void truncatePoint(cv::Size& size, cv::Point2f& pt) {
         if (pt.x < 0) pt.x = 0;
         else if (pt.x >= size.width) pt.x = size.width - 1;
@@ -177,7 +177,7 @@ namespace cvar {
         else if (pt.y >= size.height) pt.y = size.height - 1;
     }
 
-// �S�_���Ȃ������`��
+// Draw a straight line connecting the four points
     void drawLineContour(Mat& src_img, vector<Point2f>& points, Scalar& color,
             int thickness, int lineType, int shift) {
         int pt_num = points.size();

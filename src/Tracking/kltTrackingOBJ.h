@@ -46,9 +46,9 @@ namespace cvar {
 
             private:
                 cv::Mat prevImg;
-                std::vector<cv::Point2f> corners;	// �ǐՓ_
-                std::vector<cv::Point2f> object_position;	// �l���̓_
-                std::vector<unsigned char> track_status;// �ǐՏo���Ă���_�̃}�X�N
+                std::vector<cv::Point2f> corners;	// Tracking point
+                std::vector<cv::Point2f> object_position;// Point of the four corners
+                std::vector<unsigned char> track_status;// Mask of the point that you are able to track
                 int max_corners;
                 double quality_level;
                 double min_distance;

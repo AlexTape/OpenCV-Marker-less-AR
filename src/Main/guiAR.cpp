@@ -60,22 +60,22 @@ using namespace cvar::orns;
 using namespace cvar::tracking;
 using namespace cvar::overlay;
 
-controlOR* ctrlOR = 0;	// ���蕨�̔F���N���X
-trackingOBJ* trckOBJ = 0;	// �I�u�W�F�N�g�ǐՃN���X
-viewModel *viewMDL;	// OpenGL�摜�\���N���X�i�V���O���g���j
+controlOR* ctrlOR = 0;	// Specific object recognition class
+trackingOBJ* trckOBJ = 0;	// Object tracking class
+viewModel *viewMDL;	// OpenGL image display class (singleton)
 
-VideoCapture capture(1);	// �J�����L���v�`��
-int seq_id = 0;	// �g���b�L���O�̃V�[�P���XID
-int wait_seq_id = 0; // ��g���b�L���O���̃V�[�P���XID
-bool track_f = false;	// �g���b�L���O�t���O
-int query_scale = 1;	// �N�G���[�摜�k���X�P�[��
-int max_query_size = 320;	// �ő�N�G���[�摜�T�C�Y
-Mat query_image;	// �摜�F���N�G���[�p�k���摜�T�C�Y
-//Mat pose_mat_scale;	// �z���O���t�B�s��i�[�p
-string config_file = "config.xml";	// �ݒ�t�@�C��
+VideoCapture capture(0);	// Camera capture
+int seq_id = 0;	// Sequence ID of tracking
+int wait_seq_id = 0; // Sequence ID at the time of non-tracking
+bool track_f = false;	// Tracking flag
+int query_scale = 1;	// Query image reduction scale
+int max_query_size = 320;	// Maximum query image size
+Mat query_image;	// Reduced image size for image recognition query
+//Mat pose_mat_scale;	// For homography matrix store
+string config_file = "config.xml";	// Configuration file
 
-//�X�N���[���T�C�Y�̃v���p�e�B
-bool fullscreen = false;	// �t���X�N���[�����[�h
+//Properties of the screen size
+bool fullscreen = false;	// Full screen mode
 int screen_pos_x;
 int screen_pos_y;
 int screen_width;
@@ -161,12 +161,13 @@ namespace cvar {
     void setARConfig(Size& frame_size) {
         try {
             FileStorage cvfs;
-            // Config�t�@�C���̓ǂݍ���
+            // Reading of Config file
             cvfs.open(config_file, CV_STORAGE_READ);
 
-            // ��̓t���[���p�e�N�X�`���T�C�Y(2�̗ݏ�)���v�Z
+            // It calculates the texture size for the input frame (power of two)
             int tw = 128;
             int th = 128;
+            
             while (frame_size.width > tw) {
                 tw <<= 1;
             }
@@ -175,7 +176,7 @@ namespace cvar {
             }
             viewMDL->setTwoPowerSize(tw, th);
 
-            // visual word�̓ǂݍ���
+            // reading of visual word
             FileNode fn;
             fn = cvfs["VisualWord"];
             std::string vwfile;
@@ -188,13 +189,19 @@ namespace cvar {
                 ctrlOR->loadVisualWordsBinary(vwfile, idxfile);
             }
 
-            // �I�u�W�F�N�gDB�̓ǂݍ���
+            // Reading of the object DB
             ctrlOR->loadObjectDB(cvfs["ObjectDB"]);
 
-            // �摜�F���N�G���[�p�ő�摜�T�C�Y�̓ǂݍ���
+            // Reading of the maximum image size for image recognition query
             cvfs["max_query_size"] >> max_query_size;
 
-            // �N�G���[�p�摜�T�C�Y��K�؂ȑ傫���֏k�����ė̈�m��
+            if (!cvfs["focal_length"].isNone()) {
+
+                // fixed error
+                viewMDL->setFocalLength(cvReadReal(*cvfs["focal_length"], 0));
+            }
+
+            // Area secured by reducing the image size for the query to the appropriate size
             int frame_max_size;
             if (frame_size.width > frame_size.height) {
                 frame_max_size = frame_size.width;
@@ -208,20 +215,18 @@ namespace cvar {
             query_image.create(frame_size.height / query_scale,
                     frame_size.width / query_scale, CV_8UC1);
 
-            // �J���������p�����[�^�̓ǂݍ���
+            // Reading of the camera internal parameters
             Mat camera_matrix;
             FileStorage fs(cvfs["camera_matrix"], FileStorage::READ);
             fs["camera_matrix"] >> camera_matrix;
             viewMDL->init(frame_size, camera_matrix);
 
-            // �œ_�����ݒ�i�ȗ������ꍇ��1.0�ɐݒ肳���j
+            // Focal length setting (which is set to 1.0 if omitted)
             if (!cvfs["focal_length"].isNone()) {
-
-                // fixed error
-                viewMDL->setFocalLength(cvReadReal(*cvfs["focal_length"], 0));
+                viewMDL->setFocalLength(cvfs["focal_length"]);
             }
 
-            // �t���X�N���[�����[�h�̓ǂݍ���
+            // Read full-screen mode
             string str_flg;
             if (cvfs["full_screen_mode"].isNone()) {
                 str_flg = "false";
@@ -234,7 +239,7 @@ namespace cvar {
                 }
             }
 
-            // �~���[���[�h�̓ǂݍ���
+            // Reading of the mirror mode
             if (cvfs["mirror_mode"].isNone()) {
                 str_flg = "false";
             } else {
@@ -246,7 +251,7 @@ namespace cvar {
                 viewMDL->setMirrorMode(false);
             }
 
-            // �d���\���̂��߂̃��f�����ǂݍ���
+            // Model Information read for superimposed display
             fn = cvfs["model_info"];
             FileNode fn2;
             viewMDL->releaseModel();
@@ -261,16 +266,14 @@ namespace cvar {
             while (fn_itr != fn.end()) {
                 (*fn_itr)["id"] >> id;
                 imgsize = (ctrlOR->image_db.getImageInfo(id)).img_size;
-
                 readModelParams(*fn_itr, modelfile_name, type_id, scale,
                         initRot, initTrans);
-
                 viewMDL->addModel(id, imgsize, type_id, modelfile_name, scale,
                         initRot, initTrans);
                 fn_itr++;
             }
 
-            // �҂��󂯎��ɕ\�����郂�f�����ǂݍ���
+            // Model information read to be displayed during the waiting time
             fn = cvfs["WaitingModel"];
             if (!fn.isNone()) {
                 int timer = fn["timer"];
@@ -288,18 +291,18 @@ namespace cvar {
     void displayFunc(void) {
 #ifndef NO_CAMERA
         Mat frame;
-        if (capture.isOpened()) { //�J���������݂���Ƃ�
-            //�L���v�`��
+        if (capture.isOpened()) { // When the camera is present
+            // Capture
             capture >> frame;
-        } else { //�J���������݂��Ȃ��Ƃ�
-            //���ɂ�邱�ƂȂ�
+        } else { // When the camera does not exist
+            // No particularly to do
         }
 #else
         frame = imread(imgname);
 #endif
 
 #ifndef NO_OBJRECOG
-        //�e�N�X�`���ɕ`�悵�����摜�𓊂���
+        // Throw the image you want to draw to the texture
         Mat grayImg;
         cvtColor(frame, grayImg, CV_BGR2GRAY);
 
@@ -307,13 +310,12 @@ namespace cvar {
             try {
                 cv::resize(grayImg, query_image, query_image.size());
                 vector<resultInfo> recog_result = ctrlOR->queryImage(
-                        query_image);		// �k���摜�ŔF��
-//			vector<resultInfo> recog_result = ctrlOR->queryImage(grayImg);	// �J��������̉摜�ŔF��
+                        query_image);	// Recognized by the reduced image
+//			vector<resultInfo> recog_result = ctrlOR->queryImage(grayImg);	// Recognized in the image from the camera
                 if (!recog_result.empty()) {
-
                     cout << "img id: " << recog_result[0].img_id << endl;
 
-                    // k¬æpzOtBðJæpÉÏ·
+                    // Convert homography for reduced image for the camera image
                     Mat pose_mat_scale = recog_result[0].pose_mat.clone();
                     pose_mat_scale.row(0) *= query_scale;
                     pose_mat_scale.row(1) *= query_scale;
@@ -360,7 +362,7 @@ namespace cvar {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         viewMDL->drawScene(frame);
 
-        ////////////////// �I�u�W�F�N�g��`�� //////////////////
+        ////////////////// Draw object //////////////////
 //	drawOctahedron();
 #ifndef NO_OVERLAY
         if (track_f) {
@@ -378,20 +380,20 @@ namespace cvar {
         }
 #endif
 
-        // �`��i�o�b�t�@�[���ւ��j
+        // Drawing (buffer swapping)
 //	glFlush();
 
         glutSwapBuffers();
 
     }
 
-// �A�C�h�����̃R�[���o�b�N
+// Callback when idle
     void idleFunc() {
-        //�ĕ`��v��
+        // Repaint request
         glutPostRedisplay();
     }
 
-// �E�C���h�E���T�C�Y�̃R�[���o�b�N
+// Of window resize callback
     void resizeFunc(int w, int h) {
         viewMDL->resize(w, h);
     }
@@ -411,12 +413,12 @@ namespace cvar {
         }
     }
 
-// �L�[�{�[�h��̓R�[���o�b�N
+// Keyboard input callback
     void keyboardFunc(unsigned char key, int x, int y) {
         switch (key) {
             case 'q':
             case 'Q':
-            case '\033':  // '\033' �� ESC �� ASCII �R�[�h
+            case '\033':  // '\033' ASCII code of ESC is
                 exit(0);
                 break;
             case 'f':
@@ -428,7 +430,7 @@ namespace cvar {
         }
     }
 
-// �I���֐�
+// Exit function
     void myExit() {
         viewMDL->exitFunc();
         query_image.release();
@@ -440,14 +442,14 @@ namespace cvar {
     }
 
     int startGUI(int argc, char *argv[]) {
-        // viewModel�̎擾
+        // acquisition of viewModel
         viewMDL = viewModel::getInstance();
 
-        // �I�������̒�`
+        // The definition of the end processing
         atexit(myExit);
 
 #ifndef NO_CAMERA
-        // �J��������
+        // Camera initialization
         if (!capture.isOpened()) {
             std::cout << "Failed to Open Camera" << std::endl;
             return -1;

@@ -27,38 +27,21 @@
 
 
  GLMetaseq
- MIT���C�Z���X
+ MIT License
  Copyright (c) 2009 Sunao Hashimoto and Keisuke Konishi
-
- �ȉ��ɒ�߂�����ɏ]���A�{�\�t�g�E�F�A����ъ֘A�����̃t�@�C���i�ȉ��u�\�t�g
- �E�F�A�v�j�̕������擾���邷�ׂĂ̐l�ɑ΂��A�\�t�g�E�F�A�𖳐����Ɉ������Ƃ�
- �����ŋ����܂��B����ɂ́A�\�t�g�E�F�A�̕������g�p�A���ʁA�ύX�A�����A�f�ځA
- �Еz�A�T�u���C�Z���X�A�����/�܂��͔̔����錠���A����у\�t�g�E�F�A��񋟂���
- ����ɓ������Ƃ������錠�����������Ɋ܂܂�܂��B
-
- ��L�̒��쌠�\������і{����\�����A�\�t�g�E�F�A�̂��ׂĂ̕����܂��͏d�v�ȕ���
- �ɋL�ڂ�����̂Ƃ��܂��B
-
- �\�t�g�E�F�A�́u����̂܂܁v�ŁA�����ł��邩�Öقł��邩���킸�A����̕ۏ�
- ���Ȃ��񋟂���܂��B�����ł����ۏ؂Ƃ́A���i���A����̖ړI�ւ̓K�����A�����
- ������N�Q�ɂ��Ă̕ۏ؂��܂݂܂����A����Ɍ��肳�����̂ł͂���܂���B
- ��҂܂��͒��쌠�҂́A�_��s�ׁA�s�@�s�ׁA�܂��͂���ȊO�ł��낤�ƁA�\�t�g
- �E�F�A�ɋN���܂��͊֘A���A���邢�̓\�t�g�E�F�A�̎g�p�܂��͂��̑��̈�����
- ����Đ������؂̐����A���Q�A���̑��̋`���ɂ��ĉ���̐ӔC������Ȃ�����
- �Ƃ��܂��B
 
  */
 
 /*=========================================================================
- �y���̃\�[�X���ł̂ݗL��ȃO���[�o���ϐ��z
+ [Global variable valid only within this source]
  =========================================================================*/
 
-static TEXTURE_POOL l_texPool[MAX_TEXTURE];		// �e�N�X�`���v�[��
-static int l_texPoolnum;				// �e�N�X�`���̐�
-static int l_GLMetaseqInitialized = 0;	// ����t���O
+static TEXTURE_POOL l_texPool[MAX_TEXTURE];		// Texture pool
+static int l_texPoolnum;				// Number of texture
+static int l_GLMetaseqInitialized = 0;	// Initialization flag
 
 /*=========================================================================
- �y�֐��錾�z
+ [Function declaration]
  =========================================================================*/
 
 #ifdef __cplusplus
@@ -107,13 +90,13 @@ void mqoMakeObjectsEx(MQO_OBJECT *mqoobj, MQO_OBJDATA obj[], int n_obj,
 #endif
 
 /*=========================================================================
- �y�֐��zendianConverter
- �y�p�r�z�G���f�B�A���ϊ�
- �y��z
- addr	�A�h���X
- size	�T�C�Y
+ [Function] endianConverter
+ [Applications] endian conversion
+ [Argument]
+ addr	Address
+ size	Size
 
- �y�ߒl�z�Ȃ�
+ [Return value] None
  =========================================================================*/
 
 void endianConverter(void *addr, unsigned int size) {
@@ -128,12 +111,12 @@ void endianConverter(void *addr, unsigned int size) {
 }
 
 /*=========================================================================
- �y�֐��zTGAHeaderEndianConverter
- �y�p�r�zTGA�̃w�b�_�̃G���f�B�A���ϊ�
- �y��z
- tgah	TGA�̃w�b�_
+ [Function] TGAHeaderEndianConverter
+ [Applications]TGA of the header of endian conversion
+ [Argument]
+ tgah	TGA header of
 
- �y�ߒl�z�Ȃ�
+ [Return value] None
  =========================================================================*/
 
 void TGAHeaderEndianConverter(STR_TGA_HEAD *tgah) {
@@ -145,12 +128,12 @@ void TGAHeaderEndianConverter(STR_TGA_HEAD *tgah) {
 }
 
 /*=========================================================================
- �y�֐��zIsExtensionSupported
- �y�p�r�zOpenGL�̊g���@�\���T�|�[�g����Ă��邩�ǂ������ׂ�
- �y��z
- szTargetExtension	�g���@�\�̖��O
+ [Function]IsExtensionSupported
+ [Applications]Examine whether the extension of OpenGL is supported
+ [Argument]
+ szTargetExtension	Name of the extension
 
- �y�ߒl�z1�F�T�|�[�g����Ă���C0�F����Ă��Ȃ�
+ [Return value] 1: are supported, 0: that is not
  =========================================================================*/
 
 int IsExtensionSupported(char* szTargetExtension) {
@@ -158,16 +141,14 @@ int IsExtensionSupported(char* szTargetExtension) {
     const unsigned char *pszStart;
     unsigned char *pszWhere, *pszTerminator;
 
-    // Extension �̖��O�������������ׂ�(NULL��󔒂�NG�j
-    pszWhere = (unsigned char *) strchr((const char *) szTargetExtension, ' ');
-    if (pszWhere || *szTargetExtension == (char) NULL) {
-        return 0;
-    }
+    // Extension To investigate if the name is correct (NULL or blank NG)
+    pszWhere = (unsigned char *) strchr(szTargetExtension, ' ');
+    if (pszWhere || *szTargetExtension == (char) NULL) return 0;
 
-    // Extension �̕��������������
+    // Extension I income of string
     pszExtensions = glGetString( GL_EXTENSIONS);
 
-    // ������̒��ɕK�v�� extension �����邩���ׂ�
+    // Find out if there is extension necessary in a string
     pszStart = pszExtensions;
     for (;;) {
         pszWhere = (unsigned char *) strstr((const char *) pszStart,
@@ -182,18 +163,18 @@ int IsExtensionSupported(char* szTargetExtension) {
 }
 
 /*=========================================================================
- �y�֐��zmqoInit
- �y�p�r�z���^�Z�R�C�A���[�_�̏���
- �y��z�Ȃ�
- �y�ߒl�z�Ȃ�
+ [Function]mqoInit
+ [Applications]Initialization of Metasequoia loader
+ [Argument] No
+ [Return value] None
  =========================================================================*/
 
 void mqoInit(void) {
-    // �e�N�X�`���v�[������
+    // Texture pool initialization
     memset(l_texPool, 0, sizeof(l_texPool));
     l_texPoolnum = 0;
 
-    // ���_�o�b�t�@�̃T�|�[�g�̃`�F�b�N
+    // Check the vertex buffer of support
     g_isVBOSupported = IsExtensionSupported("GL_ARB_vertex_buffer_object");
 //	g_isVBOSupported = 0;
 
@@ -204,8 +185,8 @@ void mqoInit(void) {
     glDeleteBuffersARB = NULL;
 
     if ( g_isVBOSupported ) {
-        // printf("OpenGL : ���_�o�b�t�@���T�|�[�g���Ă���̂Ŏg�p���܂�\n");
-        // GL �֐��̃|�C���^����������
+        // printf("OpenGL : It is used because it supports the vertex buffer\n");
+        // I income pointers GL function
         glGenBuffersARB = (PFNGLGENBUFFERSARBPROC) wglGetProcAddress("glGenBuffersARB");
         glBindBufferARB = (PFNGLBINDBUFFERARBPROC) wglGetProcAddress("glBindBufferARB");
         glBufferDataARB = (PFNGLBUFFERDATAARBPROC) wglGetProcAddress("glBufferDataARB");
@@ -213,32 +194,32 @@ void mqoInit(void) {
     }
 #endif
 
-    // ����t���O
+    // Initialization flag
     l_GLMetaseqInitialized = 1;
 }
 
 /*=========================================================================
- �y�֐��zmqoCleanup
- �y�p�r�z���^�Z�R�C�A���[�_�̏I������
- �y��z�Ȃ�
- �y�ߒl�z�Ȃ�
+ [Function]mqoCleanup
+ [Applications]End processing of Metasequoia loader
+ [Argument]None
+ [Return value] None
  =========================================================================*/
 
 void mqoCleanup(void) {
-    mqoClearTexturePool();	// �e�N�X�`���v�[���̃N���A
+    mqoClearTexturePool();	// Clear texture pool
 }
 
 /*=========================================================================
- �y�֐��zmqoSetTexturePool
- �y�p�r�z�e�N�X�`���v�[���Ƀe�N�X�`����ǂݍ���
- �y��z
- texfile		�e�N�X�`���t�@�C����
- alpfile		�A���t�@�t�@�C����
- alpha		�A���t�@
+ [Function]mqoSetTexturePool
+ [Applications]Read a texture to texture pool
+ [Argument]
+ texfile		Texture file name
+ alpfile		Alpha file name
+ alpha		Alpha
 
- �y�ߒl�z�e�N�X�`��ID
- �y�d�l�z�e�N�X�`�����܂��ǂݍ��܂�Ă��Ȃ���Γǂݍ��݁C�e�N�X�`���o�^
- ���łɓǂݍ��܂�Ă���Γo�^�������̂�Ԃ�.
+ [Return value] texture ID
+ [Specification] texture read if it has not already been loaded, texture registration
+ It returns those registered if already loaded.
  =========================================================================*/
 
 GLuint mqoSetTexturePool(char *texfile, char *alpfile, unsigned char alpha) {
@@ -261,11 +242,11 @@ GLuint mqoSetTexturePool(char *texfile, char *alpfile, unsigned char alpha) {
         }
         break;
     }
-    if (pos < l_texPoolnum) { //���łɓǂݍ��ݍς�
+    if (pos < l_texPoolnum) { //Already Loaded
         return l_texPool[pos].texture_id;
     }
     if ( MAX_TEXTURE <= pos) {
-        printf("%s:mqoSetTexturePool �e�N�X�`���ǂݍ��ݗ̈�s��\n", __FILE__);
+        printf("%s:mqoSetTexturePool Texture read out of space\n", __FILE__);
         return -1;
     }
     image = mqoLoadTextureEx(texfile, alpfile, &l_texPool[pos].texsize, alpha);
@@ -279,8 +260,8 @@ GLuint mqoSetTexturePool(char *texfile, char *alpfile, unsigned char alpha) {
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
     glPixelStorei(GL_PACK_ALIGNMENT, 4);
-    glGenTextures(1, &l_texPool[pos].texture_id);			// �e�N�X�`���𐶐�
-    glBindTexture(GL_TEXTURE_2D, l_texPool[pos].texture_id);// �e�N�X�`���̊��蓖��
+    glGenTextures(1, &l_texPool[pos].texture_id);			// Generate texture
+    glBindTexture(GL_TEXTURE_2D, l_texPool[pos].texture_id);// Assignment of texture
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -288,24 +269,24 @@ GLuint mqoSetTexturePool(char *texfile, char *alpfile, unsigned char alpha) {
             l_texPool[pos].texsize, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
     l_texPoolnum = pos + 1;
 
-    //�o�^����΁A�ǂݍ��񂾃o�b�t�@�͕s�v
+    //If you register, the read buffer is unnecessary
     free(image);
-    glBindTexture(GL_TEXTURE_2D, 0);	// �f�t�H���g�e�N�X�`���̊��蓖��
+    glBindTexture(GL_TEXTURE_2D, 0);	// Assignment of default texture
 
     return l_texPool[pos].texture_id;
 }
 
 /*=========================================================================
- �y�֐��zmqoClearTexturePool()
- �y�p�r�z�e�N�X�`���v�[���̊J��
- �y��z�Ȃ�
- �y�ߒl�z�Ȃ�
+ [Function]mqoClearTexturePool()
+ [Applications]�e�N�X�`���v�[���̊J��
+ [Argument]None
+ [Return value] None
  =========================================================================*/
 
 void mqoClearTexturePool() {
     int pos;
     for (pos = 0; pos < l_texPoolnum; pos++) {
-        glDeleteTextures(1, &l_texPool[pos].texture_id);	// �e�N�X�`�������폜
+        glDeleteTextures(1, &l_texPool[pos].texture_id);// Remove texture information
     }
 
     memset(l_texPool, 0, sizeof(l_texPool));
@@ -313,18 +294,18 @@ void mqoClearTexturePool() {
 }
 
 /*=========================================================================
- �y�֐��zmqoLoadTextureEx
- �y�p�r�z�t�@�C������e�N�X�`���摜���쐬����
- �y��z
- texfile		�t�@�C����
- alpfile		�A���t�@�t�@�C����
- tex_size	�e�N�X�`���̃T�C�Y�i��ӂ̒����j��Ԃ�
+ [Function] mqoLoadTextureEx
+ To create a texture image from the [Applications] file
+ [Argument]
+ texfile file name
+ alpfile alpha file name
+ Return the tex_size size of the texture (the length of one side)
 
- �y�ߒl�z�e�N�X�`���摜�ւ̃|�C���^�i���s����NULL�j
- �y�d�l�z24bit�r�b�g�}�b�v�C�����8,24,32bit�s�f�`
- �T�C�Y�́u��ӂ�2��n��̐���`�v�Ɍ���
- libjpeg,libpng�i�O�����C�u�����j���L���JPEG,PNG�̓ǂݍ��݉\
-=========================================================================*/
+ [Return value] pointer to the texture image (failure is NULL)
+ [Specification] 24bit bitmap, and 8,24,32bitTGA
+ Size is limited to "one side 2 of the n-th power of the square"
+ libjpeg, libpng (external library) if there is JPEG, PNG of readable
+ =========================================================================*/
 
 GLubyte* mqoLoadTextureEx(char *texfile, char *alpfile, int *tex_size,
         unsigned char alpha) {
@@ -370,7 +351,7 @@ GLubyte* mqoLoadTextureEx(char *texfile, char *alpfile, int *tex_size,
     pngimage = NULL;
 #endif
     size = -1;
-    for (fl = 0; fl < 2; fl++) {	//�e�N�X�`����fl=0    �A���t�@��fl=1
+    for (fl = 0; fl < 2; fl++) {	//Texture = fl = 0 �� = fl = 1
         if (filename[fl] == NULL) continue;
         namelen = strlen(filename[fl]);
         ext[0] = tolower(filename[fl][namelen - 3]);
@@ -387,18 +368,19 @@ GLubyte* mqoLoadTextureEx(char *texfile, char *alpfile, int *tex_size,
             filename[fl][namelen - 1] = 'p';
         }
         /* */
-        if (fl == 1) { //�A���t�@�̓ǂݍ��݂͂s�f�`or�o�m�f
+        if (fl == 1) { //Reading of alpha TGAorPNG
             if (!(isTGA || isPNG)) {
-                printf("�A���t�@�̃t�@�C���ɑΉ��ł��Ȃ���%s\n", filename[fl]);
+                printf("It is not possible to correspond to alpha of file %s\n",
+                        filename[fl]);
                 break;
             }
         }
         if (fp != NULL) fclose(fp);
         if ((fp = fopen(filename[fl], "rb")) == NULL) {
-            printf("%s:�e�N�X�`���ǂݍ��݃G���[[%s]\n", __FILE__, filename[fl]);
+            printf("%s:Texture read error[%s]\n", __FILE__, filename[fl]);
             continue;
         }
-        // �w�b�_�̃��[�h
+        // Header of load
         if (isTGA) {
             fread(&tgah, sizeof(STR_TGA_HEAD), 1, fp);
 #if DEF_IS_LITTLE_ENDIAN
@@ -411,22 +393,22 @@ GLubyte* mqoLoadTextureEx(char *texfile, char *alpfile, int *tex_size,
 #if DEF_USE_LIBJPEG
             unsigned int i;
             cinfo.err = jpeg_std_error( &jerr );
-            jpeg_create_decompress( &cinfo );	//�𓀗p���쐬
-            jpeg_stdio_src( &cinfo, fp );//�ǂݍ��݃t�@�C���w��
-            jpeg_read_header( &cinfo, TRUE );//jpeg�w�b�_�ǂݍ���
-            jpeg_start_decompress( &cinfo );//�𓀊J�n
+            jpeg_create_decompress( &cinfo );	//Generation information thaw
+            jpeg_stdio_src( &cinfo, fp );//Read file specification
+            jpeg_read_header( &cinfo, TRUE );//jpeg header read
+            jpeg_start_decompress( &cinfo );//Thawing start
 
             if ( cinfo.out_color_components == 3 && cinfo.out_color_space == JCS_RGB ) {
                 if ( jpegimage != NULL ) {
-                    for (i = 0; i < cinfo.output_height; i++) free(jpegimage[i]); // �ȉ��Q�s�͂Q�����z������܂�
+                    for (i = 0; i < cinfo.output_height; i++) free(jpegimage[i]); // Two lines will release a two-dimensional array or less
                     free(jpegimage);
                 }
-                //�ǂݍ��݃f�[�^�z��̍쐬
+                //Creating a read data array
                 jpegimage = (JSAMPARRAY)malloc( sizeof( JSAMPROW ) * cinfo.output_height );
                 for ( i = 0; i < cinfo.output_height; i++ ) {
                     jpegimage[i] = (JSAMPROW)malloc( sizeof( JSAMPLE ) * cinfo.out_color_components * cinfo.output_width );
                 }
-                //�𓀃f�[�^�ǂݍ���
+                //Decompress data read
                 while( cinfo.output_scanline < cinfo.output_height ) {
                     jpeg_read_scanlines( &cinfo,
                             jpegimage + cinfo.output_scanline,
@@ -436,13 +418,13 @@ GLubyte* mqoLoadTextureEx(char *texfile, char *alpfile, int *tex_size,
                 size = width[fl] = cinfo.output_width;
             }
 
-            jpeg_finish_decompress( &cinfo );	//�𓀏I��
-            jpeg_destroy_decompress( &cinfo );//�𓀗p�����
+            jpeg_finish_decompress( &cinfo );	//Thawing end
+            jpeg_destroy_decompress( &cinfo );//Decompression information release
             if ( !(cinfo.out_color_components == 3 && cinfo.out_color_space == JCS_RGB) ) {
-                printf("JPEG �Ή��ł��Ȃ��t�H�[�}�b�g��%s\n",filename[fl]);
+                printf("The JPEG support can not format %s\n",filename[fl]);
             }
 #else
-            printf("���̃e�N�X�`���͑Ή��ł��Ȃ��t�H�[�}�b�g��%s\n", filename[fl]);
+            printf("Format This texture can not cope %s\n", filename[fl]);
             continue;
 #endif
         }
@@ -453,38 +435,38 @@ GLubyte* mqoLoadTextureEx(char *texfile, char *alpfile, int *tex_size,
             int bit_depth, interlace_type;
             unsigned int i;
             int j, k;
-            png_ptr = png_create_read_struct(      // png_ptr�\���̂��m�ہE�����܂�
+            png_ptr = png_create_read_struct( // It will ensure and initialize the png_ptr structure
                     PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-            info_ptr = png_create_info_struct(png_ptr); // info_ptr�\���̂��m�ہE�����܂�
-            png_init_io(png_ptr, fp);                      // libpng��fp��m�点�܂�
-            png_read_info(png_ptr, info_ptr);     // PNG�t�@�C���̃w�b�_��ǂݍ��݂܂�
-            png_get_IHDR(png_ptr, info_ptr, &pngwidth, &pngheight, // IHDR�`�����N�����擾���܂�
+            info_ptr = png_create_info_struct(png_ptr); // It will ensure and initialize the info_ptr structure
+            png_init_io(png_ptr, fp);         // It will inform the fp in libpng
+            png_read_info(png_ptr, info_ptr); // It will read the header of PNG files
+            png_get_IHDR(png_ptr, info_ptr, &pngwidth, &pngheight, // Get IHDR chunk information
                     &bit_depth, &color_type, &interlace_type, &j, &k);
             if (pngimage != NULL) {
                 for (i = 0; i < pngheight; i++)
-                    free(pngimage[i]);            // �ȉ��Q�s�͂Q�����z������܂�
+                    free(pngimage[i]); // Two lines will release a two-dimensional array or less
                 free(pngimage);
             }
-            pngimage = (png_bytepp) malloc(pngheight * sizeof(png_bytep)); // �ȉ��R�s�͂Q�����z����m�ۂ��܂�
+            pngimage = (png_bytepp) malloc(pngheight * sizeof(png_bytep)); // The following three lines to ensure a two-dimensional array
             i = png_get_rowbytes(png_ptr, info_ptr);
             pngdepth = i / pngwidth;
             for (i = 0; i < pngheight; i++)
                 pngimage[i] = (png_bytep) malloc(
                         png_get_rowbytes(png_ptr, info_ptr));
-            png_read_image(png_ptr, pngimage);              // �摜�f�[�^��ǂݍ��݂܂�
+            png_read_image(png_ptr, pngimage);    // It will read the image data
 
-            png_destroy_read_struct(                  // �Q�̍\���̂̃����������܂�
+            png_destroy_read_struct( // It will release two of the memory of structure
                     &png_ptr, &info_ptr, (png_infopp) NULL);
             size = width[fl] = pngwidth;
 #else
-            printf("���̃e�N�X�`���͑Ή��ł��Ȃ��t�H�[�}�b�g��%s\n",filename[fl]);
+            printf("Format This texture can not cope %s\n",filename[fl]);
             continue;
 #endif
         }
-        if (width[fl] == -1) {  //�R�R�܂ł��ăT�C�Y���w�肳��Ă��Ȃ��@���@�r�b�g�}�b�v
-            fseek(fp, 14 + 4, SEEK_SET);		// �摜�����i�[����Ă���ʒu�܂ŃV�[�N
-            fread(&size, sizeof(int), 1, fp);	// BiWidth�̏�񂾂��擾
-            fseek(fp, 14 + 40, SEEK_SET);	// ��f�f�[�^���i�[����Ă���ʒu�܂ŃV�[�N
+        if (width[fl] == -1) {     //Size come up here is not specified = bitmap
+            fseek(fp, 14 + 4, SEEK_SET); // Seek to a position where the image width is stored
+            fread(&size, sizeof(int), 1, fp); // Acquisition only BiWidth of information
+            fseek(fp, 14 + 40, SEEK_SET); // Seek to the position where the pixel data is stored
 #if DEF_IS_LITTLE_ENDIAN
 #else
             endianConverter(&size,sizeof(int));
@@ -498,13 +480,13 @@ GLubyte* mqoLoadTextureEx(char *texfile, char *alpfile, int *tex_size,
                 break;
             }
         }
-        if (fl == 1 && isTGA) { //�A���t�@�̓ǂݍ��݂͂s�f�`�̂W�r�b�g���m�N�������R�Q�r�b�g�t��
+        if (fl == 1 && isTGA) { //8-bit monochrome or32-bit full of reading of alpha TGA
             if (!((tgah.depth == 8 && tgah.type == DEF_TGA_TYPE_MONO)
                     || (tgah.depth == 32 && tgah.type == DEF_TGA_TYPE_FULL))) {
                 break;
             }
         }
-        if (fl == 1 && isPNG) { //�A���t�@�̓ǂݍ��݂͂o�m�f�̃g�D���[�J���[�{�A���t�@�����O���[�X�P�[���{�A���t�@
+        if (fl == 1 && isPNG) { //Reading of alpha PNG of true color + alpha or gray scale + alpha
 #if DEF_USE_LIBPNG
             if (!((color_type == 6) || (color_type == 4))) {
                 break;
@@ -512,7 +494,7 @@ GLubyte* mqoLoadTextureEx(char *texfile, char *alpfile, int *tex_size,
 #endif
         }
 
-        // �������̊m��
+        // Secure memory
         if (pImage == NULL) {
             pImage = (GLubyte*) malloc(sizeof(unsigned char) * size * size * 4);
         }
@@ -548,7 +530,7 @@ GLubyte* mqoLoadTextureEx(char *texfile, char *alpfile, int *tex_size,
                     }
                     if (other) {
                         fread(&pRead[2], 1, 1, fp);	// B
-                        fread(&pRead[1], 1, 1, fp);	// G
+                        fread(&pRead[1], 1, 1, fp);	// G	
                         fread(&pRead[0], 1, 1, fp);	// R
                         pRead[3] = alpha;				// A
                         if (isTGA && tgah.depth == 32) {
@@ -559,17 +541,17 @@ GLubyte* mqoLoadTextureEx(char *texfile, char *alpfile, int *tex_size,
                 } else {
                     if (isPNG) {
 #if DEF_USE_LIBPNG
-                        if (color_type == 6) { //�g�D���[�J���[�{�A���t�@
+                        if (color_type == 6) { //True color + alpha
                             pRead[3] = pngimage[size - 1 - y][x * pngdepth + 3];
                         }
-                        if (color_type == 4) { //�O���[�X�P�[���{�A���t�@
+                        if (color_type == 4) { //Gray scale + alpha
                             pRead[3] = pngimage[size - 1 - y][x * pngdepth + 1];
                         }
                         if (alpha < pRead[3]) pRead[3] = alpha;
 #endif
                     }
                     if (isTGA) {
-                        if (tgah.depth == 32) { //����Ȃ��f�[�^��ǂݔ�΂�
+                        if (tgah.depth == 32) { //To skip the data you do not need
                             fread(wbuf, 3, 1, fp);	// BGR
                         }
                         fread(&pRead[3], 1, 1, fp);	// A
@@ -590,14 +572,14 @@ GLubyte* mqoLoadTextureEx(char *texfile, char *alpfile, int *tex_size,
     if (pngimage != NULL) {
         unsigned int uy;
         for (uy = 0; uy < pngheight; uy++)
-            free(pngimage[uy]);            // �ȉ��Q�s�͂Q�����z������܂�
+            free(pngimage[uy]); // Two lines will release a two-dimensional array or less
         free(pngimage);
     }
 #endif
 #if DEF_USE_LIBJPEG
     if ( jpegimage != NULL ) {
         unsigned int uy;
-        for (uy = 0; uy < cinfo.output_height; uy++) free(jpegimage[uy]); // �ȉ��Q�s�͂Q�����z������܂�
+        for (uy = 0; uy < cinfo.output_height; uy++) free(jpegimage[uy]); // Two lines will release a two-dimensional array or less
         free(jpegimage);
     }
 #endif
@@ -611,15 +593,15 @@ GLubyte* mqoLoadTextureEx(char *texfile, char *alpfile, int *tex_size,
 }
 
 /*=========================================================================
- �y�֐��zmqoLoadFile
- �y�p�r�z���^�Z�R�C�A�t�@�C��(*.mqo)����f�[�^��ǂݍ���
- �y��z
- mqoobj		MQO�I�u�W�F�N�g
- filename	�t�@�C���̃p�X
- scale		�g�嗦
- alpha		�A���t�@
+ [Function] mqoLoadFile
+ It reads the data from the [Applications] Metasequoia file (* .mqo)
+ [Argument]
+ mqoobj MQO object
+ The path of the file filename
+ scale enlargement factor
+ alpha alpha
 
- �y�ߒl�z�����F1 �^ ���s�F0
+ [Return value] Success: 1 / Failure: 0
  =========================================================================*/
 
 int mqoLoadFile(MQO_OBJECT *mqoobj, char *filename, double scale,
@@ -628,15 +610,15 @@ int mqoLoadFile(MQO_OBJECT *mqoobj, char *filename, double scale,
     MQO_OBJDATA obj[MAX_OBJECT];
     MQO_MATDATA *M = NULL;
 
-    char buf[SIZE_STR];		// ������ǂݍ��݃o�b�t�@
-    char path_dir[SIZE_STR];	// �f�B���N�g���̃p�X
-    char path_tex[SIZE_STR];	// �e�N�X�`���t�@�C���̃p�X
-    char path_alp[SIZE_STR];	// �A���t�@�e�N�X�`���t�@�C���̃p�X
-    int n_mat = 0;			// �}�e���A����
-    int n_obj = 0;			// �I�u�W�F�N�g��
+    char buf[SIZE_STR];		// String read buffer
+    char path_dir[SIZE_STR];	// Directory path
+    char path_tex[SIZE_STR];	// The path of the texture file
+    char path_alp[SIZE_STR];	// The path of the alpha texture file
+    int n_mat = 0;			// Number of Materials
+    int n_obj = 0;			// The number of objects
     int i;
 
-    // Material��Object�̓ǂݍ���
+    // Reading of Material and Object
     fp = fopen(filename, "rb");
     if (fp == NULL) return 0;
 
@@ -664,24 +646,24 @@ int mqoLoadFile(MQO_OBJECT *mqoobj, char *filename, double scale,
     n_obj = i;
     fclose(fp);
 
-    // �p�X�̎擾
+    // Acquisition of path
     mqoGetDirectory(filename, path_dir);
 
-    // �e�N�X�`���̓o�^
+    // Registration of texture
     for (i = 0; i < n_mat; i++) {
         if (M[i].useTex) {
 
             if (strstr(M[i].texFile, ":")) {
-                strcpy(path_tex, M[i].texFile);	// ��΃p�X�̏ꍇ
+                strcpy(path_tex, M[i].texFile);	// In the case of an absolute path
             } else {
-                sprintf(path_tex, "%s%s", path_dir, M[i].texFile);// ���΃p�X�̏ꍇ
+                sprintf(path_tex, "%s%s", path_dir, M[i].texFile);// In the case of a relative path
             }
 
             if (M[i].alpFile[0] != (char) 0) {
                 if (strstr(M[i].texFile, ":")) {
-                    strcpy(path_alp, M[i].alpFile);	// ��΃p�X�̏ꍇ
+                    strcpy(path_alp, M[i].alpFile);	// In the case of an absolute path
                 } else {
-                    sprintf(path_alp, "%s%s", path_dir, M[i].alpFile);// ���΃p�X�̏ꍇ
+                    sprintf(path_alp, "%s%s", path_dir, M[i].alpFile);// In the case of a relative path
                 }
                 M[i].texName = mqoSetTexturePool(path_tex, path_alp, alpha);
             } else {
@@ -692,33 +674,33 @@ int mqoLoadFile(MQO_OBJECT *mqoobj, char *filename, double scale,
 
     mqoMakeObjectsEx(mqoobj, obj, n_obj, M, n_mat, scale, alpha);
 
-    // �I�u�W�F�N�g�̃f�[�^�̊J��
+    // The opening of the object of data
     for (i = 0; i < n_obj; i++) {
         free(obj[i].V);
         free(obj[i].F);
     }
 
-    // �}�e���A���̊J��
+    // The opening of the material
     free(M);
 
     return 1;
 }
 
 /*=========================================================================
- �y�֐��zmqoCreateList
- �y�p�r�zMQO�I�u�W�F�N�g���w�萔�m�ۂ���
- �y��znum		MQO�I�u�W�F�N�g�̐�
+ [Function] mqoCreateList
+ You want to specify the number of securing the [Applications] MQO object
+ [Argument] num MQO number of objects
 
- �y�ߒl�zMQO�I�u�W�F�N�g
+ [Return value] MQO object
  =========================================================================*/
 
 MQO_OBJECT* mqoCreateList(int num) {
     MQO_OBJECT *obj;
 
-    // ������ĂȂ������珉��
+    // Initialization I had not been initialized
     if (!l_GLMetaseqInitialized) mqoInit();
 
-    // �̈�m�ۂƏ���
+    // Area secure and initialization
     obj = (MQO_OBJECT *) malloc(sizeof(MQO_OBJECT) * num);
     memset(obj, 0, sizeof(MQO_OBJECT) * num);
 
@@ -726,16 +708,16 @@ MQO_OBJECT* mqoCreateList(int num) {
 }
 
 /*=========================================================================
- �y�֐��zmqoCreateListObject
- �y�p�r�z���^�Z�R�C�A�t�@�C��(*.mqo)����MQO�I�u�W�F�N�g�z����쐬����
+ [Function] mqoCreateListObject
+ Create a MQO object array from the [Applications] Metasequoia file (* .mqo)
 
- �y��zmqoobj		MQO�I�u�W�F�N�g
- i			�ǂݍ��ݐ�ԍ��ii�Ԗڂ�MQO�t�@�C����ǂݍ��ށj
- filename	�t�@�C���̃p�X
- scale		�g�嗦
- alpha		�A���t�@�w��i�S�̂̃A���t�@�l���w��i0�`255�j�j
+ [Argument] mqoobj MQO object
+ i read destination number (i th I read the MQO file)
+ The path of the file filename
+ scale enlargement factor
+ alpha alpha specification (specify the overall alpha value (0-255))
 
- �y�ߒl�z�X�e�[�^�X�@���F�ُ�@�O�F����
+ [Return value] Status negative: Abnormal 0: Normal
  =========================================================================*/
 
 int mqoCreateListObject(MQO_OBJECT *mqoobj, int i, char *filename, double scale,
@@ -748,13 +730,13 @@ int mqoCreateListObject(MQO_OBJECT *mqoobj, int i, char *filename, double scale,
 }
 
 /*=========================================================================
- �y�֐��zmqoCallListObject
- �y�p�r�zMQO�I�u�W�F�N�g��OpenGL�̉�ʏ�ɌĂяo��
- �y��z
- mqoobj		MQO�I�u�W�F�N�g�z��
- num			�z��ԍ� (0�`�j
+ [Function] mqoCallListObject
+ I call [Applications] the MQO object on the screen of the OpenGL
+ [Argument]
+ mqoobj MQO object array
+ num sequence number (0 ~)
 
- �y�ߒl�z�Ȃ�
+ [Return value] None
  =========================================================================*/
 
 void mqoCallListObject(MQO_OBJECT mqoobj[], int num) {
@@ -775,23 +757,23 @@ void mqoCallListObject(MQO_OBJECT mqoobj[], int num) {
     if (mqoobj == NULL) return;
 
     glPushMatrix();
-    //���^�Z�R�͒��_�̕��т��\�ʂ���݂ĉE���
+    //Metaseko is right around the sequence of vertices is viewed from the surface
     glGetIntegerv(GL_FRONT_FACE, &intFrontFace);
     glFrontFace(GL_CW);
     dalpha = (double) mqoobj[num].alpha / (double) 255;
 
-    for (o = 0; o < mqoobj[num].objnum; o++) {	// �����I�u�W�F�N�g���[�v
+    for (o = 0; o < mqoobj[num].objnum; o++) {	// Internal object loop
 
         obj = &mqoobj[num].obj[o];
         if (!obj->isVisible) continue;
         glShadeModel(((obj->isShadingFlat)) ? GL_FLAT : GL_SMOOTH);
 
-        for (m = 0; m < obj->matnum; m++) {	//�}�e���A�����[�v
+        for (m = 0; m < obj->matnum; m++) {	//Materials loop
 
             mat = &obj->mat[m];
             if (mat->datanum == 0) continue;
 
-            if (mat->isValidMaterialInfo) {	// �}�e���A���̏��ݒ�
+            if (mat->isValidMaterialInfo) {	// Information setting of material
                 memcpy(matenv, mat->dif, sizeof(matenv));
                 matenv[3] *= dalpha;
                 glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, matenv);
@@ -807,7 +789,7 @@ void mqoCallListObject(MQO_OBJECT mqoobj[], int num) {
                 glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, mat->power);
             }
 
-            if (mat->isUseTexture) {	// �e�N�X�`��������ꍇ
+            if (mat->isUseTexture) {	// If there is a texture
                 glEnableClientState( GL_VERTEX_ARRAY);
                 glEnableClientState( GL_NORMAL_ARRAY);
                 glEnableClientState( GL_TEXTURE_COORD_ARRAY);
@@ -823,51 +805,51 @@ void mqoCallListObject(MQO_OBJECT mqoobj[], int num) {
 
                 glBindTexture(GL_TEXTURE_2D, mat->texture_id);
 
-                if (g_isVBOSupported) {	// ���_�o�b�t�@�g�p
-                    base = (char *) NULL;	// �A�h���X��NULL���擪
-                    glBindBufferARB( GL_ARRAY_BUFFER_ARB, mat->VBO_id); // ���_�o�b�t�@�����т���
+                if (g_isVBOSupported) {	// Vertex buffer usage
+                    base = (char *) NULL;	// Address top NULL
+                    glBindBufferARB( GL_ARRAY_BUFFER_ARB, mat->VBO_id); // Tie the vertex buffer
                 } else {
-                    // ���_�z��̎��́A�A�h���X�����̂܂ܓ���
+                    // When the vertex array, put the address as it is
                     base = (char *) mat->vertex_t[0].point;
                 }
 
-                // ���_�z���ݒ�
+                // Set the vertex array
                 offset = (int) ((char *) mat->vertex_t[0].point
                         - (char *) mat->vertex_t[0].point);
                 glVertexPointer(3, GL_FLOAT, sizeof(VERTEX_TEXUSE),
                         base + offset);
 
-                // �e�N�X�`�����W�z���ݒ�
+                // Set the texture coordinate array
                 offset = (int) ((char *) mat->vertex_t[0].uv
                         - (char *) mat->vertex_t[0].point);
                 glTexCoordPointer(2, GL_FLOAT, sizeof(VERTEX_TEXUSE),
                         base + offset);
 
-                // �@��z���ݒ�
+                // Set the normal array
                 offset = (int) ((char *) mat->vertex_t[0].normal
                         - (char *) mat->vertex_t[0].point);
                 glNormalPointer( GL_FLOAT, sizeof(VERTEX_TEXUSE),
                         base + offset);
 
-                // �F�ݒ�
+                // Color setting
                 glColor4f(mat->color[0], mat->color[1], mat->color[2],
                         mat->color[3]);
 
-                // �`����s
+                // Execution drawing
                 glDrawArrays( GL_TRIANGLES, 0, mat->datanum);
 
                 glBindTexture(GL_TEXTURE_2D, bindGL_TEXTURE_2D);
                 if (isGL_BLEND == GL_FALSE) glDisable(GL_BLEND);
                 if (isGL_TEXTURE_2D == GL_FALSE) glDisable(GL_TEXTURE_2D);
 
-                if (g_isVBOSupported) {						// ���_�o�b�t�@�g�p
-                    glBindBufferARB( GL_ARRAY_BUFFER_ARB, 0);// ���_�o�b�t�@���f�t�H���g��
+                if (g_isVBOSupported) {					// Vertex buffer usage
+                    glBindBufferARB( GL_ARRAY_BUFFER_ARB, 0);// The vertex buffer to the default
                 }
 
                 glDisableClientState( GL_VERTEX_ARRAY);
                 glDisableClientState( GL_NORMAL_ARRAY);
                 glDisableClientState( GL_TEXTURE_COORD_ARRAY);
-            } else {	// �e�N�X�`�����Ȃ��ꍇ
+            } else {	// If there is no texture
 
                 glEnableClientState( GL_VERTEX_ARRAY);
                 glEnableClientState( GL_NORMAL_ARRAY);
@@ -877,36 +859,36 @@ void mqoCallListObject(MQO_OBJECT mqoobj[], int num) {
                 glEnable(GL_BLEND);
                 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-                if (g_isVBOSupported) {	// ���_�o�b�t�@�g�p
+                if (g_isVBOSupported) {	// Vertex buffer usage
                     base = (char *) NULL;
                     glBindBufferARB( GL_ARRAY_BUFFER_ARB, mat->VBO_id);
                 } else {
                     base = (char *) mat->vertex_p[0].point;
                 }
 
-                // ���_�z���ݒ�
+                // Set the vertex array
                 offset = (int) ((char *) mat->vertex_p[0].point
                         - (char *) mat->vertex_p[0].point);
                 glVertexPointer(3, GL_FLOAT, sizeof(VERTEX_NOTEX),
                         base + offset);
 
-                // �@��z���ݒ�
+                // Set the normal array
                 offset = (int) ((char *) mat->vertex_p[0].normal
                         - (char *) mat->vertex_p[0].point);
                 glNormalPointer( GL_FLOAT, sizeof(VERTEX_NOTEX), base + offset);
 
-                // �F�ݒ�
+                // Color setting
                 glColor4f(mat->color[0], mat->color[1], mat->color[2],
                         mat->color[3]);
                 //	offset = (int)((char *)mat->vertex_p[0].color-(char *)mat->vertex_p[0].point);
                 //	glColorPointer(4,GL_FLOAT,sizeof(VERTEX_NOTEX),base+offset);
 
-                // �`����s
+                // Execution drawing
                 glDrawArrays( GL_TRIANGLES, 0, mat->datanum);
 
                 if (isGL_BLEND == GL_FALSE) glDisable(GL_BLEND);
-                if (g_isVBOSupported) {						// ���_�o�b�t�@�g�p
-                    glBindBufferARB( GL_ARRAY_BUFFER_ARB, 0);// ���_�o�b�t�@���f�t�H���g��
+                if (g_isVBOSupported) {					// Vertex buffer usage
+                    glBindBufferARB( GL_ARRAY_BUFFER_ARB, 0);// The vertex buffer to the default
                 }
 
                 //	glDisableClientState( GL_COLOR_ARRAY );
@@ -917,22 +899,22 @@ void mqoCallListObject(MQO_OBJECT mqoobj[], int num) {
         }
     }
 
-    //���^�Z�R�͒��_�̕��т��\�ʂ���݂ĉE���i���̐ݒ�ɂ��ǂ��j
+    //Metaseko is right around in a sequence of vertices are viewed from the surface (back to the original setting)
     glFrontFace(intFrontFace);
     glPopMatrix();
 }
 
 /*=========================================================================
- �y�֐��zmqoGetDirectory
- �y�p�r�z�t�@�C�������܂ރp�X�����񂩂�f�B���N�g���̃p�X�݂̂𒊏o����
- �y��z
- *path_file	�t�@�C�������܂ރp�X������i��́j
- *path_dir	�t�@�C�������������p�X������i�o�́j
+ [Function] mqoGetDirectory
+ To extract only the directory path from a string that contains the [Applications] file name
+ [Argument]
+ * path_file path string that contains the file name (input)
+ * path_dir file name path string except the (output)
 
- �y�ߒl�z�Ȃ�
- �y�d�l�z��F
- "C:/data/file.bmp" �� "C:/data/"
- "data/file.mqo"    �� "data/"
+ [Return value] None
+ [Specification] Example:
+ "C: /data/file.bmp" �� "C: / data /"
+ "data / file.mqo" �� "data /"
  =========================================================================*/
 
 void mqoGetDirectory(const char *path_file, char *path_dir) {
@@ -946,40 +928,40 @@ void mqoGetDirectory(const char *path_file, char *path_dir) {
 }
 
 /*=========================================================================
- �y�֐��zmqoSnormal
- �y�p�r�z�@��x�N�g�������߂�
- �y��z
- A		3�������W��̓_A
- B		3�������W��̓_B
- C		3�������W��̓_C
- *normal	�x�N�g��BA�ƃx�N�g��BC�̖@��x�N�g���i�E�˂����j
+ [Function] mqoSnormal
+ Ask the [Applications] Normal vector
+ [Argument]
+ A point on the A 3-dimensional coordinates
+ Point B on the B 3-dimensional coordinates
+ Point C on C 3-dimensional coordinate
+ * normal vector BA and vector BC Normal vector (right screw direction)
 
- �y�ߒl�z�Ȃ�
- �y�d�l�z���^�Z�R�C�A�ɂ����Ėʂ��\�����钸�_�̔ԍ��́C�\���ʂ��猩��
- ���v���ɋL�q���Ă���D�܂�C���_A,B,C ���������Ƃ��C
- ���߂�ׂ��@���BA��BC�̊O�ςɂ���ċ��߂���
+ [Return value] None
+ [Specification] number of vertices that make up the surface in Metasequoia, when viewed from the display surface
+ It has described in a clockwise direction. That is, when the vertices A, B, C were found
+ It is is normal to be obtained determined by the cross product of BA and BC
  =========================================================================*/
 
 void mqoSnormal(glPOINT3f A, glPOINT3f B, glPOINT3f C, glPOINT3f *normal) {
     double norm;
     glPOINT3f vec0, vec1;
 
-    // �x�N�g��BA
+    // Vector BA
     vec0.x = A.x - B.x;
     vec0.y = A.y - B.y;
     vec0.z = A.z - B.z;
 
-    // �x�N�g��BC
+    // Vector BC
     vec1.x = C.x - B.x;
     vec1.y = C.y - B.y;
     vec1.z = C.z - B.z;
 
-    // �@��x�N�g��
+    // Normal vector
     normal->x = vec0.y * vec1.z - vec0.z * vec1.y;
     normal->y = vec0.z * vec1.x - vec0.x * vec1.z;
     normal->z = vec0.x * vec1.y - vec0.y * vec1.x;
 
-    // ���K��
+    // Normalization
     norm = normal->x * normal->x + normal->y * normal->y
             + normal->z * normal->z;
     norm = sqrt(norm);
@@ -990,14 +972,14 @@ void mqoSnormal(glPOINT3f A, glPOINT3f B, glPOINT3f C, glPOINT3f *normal) {
 }
 
 /*=========================================================================
- �y�֐��zmqoReadMaterial
- �y�p�r�z�}�e���A�����̓ǂݍ���
- �y��z
- fp		�t�@�C���|�C���^
- M		�}�e���A���z��
+ [Function] mqoReadMaterial
+ Reading of [Applications] material information
+ [Argument]
+ fp file pointer
+ M Materials array
 
- �y�ߒl�z�Ȃ�
- �y�d�l�zmqoCreateModel(), mqoCreateSequence()�̃T�u�֐��D
+ [Return value] None
+ [Specification] mqoCreateModel (), sub-function of mqoCreateSequence ().
  =========================================================================*/
 
 void mqoReadMaterial(FILE *fp, MQO_MATDATA M[]) {
@@ -1009,42 +991,42 @@ void mqoReadMaterial(FILE *fp, MQO_MATDATA M[]) {
     int i = 0;
 
     while (1) {
-        fgets(buf, SIZE_STR, fp);	// �s�ǂݍ���
+        fgets(buf, SIZE_STR, fp);	// Line read
         if (strstr(buf, "}")) break;
 
-        pStr = strstr(buf, "col(");	// �ގ����ǂݔ�΂�
+        pStr = strstr(buf, "col(");	// Skip Material name
         sscanf(pStr,
                 "col(%f %f %f %f) dif (%f) amb(%f) emi(%f) spc(%f) power(%f)",
                 &c.r, &c.g, &c.b, &c.a, &dif, &amb, &emi, &spc, &M[i].power);
 
-        // ���_�J���[
+        // Vertex color
         M[i].col = c;
 
-        // �g�U��
+        // Diffusion light
         M[i].dif[0] = dif * c.r;
         M[i].dif[1] = dif * c.g;
         M[i].dif[2] = dif * c.b;
         M[i].dif[3] = c.a;
 
-        // ��͌�
+        // Surrounding light
         M[i].amb[0] = amb * c.r;
         M[i].amb[1] = amb * c.g;
         M[i].amb[2] = amb * c.b;
         M[i].amb[3] = c.a;
 
-        // ���ȏƖ�
+        // Self-lighting
         M[i].emi[0] = emi * c.r;
         M[i].emi[1] = emi * c.g;
         M[i].emi[2] = emi * c.b;
         M[i].emi[3] = c.a;
 
-        // ���ˌ�
+        // Reflected light
         M[i].spc[0] = spc * c.r;
         M[i].spc[1] = spc * c.g;
         M[i].spc[2] = spc * c.b;
         M[i].spc[3] = c.a;
 
-        // tex�F�͗l�}�b�s���O��
+        // tex: pattern mapping name
         if ((pStr = strstr(buf, "tex(")) != NULL) {
             M[i].useTex = TRUE;
 
@@ -1073,14 +1055,14 @@ void mqoReadMaterial(FILE *fp, MQO_MATDATA M[]) {
 }
 
 /*=========================================================================
- �y�֐��zmqoReadVertex
- �y�p�r�z���_���̓ǂݍ���
- �y��z
- fp		���݃I�[�v�����Ă��郁�^�Z�R�C�A�t�@�C���̃t�@�C���|�C���^
- V		���_���i�[����z��
+ [Function] mqoReadVertex
+ [Applications] reading of vertex information
+ [Argument]
+ fp File pointer of currently open Metasequoia file
+ Array to store the V vertex
 
- �y�ߒl�z�Ȃ�
- �y�d�l�zmqoReadObject()�̃T�u�֐�
+ [Return value] None
+ [Specification] sub function of mqoReadObject ()
  =========================================================================*/
 
 void mqoReadVertex(FILE *fp, glPOINT3f V[]) {
@@ -1096,14 +1078,14 @@ void mqoReadVertex(FILE *fp, glPOINT3f V[]) {
 }
 
 /*=========================================================================
- �y�֐��zmqoReadBVertex
- �y�p�r�z�o�C�i���`���̒��_����ǂݍ���
- �y��z
- fp		���݃I�[�v�����Ă��郁�^�Z�R�C�A�t�@�C���̃t�@�C���|�C���^
- V		���_���i�[����z��
+ [Function] mqoReadBVertex
+ To read the vertex information of [Applications] binary format
+ [Argument]
+ fp File pointer of currently open Metasequoia file
+ Array to store the V vertex
 
- �y�ߒl�z���_��
- �y�d�l�zmqoReadObject()�̃T�u�֐�
+ [Return value] Vertex
+ [Specification] sub function of mqoReadObject ()
  =========================================================================*/
 
 int mqoReadBVertex(FILE *fp, glPOINT3f V[]) {
@@ -1115,11 +1097,11 @@ int mqoReadBVertex(FILE *fp, glPOINT3f V[]) {
 
     fgets(cw, sizeof(cw), fp);
     if ((pStr = strstr(cw, "Vector")) != NULL) {
-        sscanf(pStr, "Vector %d [%d]", &n_vertex, &size);// ���_���A�f�[�^�T�C�Y��ǂݍ���
+        sscanf(pStr, "Vector %d [%d]", &n_vertex, &size);// Vertex, read the data size
     } else {
         return -1;
     }
-    //MQO�t�@�C���̃o�C�i�����_�f�[�^��intel�`���i���g���G�f�B�A���j
+    //Binary vertex data intel format of MQO files (Little endian)
     wf = (float *) malloc(size);
     fread(wf, size, 1, fp);
     for (i = 0; i < n_vertex; i++) {
@@ -1135,7 +1117,7 @@ int mqoReadBVertex(FILE *fp, glPOINT3f V[]) {
     }
     free(wf);
 
-    // "}"�܂œǂݔ�΂�
+    // And skip to the "}"
     {
         char buf[SIZE_STR];
         while (1) {
@@ -1148,14 +1130,14 @@ int mqoReadBVertex(FILE *fp, glPOINT3f V[]) {
 }
 
 /*=========================================================================
- �y�֐��zmqoReadFace
- �y�p�r�z�ʏ��̓ǂݍ���
- �y��z
- fp		�t�@�C���|�C���^
- F		�ʔz��
+ [Function] mqoReadFace
+ Reading of [Applications] surface information
+ [Argument]
+ fp file pointer
+ F plane array
 
- �y�ߒl�z�Ȃ�
- �y�d�l�zmqoReadObject()�̃T�u�֐�
+ [Return value] None
+ [Specification] sub function of mqoReadObject ()
  =========================================================================*/
 
 void mqoReadFace(FILE *fp, MQO_FACE F[]) {
@@ -1167,16 +1149,16 @@ void mqoReadFace(FILE *fp, MQO_FACE F[]) {
         fgets(buf, SIZE_STR, fp);
         if (strstr(buf, "}")) break;
 
-        // �ʂ��\�����钸�_��
+        // Vertex that make up the surface
         sscanf(buf, "%d", &F[i].n);
 
-        // ���_(V)�̓ǂݍ���
+        // Reading of the vertex (V)
         if ((pStr = strstr(buf, "V(")) != NULL) {
             switch (F[i].n) {
                 case 3:
-//���^�Z�R�͒��_�̕��т��\�ʂ���݂ĉE���
-//�ǂݍ��ݎ��ɕ��בւ����@������B���ǁA�\�ʂ̐ݒ��
-//glFrontFace�ŕς���ق����X�}�[�g�H
+// Metaseko is right around the sequence of vertices is viewed from the surface
+// There is also a method to sort at the time of reading. But, the setting of the surface
+// better to change in glFrontFace is smart?
                     sscanf(pStr, "V(%d %d %d)", &F[i].v[0], &F[i].v[1],
                             &F[i].v[2]);
 //					sscanf(pStr,"V(%d %d %d)",&F[i].v[2],&F[i].v[1],&F[i].v[0]);
@@ -1191,24 +1173,24 @@ void mqoReadFace(FILE *fp, MQO_FACE F[]) {
             }
         }
 
-        // �}�e���A��(M)�̓ǂݍ���
+        // Reading of the material (M)
         F[i].m = 0;
         if ((pStr = strstr(buf, "M(")) != NULL) {
             sscanf(pStr, "M(%d)", &F[i].m);
-        } else { // �}�e���A�����ݒ肳��Ă��Ȃ���
+        } else { // Surface material has not been set
             F[i].m = -1;
         }
 
-        // UV�}�b�v(UV)�̓ǂݍ���
+        // Reading of UV map (UV)
         if ((pStr = strstr(buf, "UV(")) != NULL) {
             switch (F[i].n) {
-                case 3:	// ���_��3
+                case 3:	// Vertex3
                     sscanf(pStr, "UV(%f %f %f %f %f %f)", &F[i].uv[0].x,
                             &F[i].uv[0].y, &F[i].uv[1].x, &F[i].uv[1].y,
                             &F[i].uv[2].x, &F[i].uv[2].y);
                     break;
 
-                case 4:	// ���_��4
+                case 4:	// Vertex4
                     sscanf(pStr, "UV(%f %f %f %f %f %f %f %f)", &F[i].uv[0].x,
                             &F[i].uv[0].y, &F[i].uv[1].x, &F[i].uv[1].y,
                             &F[i].uv[2].x, &F[i].uv[2].y, &F[i].uv[3].x,
@@ -1225,14 +1207,14 @@ void mqoReadFace(FILE *fp, MQO_FACE F[]) {
 }
 
 /*=========================================================================
- �y�֐��zmqoReadObject
- �y�p�r�z�I�u�W�F�N�g���̓ǂݍ���
- �y��z
- fp		�t�@�C���|�C���^
- obj		�I�u�W�F�N�g���
+ [Function] mqoReadObject
+ [Applications] reading of object information
+ [Argument]
+ fp file pointer
+ obj object information
 
- �y�ߒl�z�Ȃ�
- �y�d�l�z���̊֐��łP�̃I�u�W�F�N�g��񂪓ǂݍ��܂��D
+ [Return value] None
+ [Specification] one of the object information in this function is read.
  =========================================================================*/
 
 void mqoReadObject(FILE *fp, MQO_OBJDATA *obj) {
@@ -1282,25 +1264,25 @@ void mqoReadObject(FILE *fp, MQO_OBJDATA *obj) {
 }
 
 /*=========================================================================
- �y�֐��zmqoMakeArray
- �y�p�r�z���_�z��̍쐬
- �y��z
- mat		�}�e���A���i���̒��ɒ��_�f�[�^���܂ށj
- matpos	�ގ��ԍ�
- F		��
- fnum	�ʐ�
- V		���_
- N		�@��
- facet	�X���[�W���O�p
- mcol	�F
- scale	�X�P�[��
- alpha	�A���t�@
+ [Function] mqoMakeArray
+ Creation of the [Applications] vertex array
+ [Argument]
+ mat material (it includes the vertex data in this)
+ matpos material number
+ F surface
+ fnum surface number
+ V vertex
+ N normal
+ facet smoothing angle
+ mcol color
+ scale scale
+ alpha alpha
 
- �y�ߒl�z�Ȃ�
- �y�d�l�z���_�z��͂��ׂĎO�p�ɂ���̂ŁA�l�p�͎O�p���Q�ɕ���
- 0  3      0    0  3
- ��   ���@���@�@��
- 1  2     1  2   2
+ [Return value] None
+ [Specification] Since all vertex array to triangle, square divided into triangular x2
+ 0 3 0 0 3
+ �� �� �� ��
+ 1 2 1 2 2
  =========================================================================*/
 
 void mqoMakeArray(MQO_MATERIAL *mat, int matpos, MQO_FACE F[], int fnum,
@@ -1310,7 +1292,7 @@ void mqoMakeArray(MQO_MATERIAL *mat, int matpos, MQO_FACE F[], int fnum,
     int i;
     int dpos;
     double s;
-    glPOINT3f normal;	// �@��x�N�g��
+    glPOINT3f normal;	// Normal vector
 
     dpos = 0;
     mat->color[0] = mcol->r;
@@ -1321,7 +1303,7 @@ void mqoMakeArray(MQO_MATERIAL *mat, int matpos, MQO_FACE F[], int fnum,
         for (f = 0; f < fnum; f++) {
             if (F[f].m != matpos) continue;
             if (F[f].n == 3) {
-                mqoSnormal(V[F[f].v[0]], V[F[f].v[1]], V[F[f].v[2]], &normal);// �@��x�N�g�����v�Z
+                mqoSnormal(V[F[f].v[0]], V[F[f].v[1]], V[F[f].v[2]], &normal);// To calculate the normal vector
                 for (i = 0; i < 3; i++) {
                     mat->vertex_t[dpos].point[0] = V[F[f].v[i]].x * scale;
                     mat->vertex_t[dpos].point[1] = V[F[f].v[i]].y * scale;
@@ -1333,7 +1315,7 @@ void mqoMakeArray(MQO_MATERIAL *mat, int matpos, MQO_FACE F[], int fnum,
                                     + normal.y * N[F[f].v[i]].y
                                     + normal.z * N[F[f].v[i]].z);
                     if (facet < s) {
-                        // �X���[�W���O�p�@���i���_�@��Ɩʖ@��̊p�x�j�̂Ƃ��͖ʖ@��𒸓_�@��Ƃ���
+                        // I and vertex normal the surface normal when smoothing angle <of (the angle of the vertex normal and the surface normal)
                         mat->vertex_t[dpos].normal[0] = normal.x;
                         mat->vertex_t[dpos].normal[1] = normal.y;
                         mat->vertex_t[dpos].normal[2] = normal.z;
@@ -1345,9 +1327,9 @@ void mqoMakeArray(MQO_MATERIAL *mat, int matpos, MQO_FACE F[], int fnum,
                     dpos++;
                 }
             }
-            //�S���_�i�l�p�j�͂R���_�i�O�p�j���Q�ɕ���
+            //4 vertex (squares) divided into three vertex (triangle) x2
             if (F[f].n == 4) {
-                mqoSnormal(V[F[f].v[0]], V[F[f].v[1]], V[F[f].v[2]], &normal);// �@��x�N�g�����v�Z
+                mqoSnormal(V[F[f].v[0]], V[F[f].v[1]], V[F[f].v[2]], &normal);// To calculate the normal vector
                 for (i = 0; i < 4; i++) {
                     if (i == 3) continue;
                     mat->vertex_t[dpos].point[0] = V[F[f].v[i]].x * scale;
@@ -1370,7 +1352,7 @@ void mqoMakeArray(MQO_MATERIAL *mat, int matpos, MQO_FACE F[], int fnum,
                     }
                     dpos++;
                 }
-                mqoSnormal(V[F[f].v[0]], V[F[f].v[2]], V[F[f].v[3]], &normal);// �@��x�N�g�����v�Z
+                mqoSnormal(V[F[f].v[0]], V[F[f].v[2]], V[F[f].v[3]], &normal);// To calculate the normal vector
                 for (i = 0; i < 4; i++) {
                     if (i == 1) continue;
                     mat->vertex_t[dpos].point[0] = V[F[f].v[i]].x * scale;
@@ -1402,7 +1384,7 @@ void mqoMakeArray(MQO_MATERIAL *mat, int matpos, MQO_FACE F[], int fnum,
         for (f = 0; f < fnum; f++) {
             if (F[f].m != matpos) continue;
             if (F[f].n == 3) {
-                mqoSnormal(V[F[f].v[0]], V[F[f].v[1]], V[F[f].v[2]], &normal);// �@��x�N�g�����v�Z
+                mqoSnormal(V[F[f].v[0]], V[F[f].v[1]], V[F[f].v[2]], &normal);// To calculate the normal vector
                 for (i = 0; i < 3; i++) {
                     mat->vertex_p[dpos].point[0] = V[F[f].v[i]].x * scale;
                     mat->vertex_p[dpos].point[1] = V[F[f].v[i]].y * scale;
@@ -1426,9 +1408,9 @@ void mqoMakeArray(MQO_MATERIAL *mat, int matpos, MQO_FACE F[], int fnum,
                     dpos++;
                 }
             }
-            //�S���_�i�l�p�j�͂R���_�i�O�p�j���Q�ɕ���
+            //4 vertex (squares) divided into three vertex (triangle) x2
             if (F[f].n == 4) {
-                mqoSnormal(V[F[f].v[0]], V[F[f].v[1]], V[F[f].v[2]], &normal);// �@��x�N�g�����v�Z
+                mqoSnormal(V[F[f].v[0]], V[F[f].v[1]], V[F[f].v[2]], &normal);// To calculate the normal vector
                 for (i = 0; i < 4; i++) {
                     if (i == 3) continue;
                     mat->vertex_p[dpos].point[0] = V[F[f].v[i]].x * scale;
@@ -1452,7 +1434,7 @@ void mqoMakeArray(MQO_MATERIAL *mat, int matpos, MQO_FACE F[], int fnum,
                     }
                     dpos++;
                 }
-                mqoSnormal(V[F[f].v[0]], V[F[f].v[2]], V[F[f].v[3]], &normal);// �@��x�N�g�����v�Z
+                mqoSnormal(V[F[f].v[0]], V[F[f].v[2]], V[F[f].v[3]], &normal);// To calculate the normal vector
                 for (i = 0; i < 4; i++) {
                     if (i == 1) continue;
                     mat->vertex_p[dpos].point[0] = V[F[f].v[i]].x * scale;
@@ -1482,14 +1464,14 @@ void mqoMakeArray(MQO_MATERIAL *mat, int matpos, MQO_FACE F[], int fnum,
 }
 
 /*=========================================================================
- �y�֐��zmqoVertexNormal
- �y�p�r�z���_�@��̌v�Z
- �y��z
- obj			�I�u�W�F�N�g���
+ [Function] mqoVertexNormal
+ [Applications] calculation of vertex normals
+ [Argument]
+ obj object information
 
- �y�ߒl�z�@��z��
- �y�d�l�z�S���_�̖ʂ͎O�p�`�ɕ������Čv�Z
- �߂�l�͕K���Ăяo�����ŉ��ifree�j���邱�ƁI
+ [Return value] normal array
+ [Specification] 4 vertex of the surface is calculated by dividing the triangle
+ The return value is always released by the caller (free) that!
  =========================================================================*/
 
 glPOINT3f * mqoVertexNormal(MQO_OBJDATA *obj) {
@@ -1497,14 +1479,14 @@ glPOINT3f * mqoVertexNormal(MQO_OBJDATA *obj) {
     int v;
     int i;
     double len;
-    glPOINT3f fnormal;	// �ʖ@��x�N�g��
+    glPOINT3f fnormal;	// Surface normal vector
     MQO_FACE *F;
     glPOINT3f *V;
     glPOINT3f *ret;
     F = obj->F;
     V = obj->V;
     ret = (glPOINT3f *) calloc(obj->n_vertex, sizeof(glPOINT3f));
-    //�ʂ̖@��𒸓_�ɑ�������
+    //The summation of the normal line of the surface to the apex
     for (f = 0; f < obj->n_face; f++) {
         if (obj->F[f].n == 3) {
             mqoSnormal(V[F[f].v[0]], V[F[f].v[1]], V[F[f].v[2]], &fnormal);
@@ -1531,10 +1513,10 @@ glPOINT3f * mqoVertexNormal(MQO_OBJDATA *obj) {
             }
         }
     }
-    //���K��
+    //Normalization
     for (v = 0; v < obj->n_vertex; v++) {
         if (ret[v].x == 0 && ret[v].y == 0 && ret[v].z == 0) {
-            //�ʂɎg���ĂȂ��_
+            //That it is not used in the surface
             continue;
         }
         len = sqrt(
@@ -1551,18 +1533,18 @@ glPOINT3f * mqoVertexNormal(MQO_OBJDATA *obj) {
 }
 
 /*=========================================================================
- �y�֐��zmqoMakePolygon
- �y�p�r�z�|���S���̐���
- �y��z
- readObj		�ǂݍ��񂾃I�u�W�F�N�g���
- mqoobj		MQO�I�u�W�F�N�g
- N[]			�@��z��
- M[]			�}�e���A���z��
- n_mat		�}�e���A����
- scale		�X�P�[��
- alpha		�A���t�@
+ [Function] mqoMakePolygon
+ [Applications] polygon generation of
+ [Argument]
+ readObj the loaded object information
+ mqoobj MQO object
+ N [] normal array
+ M [] Materials array
+ n_mat number of material
+ scale scale
+ alpha alpha
 
- �y�ߒl�z�Ȃ�
+ [Return value] None
  =========================================================================*/
 
 void mqoMakePolygon(MQO_OBJDATA *readObj, MQO_OBJECT *mqoobj, glPOINT3f N[],
@@ -1587,31 +1569,31 @@ void mqoMakePolygon(MQO_OBJDATA *readObj, MQO_OBJECT *mqoobj, glPOINT3f N[],
     V = readObj->V;
     facet = readObj->facet;
 
-    // face�̒��ł̃}�e���A�����̒��_�̐�
-    // M=NULL�̂Ƃ��AF[].m = 0 ������Ă���
+    // The number of vertices of each Material in the face
+    // When M = NULL, F []. M = 0 is incoming
     if (M == NULL) n_mat = 1;
 
     mat_vnum = (int *) malloc(sizeof(int) * n_mat);
     memset(mat_vnum, 0, sizeof(int) * n_mat);
 
     for (f = 0; f < fnum; f++) {
-        if (F[f].m < 0) continue; // �}�e���A�����ݒ肳��Ă��Ȃ���
+        if (F[f].m < 0) continue; // Surface material has not been set
         if (F[f].n == 3) {
             mat_vnum[F[f].m] += 3;
         }
         if (F[f].n == 4) {
-            //�S���_�i�l�p�j�͂R���_�i�O�p�j���Q�ɕ���
-            //  0  3      0    0  3
-            //   ��   ���@���@�@��
-            //  1  2     1  2   2
-            // �S���_�̕��ʃf�[�^��
-            // �R���_�̕��ʃf�[�^���Q��
+// 4 vertex (squares) divided into three vertex (triangle) x2
+// 0 3 0 0 3
+// �� �� �� ��
+// 1 2 1 2 2
+// 4 vertices of the plane data
+// 3 plane data x2 vertices
             mat_vnum[F[f].m] += 3 * 2;
         }
         if (setObj->matnum < F[f].m + 1) setObj->matnum = F[f].m + 1;
     }
 
-    // �}�e���A���ʂɒ��_�z����쐬����
+    // You want to create a material different to the vertex array
     setObj->mat = (MQO_MATERIAL *) malloc(
             sizeof(MQO_MATERIAL) * setObj->matnum);
     memset(setObj->mat, 0, sizeof(MQO_MATERIAL) * setObj->matnum);
@@ -1665,7 +1647,8 @@ void mqoMakePolygon(MQO_OBJDATA *readObj, MQO_OBJECT *mqoobj, glPOINT3f N[],
     }
     mqoobj->objnum++;
     if ( MAX_OBJECT <= mqoobj->objnum) {
-        printf("MQO�t�@�C���ǂݍ��݁F�@�ő�I�u�W�F�N�g���𒴂��܂���[%d]\n",
+        printf(
+                "MQO file read: have exceeded the maximum number of objects [% d]\n",
                 mqoobj->objnum);
         mqoobj->objnum = MAX_OBJECT - 1;
     }
@@ -1675,18 +1658,18 @@ void mqoMakePolygon(MQO_OBJDATA *readObj, MQO_OBJECT *mqoobj, glPOINT3f N[],
 }
 
 /*=========================================================================
- �y�֐��zmqoMakeObjectsEx
- �y�p�r�z�I�u�W�F�N�g�̃f�[�^����|���S�����f�����쐬����
- �y��z
- mqoobj	MQO�I�u�W�F�N�g
- obj		�I�u�W�F�N�g�z��
- n_obj	�I�u�W�F�N�g�̌�
- M		�}�e���A���z��
- n_mat	�}�e���A���̌�
- scale	�g�嗦
- alpha	�A���t�@
+ [Function] mqoMakeObjectsEx
+ To create a polygon model from [Applications] object of data
+ [Argument]
+ mqoobj MQO object
+ obj object array
+ The number of n_obj object
+ M Materials array
+ n_mat number of material
+ scale enlargement factor
+ alpha alpha
 
- �y�ߒl�z�Ȃ�
+ [Return value] None
  =========================================================================*/
 
 void mqoMakeObjectsEx(MQO_OBJECT *mqoobj, MQO_OBJDATA obj[], int n_obj,
@@ -1701,13 +1684,13 @@ void mqoMakeObjectsEx(MQO_OBJECT *mqoobj, MQO_OBJDATA obj[], int n_obj,
 }
 
 /*=========================================================================
- �y�֐��zmqoCreateModel
- �y�p�r�zMQO�t�@�C������MQO���f�����쐬����
- �y��z
- filename	MQO�t�@�C��
- scale		�g�嗦�i1.0�ł��̂܂܁j
+ [Function] mqoCreateModel
+ Create a MQO model from [Applications] MQO file
+ [Argument]
+ filename MQO file
+ scale enlargement factor (as in 1.0)
 
- �y�ߒl�zMQO_MODEL�iMQO���f���j
+ [Return value] MQO_MODEL (MQO model)
  =========================================================================*/
 
 MQO_MODEL mqoCreateModel(char *filename, double scale) {
@@ -1722,18 +1705,18 @@ MQO_MODEL mqoCreateModel(char *filename, double scale) {
 }
 
 /*=========================================================================
- �y�֐��zmqoCreateSequenceEx
- �y�p�r�z�A�Ԃ�MQO�t�@�C������MQO�V�[�P���X���쐬����
- �y��z
- format		�t�@�C�����̏���
- n_file		�t�@�C����
- scale		�g�嗦�i1.0�ł��̂܂܁j
- fade_inout	0:���̂܂܁@���F�t�F�[�h�C���@���F�t�F�[�h�A�E�g
- ��Βl�͌�ʂ�������t���[����
- alpha		�A���t�@
+ [Function] mqoCreateSequenceEx
+ You want to create a MQO sequence from [Applications] serial number MQO file
+ [Argument]
+ format file name format
+ n_file number of files
+ scale enlargement factor (as in 1.0)
+ fade_inout 0: as it is positive: fade-negative: fade-out
+ The number of frames absolute value of applying the effect
+ alpha alpha
 
- �y�ߒl�zMQO_SEQUENCE�iMQO�V�[�P���X�j
- �y���l�z�A�Ԃ�0����J�n
+ [Return value] MQO_SEQUENCE (MQO sequence)
+ [Note] serial number start from 0
  =========================================================================*/
 
 MQO_SEQUENCE mqoCreateSequenceEx(const char *format, int n_file, double scale,
@@ -1787,15 +1770,15 @@ MQO_SEQUENCE mqoCreateSequenceEx(const char *format, int n_file, double scale,
 }
 
 /*=========================================================================
- �y�֐��zmqoCreateSequence
- �y�p�r�z�A�Ԃ�MQO�t�@�C������MQO�V�[�P���X���쐬����
- �y��z
- format		�t�@�C�����̃t�H�[�}�b�g
- n_file		�t�@�C����
- scale		�g�嗦�i1.0�ł��̂܂܁j
+ [Function] mqoCreateSequence
+ You want to create a MQO sequence from [Applications] serial number MQO file
+ [Argument]
+ The format of the format file name
+ n_file number of files
+ scale enlargement factor (as in 1.0)
 
- �y�ߒl�zMQO_SEQUENCE�iMQO�V�[�P���X�j
- �y���l�z�A�Ԃ�0����J�n
+ [Return value] MQO_SEQUENCE (MQO sequence)
+ [Note] serial number start from 0
  =========================================================================*/
 
 MQO_SEQUENCE mqoCreateSequence(const char *format, int n_file, double scale) {
@@ -1803,12 +1786,12 @@ MQO_SEQUENCE mqoCreateSequence(const char *format, int n_file, double scale) {
 }
 
 /*=========================================================================
- �y�֐��zmqoCallModel
- �y�p�r�zMQO���f����OpenGL�̉�ʏ�ɌĂяo��
- �y��z
- model		MQO���f��
+ [Function] mqoCallModel
+ Call the [Applications] MQO model on the screen of the OpenGL
+ [Argument]
+ model MQO model
 
- �y�ߒl�z�Ȃ�
+ [Return value] None
  =========================================================================*/
 
 void mqoCallModel(MQO_MODEL model) {
@@ -1816,14 +1799,14 @@ void mqoCallModel(MQO_MODEL model) {
 }
 
 /*=========================================================================
- �y�֐��zmqoCallSequence
- �y�p�r�zMQO�V�[�P���X��OpenGL�̉�ʂɌĂяo��
- �y��z
- seq		MQO�V�[�P���X
- i		�t���[���ԍ�
+ [Function] mqoCallSequence
+ Call [Applications] the MQO sequence in OpenGL screen
+ [Argument]
+ seq MQO sequence
+ i frame number
 
- �y�ߒl�z�Ȃ�
- �y�d�l�zMQO�V�[�P���X�̒�����w�肵���t���[���ԍ��̃��f�����Ăяo��
+ [Return value] None
+ Call the model of the specified frame number from among the [specification] MQO sequence
  =========================================================================*/
 
 void mqoCallSequence(MQO_SEQUENCE seq, int i) {
@@ -1833,14 +1816,14 @@ void mqoCallSequence(MQO_SEQUENCE seq, int i) {
 }
 
 /*=========================================================================
- �y�֐��zmqoClearObject
- �y�p�r�zMQO�I�u�W�F�N�g�̃N���A
- �y��z
- object	MQO�I�u�W�F�N�g�z��
- from	�폜�J�n�ԍ��i0�`�j
- num		�폜�����
+ [Function] mqoClearObject
+ [Applications] Clear MQO object
+ [Argument]
+ object MQO object array
+ Delete from start number (0 ~)
+ the number you want to delete num
 
- �y�ߒl�z�Ȃ�
+ [Return value] None
  =========================================================================*/
 
 void mqoClearObject(MQO_OBJECT object[], int from, int num) {
@@ -1858,11 +1841,11 @@ void mqoClearObject(MQO_OBJECT object[], int from, int num) {
                 mat = &obj->mat[m];
                 if (mat->datanum <= 0) continue;
                 if (g_isVBOSupported) {
-                    // ���_�o�b�t�@�̍폜
+                    // Delete the vertex buffer
                     glDeleteBuffersARB(1, &mat->VBO_id);
                 }
 
-                // ���_�z��̍폜
+                // Delete the vertex array
                 if (mat->isUseTexture) {
                     if (mat->vertex_t != NULL) {
                         free(mat->vertex_t);
@@ -1886,13 +1869,13 @@ void mqoClearObject(MQO_OBJECT object[], int from, int num) {
 }
 
 /*=========================================================================
- �y�֐��zmqoDeleteObject
- �y�p�r�zMQO�I�u�W�F�N�g���폜����
- �y��z
- object	MQO�I�u�W�F�N�g�z��
- num		�폜�����
+ [Function] mqoDeleteObject
+ You want to remove the [Applications] MQO object
+ [Argument]
+ object MQO object array
+ the number you want to delete num
 
- �y�ߒl�z�Ȃ�
+ [Return value] None
  =========================================================================*/
 
 void mqoDeleteObject(MQO_OBJECT object[], int num) {
@@ -1901,14 +1884,14 @@ void mqoDeleteObject(MQO_OBJECT object[], int num) {
 }
 
 /*=========================================================================
- �y�֐��zmqoDeleteModel
- �y�p�r�zMQO���f�����폜����
- �y��z
- model	MQO���f��
+ [Function] mqoDeleteModel
+ You want to remove the [Applications] MQO model
+ [Argument]
+ model MQO model
 
- �y�ߒl�z�Ȃ�
- �y���l�z�폜�������s�����ϐ����ė��p����\��������ꍇ��
- ���̊֐��̎��s���NULL����Ă�������
+ [Return value] None
+ [Note] If there is a possibility to re-use a variable that made the removal process
+ That it should be assigned a NULL after the execution of this function
  =========================================================================*/
 
 void mqoDeleteModel(MQO_MODEL model) {
@@ -1916,13 +1899,13 @@ void mqoDeleteModel(MQO_MODEL model) {
 }
 
 /*=========================================================================
- �y�֐��zmqoDeleteSequence
- �y�p�r�zMQO�V�[�P���X���폜����
- �y��z
- seq		MQO�V�[�P���X
+ [Function] mqoDeleteSequence
+ You want to remove the [Applications] MQO sequence
+ [Argument]
+ seq MQO sequence
 
- �y���l�z�폜�������s�����ϐ����ė��p����\��������ꍇ��
- ���̊֐��̎��s���NULL����Ă�������
+ [Note] If there is a possibility to re-use a variable that made the removal process
+ That it should be assigned a NULL after the execution of this function
  =========================================================================*/
 
 void mqoDeleteSequence(MQO_SEQUENCE seq) {

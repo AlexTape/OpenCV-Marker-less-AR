@@ -21,9 +21,9 @@
  //
  // The above copyright notice and this permission notice shall be included in all
  // copies or substantial portions of the Software.
- //
+ // 
  // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
- // INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ // INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
  // PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
  // HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
@@ -100,7 +100,7 @@ bool cameraCalibration::doCalibration() {
 //	Point2f *corners = new Point2f[all_points];
     Point3f obj;
     vector<Point3f> objects;
-    vector<vector<Point3f> > object_points;
+    vector<vector<Point3f>> object_points;
     // 3D set of spatial coordinates
     for (j = 0; j < pat_row; j++) {
         for (k = 0; k < pat_col; k++) {
@@ -112,7 +112,7 @@ bool cameraCalibration::doCalibration() {
     }
 
     vector<Point2f> corners;
-    vector<vector<Point2f> > image_points;
+    vector<vector<Point2f>> image_points;
 
     int found_num = 0;
     cvNamedWindow("Calibration", CV_WINDOW_AUTOSIZE);
@@ -174,7 +174,7 @@ bool cameraCalibration::doCalibration() {
      cvGetRows (&image_points, &sub_image_points, base * PAT_SIZE, (base + 1) * PAT_SIZE);
      cvGetRows (&object_points, &sub_object_points, base * PAT_SIZE, (base + 1) * PAT_SIZE);
      cvFindExtrinsicCameraParams2 (&sub_object_points, &sub_image_points, intrinsic, distortion, rotation, translation);
-
+     
      // (7) Export to XML file
      CvFileStorage *fs;
      fs = cvOpenFileStorage ("camera.xml", 0, CV_STORAGE_WRITE);

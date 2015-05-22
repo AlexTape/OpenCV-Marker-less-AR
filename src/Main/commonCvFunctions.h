@@ -53,40 +53,40 @@ namespace cvar {
     void readMatBinary(std::ifstream& ifs, cv::Mat& in_mat);
 
     cv::Mat transPointVecToMat(std::vector<cv::Point2f>& pt_vec,
-            std::vector<unsigned char>& mask);	// Point2f�\���̂�Mat�^�֕ϊ�
+            std::vector<unsigned char>& mask); // Convert Point2f structure to Mat type
     cv::Mat transPointVecToMat(std::vector<cv::Point2f>& pt_vec);
-    cv::Mat transPointVecToMatHom(std::vector<cv::Point2f>& pt_vec);// Point2f�\���̂�Ď����W�ɂ���Mat�^�֕ϊ�
+    cv::Mat transPointVecToMatHom(std::vector<cv::Point2f>& pt_vec); // Convert Point2f structure to Mat type in the homogeneous coordinates
     cv::Mat transPointVecToMat2D(std::vector<cv::Point2f>& pt_vec,
-            std::vector<unsigned char>& mask);	// Point2f�\���̂�Mat�^�֕ϊ�
+            std::vector<unsigned char>& mask); // Convert Point2f structure to Mat type
     cv::Mat transPointVecToMat2D(std::vector<cv::Point2f>& pt_vec);
     std::vector<cv::Point2f> calcAffineTransformRect(cv::Size& regimg_size,
             cv::Mat& transMat);
     std::vector<cv::Point2f> calcAffineTransformPoints(
             std::vector<cv::Point2f>& pts_vec, cv::Mat& transMat);
-//int checkPointsDistance(std::vector<cv::Point2f> &src_pts, std::vector<cv::Point2f> &dest_pts, double dist_threshold, std::vector<unsigned char>& status);	// �A�t�B���ϊ����2�̓_�̋�����臒l�ȏ�̂��̂�status��0�ɂ���
-    bool checkRectShape(std::vector<cv::Point2f>& rect_pt);	// �ˉe�ϊ�������`�̌`����`�F�b�N����
-    cv::Mat createMask(cv::Size img_size, std::vector<cv::Point2f>& pts);// pts�Ŏw�肵��4�_���͂ރ}�X�N���쐬����
+//int checkPointsDistance(std::vector<cv::Point2f> &src_pts, std::vector<cv::Point2f> &dest_pts, double dist_threshold, std::vector<unsigned char>& status);	// The distance between two points after the affine transformation is not less than the threshold value a status to 0
+    bool checkRectShape(std::vector<cv::Point2f>& rect_pt);	// Check a rectangular shape that projective transformation
+    cv::Mat createMask(cv::Size img_size, std::vector<cv::Point2f>& pts);// Creating a mask surrounding the four points specified in the pts
     int checkInsideArea(std::vector<cv::Point2f>& points,
             std::vector<cv::Point2f>& corner_pts,
             std::vector<unsigned char>& status);
-    bool checkPtInsideImage(cv::Size img_size, std::vector<cv::Point2f>& pts);// pts���摜�̈���ɂ��邩�̔���
+    bool checkPtInsideImage(cv::Size img_size, std::vector<cv::Point2f>& pts);// judgment pts is there within the image area
 //double erf(double x);	// error function
 
-    void resizeMatChannel(cv::Mat& src_mat, cv::Mat& dest_mat, double val = 0);	// src_mat�̃`���l������channel�ɕϊ��B�󂢂��`���l����val�����
+    void resizeMatChannel(cv::Mat& src_mat, cv::Mat& dest_mat, double val = 0);	// Convert the number of channels to channel of src_mat. Add the val in the empty channel
     template<typename _Tp> void resizeMatChannelType(cv::Mat& src_mat,
-            cv::Mat& dest_mat, double val = 0);	// src_mat�̃`���l������channel�ɕϊ��B�󂢂��`���l����val�����
-    void setChannelValue(cv::Mat& dest_mat, int channel, double val = 0);// �w��`���l���̒l��val�ɐݒ�
+            cv::Mat& dest_mat, double val = 0);	// Convert the number of channels to channel of src_mat. Add the val in the empty channel
+    void setChannelValue(cv::Mat& dest_mat, int channel, double val = 0);// Set the value of the specified channel to val
     template<typename _Tp> void setChannelValueType(cv::Mat& dest_mat,
-            int channel, double val = 0);	// �w��`���l���̒l��val�ɐݒ�
+            int channel, double val = 0);// Set the value of the specified channel to val
 
     std::vector<cv::Point2f> scalePoints(std::vector<cv::Point2f>& point_vec,
             double scale);
     void decomposeHomography(cv::Mat& H_mat, cv::Mat& camera_matrix,
-            cv::Mat& rotation, cv::Mat& translation);// �z���O���t�B����]�s��ƕ��i�s��֕ύX
+            cv::Mat& rotation, cv::Mat& translation);// Change homography to the rotation matrix and translation matrix
     template<typename _Tp> void decomposeHomographyType(cv::Mat& H_mat,
             cv::Mat& camera_matrix, cv::Mat& rotation, cv::Mat& translation);
     void decomposeHomography(cv::Mat& H_mat, cv::Mat& camera_matrix,
-            cv::Mat& rotation, cv::Mat& translation, cv::Point2f marker_center);// �z���O���t�B����]�s��ƕ��i�s��֕ύX
+            cv::Mat& rotation, cv::Mat& translation, cv::Point2f marker_center);// Change homography to the rotation matrix and translation matrix
     template<typename _Tp> void decomposeHomographyType(cv::Mat& H_mat,
             cv::Mat& camera_matrix, cv::Mat& rotation, cv::Mat& translation,
             cv::Point2f marker_center);

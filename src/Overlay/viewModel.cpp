@@ -64,13 +64,13 @@ viewModel::~viewModel(void) {
 void viewModel::exitFunc() {
     releaseModel();
     releaseWaitModel();
-    mqoCleanup();					// GLMetaseq�̏I������
+    mqoCleanup();					// End processing of GLMetaseq
     glDeleteTextures(1, &texture[0]);
     mat_type = -1;
 }
 
 bool viewModel::setTwoPowerSize(int w, int h) {
-    // two_power_w��2��N��
+    // two_power_w 2 of the N-th power
     int tmp1;
     tmp1 = w;
     while (tmp1 > 1) {
@@ -80,7 +80,7 @@ bool viewModel::setTwoPowerSize(int w, int h) {
         tmp1 /= 2;
     }
 
-    // two_power_h��2��N��
+    // two_power_h 2 of the N-th power
     tmp1 = h;
     while (tmp1 > 1) {
         if (tmp1 % 2 > 0) {
@@ -103,14 +103,10 @@ void viewModel::setCameraMatrix(Mat& cameraMat) {
 void viewModel::setMirrorMode(bool flag) {
     this->mirror_f = flag;
     if (mat_type == CV_32FC1) {
-        float td[] =
-                { (float) -1, (float) 0, (float) capture_width - 1, (float) 0,
-                        (float) 1, (float) 0, (float) 0, (float) 0, (float) 1 };
+        float td[] = { -1, 0, capture_width - 1, 0, 1, 0, 0, 0, 1 };
         mirrorMat = Mat(3, 3, mat_type, td).clone();
     } else {
-        double td[] = { (double) -1, (double) 0, (double) capture_width - 1,
-                (double) 0, (double) 1, (double) 0, (double) 0, (double) 0,
-                (double) 1 };
+        double td[] = { -1, 0, capture_width - 1, 0, 1, 0, 0, 0, 1 };
         mirrorMat = Mat(3, 3, mat_type, td).clone();
     }
 }
@@ -151,7 +147,7 @@ bool viewModel::addModel(int id, Size& markerSize, int model_type,
     mdl_info.modelFilename = model_filename;
     mdl_info.model = modelFac.create(model_type);
     mdl_info.model->init();
-    mdl_info.model->loadModelFile((char*) model_filename.c_str());// ���f���̃��[�h
+    mdl_info.model->loadModelFile((char*) model_filename.c_str());// Load Model
     mdl_info.scale = scale;
 //	mdl_info.initRot = convertMatType(initRot);
     initRot.convertTo(mdl_info.initRot, mat_type);
@@ -160,7 +156,7 @@ bool viewModel::addModel(int id, Size& markerSize, int model_type,
     pair<map<int, MODEL_INFO>::iterator, bool> ret_insert;
     ret_insert = model_map.insert(pair<int, MODEL_INFO>(id, mdl_info));
 
-    // ToDo: ��O����
+    // ToDo: Exception handling
     if (!(bool) (ret_insert.second)) {
         return false;
     }
@@ -208,11 +204,11 @@ bool viewModel::addWaitModel(int wait_frame_num, int model_type,
             wait_model.modelFilename = model_filename;
             wait_model.model = modelFac.create(model_type);
             wait_model.model->init();
-            wait_model.model->loadModelFile((char*) model_filename.c_str());// ���f���̃��[�h
+            wait_model.model->loadModelFile((char*) model_filename.c_str());// Load Model
             wait_model.scale = scale;
             initRot.convertTo(wait_model.initRot, mat_type);
             initTrans.convertTo(wait_model.initTrans, mat_type);
-        } catch (std::exception &e) {
+        } catch (std::exception e) {
             wait_frames = -1;
             wait_model.model->release();
             return false;
@@ -285,10 +281,10 @@ bool viewModel::init(Size& cap_size, Mat& cameraMat, int type) {
     cameraMat.convertTo(cameraMatrix, mat_type);
 //	initAccHomMat(cameraMatrix.type());
 
-    // ���f����\�������鏀��
-    mqoInit();											// GLMetaseq�̏���
+    // Ready to display the model
+    mqoInit();									// Initialization of GLMetaseq
 
-    //OpenGL����I�e�N�X�`������Ă��������ȁ���
+    // Make texture 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
 
     // fix error
@@ -296,41 +292,40 @@ bool viewModel::init(Size& cap_size, Mat& cameraMat, int type) {
 
     glGenTextures(1, &test);
     glBindTexture(GL_TEXTURE_2D, texture[0]);
-    //�e�N�X�`���̂��낢��ȃp�����^�ݒ�
+    // Various parameter settings of the texture
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
-    //�擾�摜�̕��ƍ����̔���v�Z����
-    //�e�N�X�`���ւ̓\��t���Ɏg��
+    // Use the paste to the texture of calculating the ratio of the width and height of the obtained image
     aspect_rate = (double) capture_width / (double) capture_height;
 
-    //OpenCV�����p�̉摜�𐶐�����
-    //OpenGL�������e�N�X�`���̊֌W�ŁC��̏搔�łȁI
+    // We want to generate an image for OpenCV processing
+    // In relation to texture OpenGL handles, I a second multiplier!
     resized_frame.create(two_power_width, two_power_height, CV_8UC3);
 
-    // �r���[�|�[�g�쐬
+    // Creating viewport
     glViewport(0, 0, window_width, window_height);
 
     return true;
 }
 
 void viewModel::drawScene(Mat& img) {
-    //�����ϊ��s��̐ݒ�
+    //Set of perspective transformation matrix
     glMatrixMode(GL_PROJECTION);
 
     glPushMatrix();
     glLoadIdentity();
 
-    //���ˉe�ϊ�
+    //Positive change projection Bian
     glOrtho(-aspect_rate, aspect_rate, -1.0, 1.0, -1.0, 1.0);
 
-    // �w�i�e�N�X�`����`��
+    // Draw background texture
     glDisable(GL_DEPTH_TEST);
 
-    //�e�N�X�`����\��t����
+    //Pasted the texture
     updateTexture(img);
 
     glEnable(GL_TEXTURE_2D);
@@ -351,21 +346,21 @@ void viewModel::drawScene(Mat& img) {
     glPopMatrix();
 }
 
-// �����̐ݒ���s���֐�
+// Function to perform the light source settings
 void setLight(void) {
-    GLfloat light_diffuse[] = { 0.9, 0.9, 0.9, 1.0 };	// �g�U���ˌ�
-    GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };	// ���ʔ��ˌ�
-    GLfloat light_ambient[] = { 0.3, 0.3, 0.3, 0.1 };	// ����
-    GLfloat light_position[] = { 0.0, 0.0, 0.0, 1.0 };	// �ʒu�Ǝ��
+    GLfloat light_diffuse[] = { 0.9, 0.9, 0.9, 1.0 }; // Kuo scattered reflected light
+    GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };	// Specular
+    GLfloat light_ambient[] = { 0.3, 0.3, 0.3, 0.1 };	// Ambient light
+    GLfloat light_position[] = { 0.0, 0.0, 0.0, 1.0 };	// Position and type
 
-    // �����̐ݒ�
-    glLightfv( GL_LIGHT0, GL_DIFFUSE, light_diffuse);	 // �g�U���ˌ��̐ݒ�
-    glLightfv( GL_LIGHT0, GL_SPECULAR, light_specular); // ���ʔ��ˌ��̐ݒ�
-    glLightfv( GL_LIGHT0, GL_AMBIENT, light_ambient);	 // �����̐ݒ�
-    glLightfv( GL_LIGHT0, GL_POSITION, light_position); // �ʒu�Ǝ�ނ̐ݒ�
+    // Setting of the light source
+    glLightfv( GL_LIGHT0, GL_DIFFUSE, light_diffuse);// Setting of diffuse reflected light
+    glLightfv( GL_LIGHT0, GL_SPECULAR, light_specular); // Setting of the specular reflection light
+    glLightfv( GL_LIGHT0, GL_AMBIENT, light_ambient); // Setting of ambient light
+    glLightfv( GL_LIGHT0, GL_POSITION, light_position); // Location and type setting of
 
-    glShadeModel( GL_SMOOTH);	// �V�F�[�f�B���O�̎�ނ̐ݒ�
-    glEnable( GL_LIGHT0);		// �����̗L��
+    glShadeModel( GL_SMOOTH);	// Setting the type of shading
+    glEnable( GL_LIGHT0);		// Enabling light source
 }
 
 void viewModel::drawObject(Mat& homographyMat, int seq_id) {
@@ -380,7 +375,7 @@ void viewModel::drawObject(Mat& homographyMat, int seq_id) {
     }
 }
 
-// �}�[�J�[��X-Y���ʂ�Y��+����BZ��+����B
+// Y is + direction on is a marker the X-Y plane. Z is + direction on the.
 template<typename _Tp> void viewModel::drawObjectType(Mat& homographyMat,
         int seq_id) {
     cv::Mat rotation, translation, Rot, xRot, iTrans;
@@ -450,16 +445,16 @@ template<typename _Tp> void viewModel::drawObjectType(Mat& homographyMat,
 
 //	glTranslatef(0.0, 0.0, -7.0);
 
-    setLight();					// �����̐ݒ�
-    glEnable(GL_LIGHTING);		// ����ON
+    setLight();					// Setting of the light source
+    glEnable(GL_LIGHTING);		// Light source ON
     glEnable(GL_NORMALIZE);
-    glEnable(GL_DEPTH_TEST);		// �B�ʏ����̓K�p
+    glEnable(GL_DEPTH_TEST);// The application of the hidden surface processing
     glEnable(GL_CULL_FACE);
 
     glPushMatrix();
     glLoadMatrixd(mtrx);
     glScaled(model_scale, model_scale, model_scale);
-    curModel->model->drawModel(seq_id);			// MQO���f���̃R�[��
+    curModel->model->drawModel(seq_id);			// Call of MQO model
     glPopMatrix();
 
     glDisable(GL_LIGHTING);
@@ -478,7 +473,7 @@ void viewModel::drawWaitModel(int seq_id) {
 
     int seq_num = seq_id - wait_frames;
 
-    // �ϊ��p�����[�^�擾
+    // Conversion parameter acquisition
     double model_scale = wait_model.scale;
 
     GLdouble mtrx[16];
@@ -508,32 +503,32 @@ void viewModel::drawWaitModel(int seq_id) {
 
     mtrx[15] = 1;
 
-    //�����ϊ��s��̐ݒ�
+    //Set of perspective transformation matrix
     glMatrixMode(GL_PROJECTION);
 
     glPushMatrix();
     glLoadIdentity();
 
-    //���ˉe�ϊ�
+    //Orthogonal projection conversion
     glOrtho(-aspect_rate, aspect_rate, -1.0, 1.0, 0, 2.0);
     gluLookAt(0, 0, 1.0, 0, 0, 0, 0, 1, 0);
 
-    // ���f����`��
+    // Drawing model
     glMatrixMode(GL_MODELVIEW);
 
 //	glTranslatef(0.0, 0.0, -7.0);
 
-    setLight();					// �����̐ݒ�
-    glEnable(GL_LIGHTING);		// ����ON
+    setLight();					// Setting of the light source
+    glEnable(GL_LIGHTING);		// Light source ON
     glEnable(GL_NORMALIZE);
-    glEnable(GL_DEPTH_TEST);		// �B�ʏ����̓K�p
+    glEnable(GL_DEPTH_TEST);// The application of the hidden surface processing
     glEnable(GL_CULL_FACE);
 
     glPushMatrix();
     glLoadIdentity();
     glLoadMatrixd(mtrx);
     glScaled(model_scale, model_scale, model_scale);
-    wait_model.model->drawModel(seq_num);			// ���f���̃R�[��
+    wait_model.model->drawModel(seq_num);			// Model calls
     glPopMatrix();
 
     glDisable(GL_LIGHTING);
@@ -545,7 +540,7 @@ void viewModel::drawWaitModel(int seq_id) {
     glPopMatrix();
 }
 
-// �E�B���h�E�T�C�Y�ύX�֐�
+// Window size change function
 void viewModel::resize(int w, int h) {
 //	window_width = w;
 //	window_height = h;
@@ -568,24 +563,24 @@ void viewModel::resize(int w, int h) {
     glViewport(sx, sy, window_width, window_height);
 }
 
-// �X�V�֐�
+// Update function
 void viewModel::updateTexture(Mat& frame) {
-    //�e�N�X�`����\��t����
+    //Pasted the texture
     glBindTexture(GL_TEXTURE_2D, texture[0]);
 
     Mat img;
 
-    // OpenGL�p�ɉ摜���]
+    // The image reversal for OpenGL
     if (mirror_f) {
         cv::flip(frame, img, -1);
     } else {
         cv::flip(frame, img, 0);
     }
 
-    //�e�N�X�`���ɓ\��t���邽�߁A2�̗ݏ�Ƀ��T�C�Y����
+    //In order to paste in texture, to resize to a power of 2
     cv::resize(img, resized_frame, resized_frame.size());
 
-    //���̂���e�N�X�`���ɓ\��t����
+    //Pasting the guy to the texture
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, resized_frame.cols,
             resized_frame.rows, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE,
             resized_frame.data);

@@ -96,7 +96,7 @@ int imageDB::registImageFeatures(int img_id, Size img_size,
         vector<KeyPoint> kp_vec, vector<int> id_list) {
     featureInfo feat_info;
 
-    // ToDo: ��O���� kp_vec.size()��id_list.size()�̕s��v
+    // ToDo: Mismatch of exception handling kp_vec.size () and id_list.size ()
 
     imageInfo img_info;
     img_info.feature_num = kp_vec.size();
@@ -104,7 +104,7 @@ int imageDB::registImageFeatures(int img_id, Size img_size,
     pair<map<int, imageInfo>::iterator, bool> ret_insert;
     ret_insert = imgInfo_map.insert(pair<int, imageInfo>(img_id, img_info));
 
-    // ToDo: ��O����
+    // ToDo: Exception handling
     if (!(bool) (ret_insert.second)) {
         return -1;
     }
@@ -119,7 +119,7 @@ int imageDB::registImageFeatures(int img_id, Size img_size,
     int size = kp_vec.size();
 
     // regist image features as img_id
-    // ToDo: ��O����
+    // ToDo: Exception handling
     for (i = 0; i < size; i++) {
         if (id_list[i * voteNum] >= 0) {
             keypoint_id = getVacantKptId();
@@ -135,7 +135,7 @@ int imageDB::registImageFeatures(int img_id, Size img_size,
     return 0;
 }
 
-// keypoint_id�̊��蓖��
+// keypoint_id allocation of
 int imageDB::getVacantKptId() {
     int size = keypoint_map.size();
     if (featureNum == size) {
@@ -152,7 +152,7 @@ int imageDB::getVacantKptId() {
     throw orException("Keypoint_map collapse!!!");
 }
 
-// img_id�̏���DB����폜
+// Remove information img_id from DB
 int imageDB::removeImageId(int img_id) {
     /////// erase img_id from imginfo_map //////
     map<int, imageInfo>::iterator imginfo_itr;

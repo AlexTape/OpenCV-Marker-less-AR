@@ -91,7 +91,7 @@ void slideModelObject::init() {
         for (int i = 0; i < 2; i++) {
             glBindTexture(GL_TEXTURE_2D, texture[i]);
 
-            //�e�N�X�`���̂��낢��ȃp�����^�ݒ�
+            //Various parameter settings of the texture
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -115,7 +115,7 @@ void slideModelObject::loadModelFile(string filename) {
 
     try {
         FileStorage cvfs;
-        // Config�t�@�C���̓ǂݍ���
+        // Reading of Config file
         cvfs.open(filename, CV_STORAGE_READ);
 
         FileNode fn, fn2;
@@ -195,7 +195,7 @@ void slideModelObject::drawModel(int& frame_id) {
         counter = 0;
     }
 
-    //// �O�i/�w�i�i�摜�؂�ւ��C���^�[�o���j�\���؂�ւ� ////
+    //// Foreground / background (image switching interval) display switch ////
     switch (slide_status) {
         case SLIDE_INIT:
         case SLIDE_ALPHA:
@@ -216,7 +216,7 @@ void slideModelObject::drawModel(int& frame_id) {
             break;
     }
 
-    ///////// �g�又���p�s��v�Z ///////////
+    ///////// Enlargement process for matrix calculation ///////////
     switch (slide_status) {
         case SLIDE_SPREADING:
             if (counter == 0) {
@@ -224,7 +224,7 @@ void slideModelObject::drawModel(int& frame_id) {
                 glGetFloatv(GL_PROJECTION_MATRIX, prj_matrix);
                 glGetFloatv(GL_MODELVIEW_MATRIX, mv_src_matrix);
 
-                calcDestSpreadMatrix(prj_matrix);	// �ڕW���f���r���[�s��Z�b�g
+                calcDestSpreadMatrix(prj_matrix); // Target model view matrix set
             }
             GLfloat mv_mtrx2[16];
             calcSpreadMatrix(mv_mtrx2);
@@ -242,7 +242,7 @@ void slideModelObject::drawModel(int& frame_id) {
             break;
     }
 
-    /////////// �\�� ////////////
+    /////////// Display ////////////
     if (slide_status != SLIDE_INIT) {
         drawTexture();
     }
@@ -260,7 +260,7 @@ void slideModelObject::drawModel(int& frame_id) {
             glPopMatrix();
     }
 
-    ///////// �X�e�[�^�X�̕ύX���� ////////
+    ///////// Status of the change process ////////
     int pre_status = slide_status;
     counter++;
 
@@ -457,13 +457,13 @@ void slideModelObject::updateTexture() {
 
     Mat img;
 
-    // OpenGL�p�ɉ摜���]
+    // The image reversal for OpenGL
     cv::flip(image, img, 0);
 //	Mat alphaimg(img.rows,img.cols,CV_8UC4);
 //	resizeMatChannel(img, alphaimg, 255);
 //	resizeMatChannel(alphaimg, img, 0);
 
-    //�e�N�X�`���ɓ\��t���邽�߁A2�̗ݏ�Ƀ��T�C�Y����
+//In order to paste in texture, to resize to a power of 2
     cv::resize(img, texture_img, texture_img.size());
 //	cvResize(&((IplImage)alphaimg), &((IplImage)texture_img));
 }
@@ -513,13 +513,13 @@ void slideModelObject::updateForegroundTexture() {
 
     Mat img;
 
-    // OpenGL�p�ɉ摜���]
+    // The image reversal for OpenGL
     cv::flip(image, img, 0);
     Mat alphaimg(img.rows, img.cols, CV_8UC4);
     resizeMatChannel(img, alphaimg, 0);
 //	resizeMatChannel(alphaimg, img, 0);
 
-    //�e�N�X�`���ɓ\��t���邽�߁A2�̗ݏ�Ƀ��T�C�Y����
+//In order to paste in texture, to resize to a power of 2
     cv::resize(alphaimg, foreground_img, foreground_img.size());
 }
 
@@ -536,10 +536,10 @@ void slideModelObject::updateAlphaChannel(float ratio) {
     double val = ratio * 255;
     setChannelValue(foreground_img, 3, val);
 
-    //�e�N�X�`����\��t����
+    //Pasted the texture
     glBindTexture(GL_TEXTURE_2D, texture[1]);
 
-    //���̂���e�N�X�`���ɓ\��t����
+    //Paste the guy to the texture
 //	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, foreground_img.cols,
             foreground_img.rows, 0, GL_BGRA_EXT, GL_UNSIGNED_BYTE,
@@ -547,13 +547,13 @@ void slideModelObject::updateAlphaChannel(float ratio) {
 }
 
 void slideModelObject::drawTexture() {
-    //�e�N�X�`����\��t����
+    //Pasted the texture
     glBindTexture(GL_TEXTURE_2D, texture[0]);
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture_img.cols, texture_img.rows,
             0, GL_BGR_EXT, GL_UNSIGNED_BYTE, texture_img.data);
 
-    // �w�i�e�N�X�`����`��
+    // Draw background texture
 //	glEnable(GL_DEPTH_TEST);
     glEnable(GL_TEXTURE_2D);
 //	glEnable(GL_BLEND);
@@ -583,13 +583,13 @@ void slideModelObject::drawTexture() {
 }
 
 void slideModelObject::drawForegroundTexture() {
-    //�e�N�X�`����\��t����
+    //Pasted the texture
     glBindTexture(GL_TEXTURE_2D, texture[1]);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, foreground_img.cols,
             foreground_img.rows, 0, GL_BGRA_EXT, GL_UNSIGNED_BYTE,
             foreground_img.data);
 
-    // �w�i�e�N�X�`����`��
+    // Draw background texture
 //	glEnable(GL_DEPTH_TEST);
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
