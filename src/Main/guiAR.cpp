@@ -64,7 +64,7 @@ controlOR* ctrlOR = 0;	// Specific object recognition class
 trackingOBJ* trckOBJ = 0;	// Object tracking class
 viewModel *viewMDL;	// OpenGL image display class (singleton)
 
-VideoCapture capture(0);	// Camera capture
+VideoCapture capture(1);	// Camera capture
 int seq_id = 0;	// Sequence ID of tracking
 int wait_seq_id = 0; // Sequence ID at the time of non-tracking
 bool track_f = false;	// Tracking flag
@@ -167,7 +167,7 @@ namespace cvar {
             // It calculates the texture size for the input frame (power of two)
             int tw = 128;
             int th = 128;
-            
+
             while (frame_size.width > tw) {
                 tw <<= 1;
             }
@@ -223,7 +223,9 @@ namespace cvar {
 
             // Focal length setting (which is set to 1.0 if omitted)
             if (!cvfs["focal_length"].isNone()) {
-                viewMDL->setFocalLength(cvfs["focal_length"]);
+
+                // fixed error
+                viewMDL->setFocalLength(cvReadReal(*cvfs["focal_length"], 0));
             }
 
             // Read full-screen mode

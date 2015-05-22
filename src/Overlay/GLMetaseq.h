@@ -228,8 +228,8 @@
 
 #include "png.h"
 #include "zlib.h"
-#pragma comment(lib,"libpng.lib")
-#pragma comment(lib,"zlib.lib")
+//#pragma comment(lib,"libpng.lib")
+//#pragma comment(lib,"zlib.lib")
 
 #endif
 

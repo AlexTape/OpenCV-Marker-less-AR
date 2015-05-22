@@ -68,6 +68,8 @@ bool kltTrackingOBJ::onTracking(const Mat& grayImg) {
     std::vector<float> err;
 
     if (corners.size() == 0) {
+        unsigned int cornerCount = corners.size();
+        printf("ABORT: %d\n", cornerCount);
         return false;
     }
 

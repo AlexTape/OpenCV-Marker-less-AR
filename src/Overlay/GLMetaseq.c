@@ -2,7 +2,6 @@
 #include "GLMetaseq.h"
 
 /*
-
  GLMetaseq
  The MIT License
  Copyright (c) 2009 Sunao Hashimoto and Keisuke Konishi
@@ -30,9 +29,7 @@
  MIT License
  Copyright (c) 2009 Sunao Hashimoto and Keisuke Konishi
 
- */
-
-/*=========================================================================
+ =========================================================================
  [Global variable valid only within this source]
  =========================================================================*/
 

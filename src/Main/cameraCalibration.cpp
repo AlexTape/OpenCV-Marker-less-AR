@@ -100,7 +100,7 @@ bool cameraCalibration::doCalibration() {
 //	Point2f *corners = new Point2f[all_points];
     Point3f obj;
     vector<Point3f> objects;
-    vector<vector<Point3f>> object_points;
+    vector<vector<Point3f> > object_points;
     // 3D set of spatial coordinates
     for (j = 0; j < pat_row; j++) {
         for (k = 0; k < pat_col; k++) {
@@ -112,7 +112,7 @@ bool cameraCalibration::doCalibration() {
     }
 
     vector<Point2f> corners;
-    vector<vector<Point2f>> image_points;
+    vector<vector<Point2f> > image_points;
 
     int found_num = 0;
     cvNamedWindow("Calibration", CV_WINDOW_AUTOSIZE);

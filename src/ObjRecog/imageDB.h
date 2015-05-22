@@ -132,22 +132,22 @@ namespace cvar {
                 void clearVoteTables();
                 void releaseImgVoteMap();
 
-        private:
-        std::multimap<int,featureInfo> feature_KPT_map;// Search keypoint_id and img_id the feature_id to key
-        std::map<int,cv::KeyPoint> keypoint_map;// Search KeyPoint to key keypoint_id
-        std::map<int,imageInfo> imgInfo_map;// Search feature_num to key img_id
-        std::map<int,std::vector<featureVote>*> imgVote_map;// Search voteTable to key img_id
+            private:
+                std::multimap<int, featureInfo> feature_KPT_map;// Search keypoint_id and img_id the feature_id to key
+                std::map<int, cv::KeyPoint> keypoint_map;// Search KeyPoint to key keypoint_id
+                std::map<int, imageInfo> imgInfo_map;// Search feature_num to key img_id
+                std::map<int, std::vector<featureVote>*> imgVote_map;// Search voteTable to key img_id
 
 //	int visual_word_num;	// The number of visual word
-        int imageNum;// Registration number of images
-        int featureNum;// Registered feature points
-        int voteNum;
-        float threshold;// Feature points match threshold (0 - 1)
-        float geo_threshold;
-        double dist_diff_threshold;// The tolerance on the position of the corresponding point (the ratio of the image size: 0 - 1)
+                int imageNum;	// Registration number of images
+                int featureNum;	// Registered feature points
+                int voteNum;
+                float threshold;	// Feature points match threshold (0 - 1)
+                float geo_threshold;
+                double dist_diff_threshold;	// The tolerance on the position of the corresponding point (the ratio of the image size: 0 - 1)
 //	double angle_diff_threshold;	// Tolerance 180 degrees �~ about the angle of the corresponding point (0 - 1)
 //	double scale_diff_threshold;	// Tolerance on the scale of the corresponding point (the ratio of the size:> 1)
-    };
+        };
 
     }
     ;

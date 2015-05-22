@@ -103,10 +103,14 @@ void viewModel::setCameraMatrix(Mat& cameraMat) {
 void viewModel::setMirrorMode(bool flag) {
     this->mirror_f = flag;
     if (mat_type == CV_32FC1) {
-        float td[] = { -1, 0, capture_width - 1, 0, 1, 0, 0, 0, 1 };
+        float td[] =
+                { (float) -1, (float) 0, (float) capture_width - 1, (float) 0,
+                        (float) 1, (float) 0, (float) 0, (float) 0, (float) 1 };
         mirrorMat = Mat(3, 3, mat_type, td).clone();
     } else {
-        double td[] = { -1, 0, capture_width - 1, 0, 1, 0, 0, 0, 1 };
+        double td[] = { (double) -1, (double) 0, (double) capture_width - 1,
+                (double) 0, (double) 1, (double) 0, (double) 0, (double) 0,
+                (double) 1 };
         mirrorMat = Mat(3, 3, mat_type, td).clone();
     }
 }
