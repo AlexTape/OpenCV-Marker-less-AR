@@ -34,6 +34,8 @@
 
 #include "../Main/orException.h"
 
+#include <iostream>
+
 using namespace std;
 using namespace cv;
 using namespace cvar;
@@ -86,6 +88,7 @@ void mqoSeqModelObject::loadModelFile(string filename) {
 
             status = status | LOADED;
         } catch (std::exception& e) {
+            cout << "Debug63\n";
             throw e;
         }
     }

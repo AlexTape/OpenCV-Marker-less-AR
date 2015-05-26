@@ -285,6 +285,7 @@ namespace cvar {
                         initRot, initTrans);
             }
         } catch (std::exception& e) {
+            cout << "Debug9\n";
             cout << "Failed to read file " + config_file << endl;
             throw e;
         }
@@ -294,11 +295,14 @@ namespace cvar {
 #ifndef NO_CAMERA
         Mat frame;
         if (capture.isOpened()) { // When the camera is present
-            // Capture
+            // TODO capture here
             capture >> frame;
+
         } else { // When the camera does not exist
             // No particularly to do
+            cout << "Debug2" << std::endl;
         }
+
 #else
         frame = imread(imgname);
 #endif
@@ -306,6 +310,7 @@ namespace cvar {
 #ifndef NO_OBJRECOG
         // Throw the image you want to draw to the texture
         Mat grayImg;
+
         cvtColor(frame, grayImg, CV_BGR2GRAY);
 
         if (!track_f) {
@@ -347,6 +352,7 @@ namespace cvar {
 //				}
                 }
             } catch (exception& e) {
+                cout << "Debug10\n";
             }
         } else {
             track_f = trckOBJ->onTracking(grayImg);
@@ -371,6 +377,7 @@ namespace cvar {
             try {
                 viewMDL->drawObject(trckOBJ->getHomographyMat(), seq_id);
             } catch (std::exception& e) {
+                cout << "Debug11\n";
                 track_f = false;
             }
         } else {
@@ -378,6 +385,7 @@ namespace cvar {
                 viewMDL->drawWaitModel(wait_seq_id);
                 wait_seq_id++;
             } catch (std::exception& e) {
+                cout << "Debug12\n";
             }
         }
 #endif
@@ -434,6 +442,7 @@ namespace cvar {
 
 // Exit function
     void myExit() {
+        cout << "EXIT_FUNCTION_CALL\n";
         viewMDL->exitFunc();
         query_image.release();
         delete trckOBJ;
@@ -477,6 +486,7 @@ namespace cvar {
             setARConfig(s);
 
         } catch (std::exception& e) {
+            cout << "Debug13" << std::endl;
             throw e;
         }
 
@@ -490,7 +500,7 @@ namespace cvar {
         viewMDL->setRecogId(4,diagMat);
 #endif
 
-        //callback functions
+        // callback functions
         glutDisplayFunc(displayFunc);
         glutReshapeFunc(resizeFunc);
         glutIdleFunc(idleFunc);

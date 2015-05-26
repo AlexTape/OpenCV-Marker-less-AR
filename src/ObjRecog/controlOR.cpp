@@ -34,6 +34,8 @@
 #include <opencv2/nonfree/nonfree.hpp>
 #include <sstream>
 
+#include <iostream>
+
 using namespace std;
 using namespace cv;
 using namespace cvar;
@@ -98,8 +100,10 @@ int controlOR::registImage(const cv::Mat& src_img, int img_id) {
 
         if (ret < 0) return -1;
     } catch (cv::Exception& e) {
+        cout << "Debug17\n";
         throw e;
     } catch (std::exception& e2) {
+        cout << "Debug18\n";
         throw e2;
     }
 
@@ -135,8 +139,10 @@ vector<resultInfo> controlOR::queryImage(const Mat& src_img, int result_num) {
         id_list.clear();
 //		desc_vec.clear();
     } catch (cv::Exception& e) {
+        cout << "Debug19\n";
         throw e;
     } catch (std::exception& e2) {
+        cout << "Debug20\n";
         throw e2;
     }
 
@@ -151,6 +157,7 @@ bool controlOR::setDetectorType(const std::string& detector_type) {
             return false;
         }
     } catch (cv::Exception& e) {
+        cout << "Debug21\n";
         return false;
     }
     this->feature_detector = tmp_detector;
@@ -167,6 +174,7 @@ bool controlOR::setDescriptorType(const std::string& descriptor_type) {
             return false;
         }
     } catch (cv::Exception& e) {
+        cout << "Debug22\n";
         return false;
     }
     this->descriptor_extractor = tmp_descriptor;
@@ -200,6 +208,7 @@ int controlOR::getFeatureIdVec(const cv::Mat& desc_vec, vector<int>& id_list) {
             }
         }
     } catch (std::exception& e) {
+        cout << "Debug23\n";
         throw e;
     }
 
@@ -222,6 +231,7 @@ bool controlOR::loadVisualWords(const string& filename) {
         bool ret = visual_words.load(filename);
         return ret;
     } catch (std::exception& e) {
+        cout << "Debug24\n";
 //		throw e;
         return false;
     }
@@ -233,6 +243,7 @@ bool controlOR::loadVisualWordsBinary(const string& filename,
         bool ret = visual_words.loadBinary(filename, idxname);
         return ret;
     } catch (std::exception& e) {
+        cout << "Debug25\n";
 //		throw e;
         return false;
     }
@@ -253,6 +264,7 @@ int controlOR::loadObjectDB(const string filename) {
         visual_words.setVoteNum(voteNum);
         image_db.setVoteNum(voteNum);
     } catch (std::exception& e2) {
+        cout << "Debug26\n";
         throw e2;
     }
 
@@ -317,6 +329,7 @@ int controlOR::extractFeatures(const cv::Mat& src_img,
 //		(*(SURF*)featureDetector)(src_img, Mat(), kpt, descriptor);
         //	cout << ",kpt:" << kpt.size() << ",";
     } catch (cv::Exception& e) {
+        cout << "Debug27\n";
         orCvException or_e;
         or_e.setCvExceptionClass(e);
         or_e.setFunctionName("SURF()");

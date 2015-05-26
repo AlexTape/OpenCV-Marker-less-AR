@@ -131,7 +131,9 @@ bool cameraCalibration::doCalibration() {
         }
         // Fixed a corner position in the sub-pixel accuracy, drawing
         Mat src_gray(img_itr->size(), CV_8UC1, 1);
+
         cvtColor(*img_itr, src_gray, CV_BGR2GRAY);
+
 //		cvCvtColor (src_img[i], src_gray, CV_BGR2GRAY);
         cornerSubPix(src_gray, corners, Size(3, 3), Size(-1, -1),
                 TermCriteria(CV_TERMCRIT_ITER | CV_TERMCRIT_EPS, 20, 0.03));

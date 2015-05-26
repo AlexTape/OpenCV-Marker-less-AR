@@ -182,6 +182,7 @@ void slideModelObject::loadModelFile(string filename) {
         status = status | LOADED;
 
     } catch (std::exception& e) {
+        cout << "Debug64\n";
         cout << "Failed to read file " + filename << endl;
         throw e;
     }
@@ -415,6 +416,7 @@ void slideModelObject::releaseSlides() {
 void slideModelObject::updateTexture() {
     Mat image = imread((*slide_itr)->image_file);
     if (image.empty()) {
+        cout << "Debug65\n";
         throw orArgException("wrong slide image name");
     }
 
@@ -471,6 +473,7 @@ void slideModelObject::updateTexture() {
 void slideModelObject::updateForegroundTexture() {
     Mat image = imread((*slide_itr)->image_file);
     if (image.empty()) {
+        cout << "Debug66\n";
         throw orArgException("wrong slide image name");
     }
 

@@ -34,6 +34,8 @@
 #include "orException.h"
 #include <opencv2/highgui/highgui.hpp>
 
+#include <iostream>
+
 using namespace std;
 using namespace cv;
 
@@ -42,6 +44,7 @@ namespace cvar {
 //! Write cv::Mat to binary file
     void writeMatBinary(std::ofstream& ofs, const cv::Mat& out_mat) {
         if (!ofs.is_open()) {
+            cout << "Debug1\n";
             throw new orArgException("not opened");
         }
         int type = out_mat.type();
@@ -55,6 +58,7 @@ namespace cvar {
 //! Read cv::Mat from binary
     void readMatBinary(std::ifstream& ifs, cv::Mat& in_mat) {
         if (!ifs.is_open()) {
+            cout << "Debug2\n";
             throw new orArgException("Not opened");
         }
 
@@ -355,11 +359,13 @@ namespace cvar {
             }
             return count;
         } catch (cv::Exception &e) {
+            cout << "Debug3\n";
             orCvException orce;
             orce.setFunctionName("imageDB::countAffineInlier()");
             orce.setCvExceptionClass(e);
             throw orce;
         } catch (std::exception &e2) {
+            cout << "Debug4\n";
             throw e2;
         }
     }
@@ -624,6 +630,7 @@ namespace cvar {
 //			printf("\t%f\n", translation.at<_Tp>(j,0));
             }
         } catch (std::exception& e) {
+            cout << "Debug5\n";
             throw e;
         }
     }
@@ -644,6 +651,7 @@ namespace cvar {
                         translation, marker_center);
             }
         } catch (std::exception& e) {
+            cout << "Debug6\n";
             throw e;
         }
     }
@@ -656,6 +664,7 @@ namespace cvar {
             decomposeHomographyType<_Tp>(H_mat, camera_matrix, rotation,
                     translation, marker_center);
         } catch (std::exception& e) {
+            cout << "Debug7\n";
             throw e;
         }
     }
@@ -675,6 +684,7 @@ namespace cvar {
                         translation);
             }
         } catch (std::exception& e) {
+            cout << "Debug8\n";
             throw e;
         }
     }

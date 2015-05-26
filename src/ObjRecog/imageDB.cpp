@@ -106,6 +106,7 @@ int imageDB::registImageFeatures(int img_id, Size img_size,
 
     // ToDo: Exception handling
     if (!(bool) (ret_insert.second)) {
+        cout << "Debug70\n";
         return -1;
     }
 
@@ -149,6 +150,7 @@ int imageDB::getVacantKptId() {
         }
     }
 
+    cout << "Debug28\n";
     throw orException("Keypoint_map collapse!!!");
 }
 
@@ -260,6 +262,7 @@ vector<resultInfo> imageDB::retrieveImageId(const vector<KeyPoint>& kp_vec,
 
         clearVoteTables();
     } catch (std::exception& e2) {
+        cout << "Debug29\n";
         throw e2;
     }
 
@@ -304,6 +307,7 @@ void imageDB::voteInputFeatures(const vector<KeyPoint>& kp_vec,
             }
         }
     } catch (std::exception& e) {
+        cout << "Debug30\n";
         throw e;
     }
 }
@@ -366,11 +370,13 @@ vector<resultInfo> imageDB::calcMatchCountResult(const vector<KeyPoint>& kp_vec,
         }
         return result_vec;
     } catch (cv::Exception& e) {
+        cout << "Debug31\n";
         orCvException orce;
         orce.setFunctionName("imageDB::calcMatchCountResult()");
         orce.setCvExceptionClass(e);
         throw orce;
     } catch (std::exception& e2) {
+        cout << "Debug32\n";
         throw e2;
     }
 }
@@ -440,11 +446,13 @@ vector<resultInfo> imageDB::calcGeometryConsistentResult(
         }
         return result_vec;
     } catch (cv::Exception& e) {
+        cout << "Debug33\n";
         orCvException orce;
         orce.setFunctionName("imageDB::calcGeometryConsistentResult()");
         orce.setCvExceptionClass(e);
         throw orce;
     } catch (std::exception& e2) {
+        cout << "Debug34\n";
         throw e2;
     }
 }
@@ -485,11 +493,13 @@ int imageDB::countAffineInlier(vector<Point2f> &src_pts,
         }
         return count;
     } catch (cv::Exception& e) {
+        cout << "Debug35\n";
         orCvException orce;
         orce.setFunctionName("imageDB::countAffineInlier()");
         orce.setCvExceptionClass(e);
         throw orce;
     } catch (std::exception& e2) {
+        cout << "Debug36\n";
         throw e2;
     }
 }
@@ -550,11 +560,13 @@ int imageDB::load(const string& filename) {
         FileNode cvfn2 = cvfn["imageDB"];
         this->read(cvfs, cvfn2);
     } catch (cv::Exception& e) {
+        cout << "Debug37\n";
         orCvException orce;
         orce.setFunctionName("imageDB::load()");
         orce.setCvExceptionClass(e);
         throw orce;
     } catch (std::exception& e2) {
+        cout << "Debug38\n";
         throw e2;
     }
 
@@ -608,11 +620,13 @@ int imageDB::writeFeatureKptMap(FileStorage& cvfs, const string& name) const {
             itr++;
         }
     } catch (cv::Exception& e) {
+        cout << "Debug39\n";
         orCvException orce;
         orce.setFunctionName("visualWords::load()");
         orce.setCvExceptionClass(e);
         throw orce;
     } catch (std::exception& e2) {
+        cout << "Debug40\n";
         throw e2;
     }
 

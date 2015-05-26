@@ -34,6 +34,8 @@
 #include "../Main/commonCvFunctions.h"
 #include <opencv2/imgproc/imgproc.hpp>
 
+#include <iostream>
+
 using namespace std;
 using namespace cv;
 using namespace cvar;
@@ -212,7 +214,8 @@ bool viewModel::addWaitModel(int wait_frame_num, int model_type,
             wait_model.scale = scale;
             initRot.convertTo(wait_model.initRot, mat_type);
             initTrans.convertTo(wait_model.initTrans, mat_type);
-        } catch (std::exception e) {
+        } catch (std::exception& e) {
+            cout << "Debug67\n";
             wait_frames = -1;
             wait_model.model->release();
             return false;
@@ -375,6 +378,7 @@ void viewModel::drawObject(Mat& homographyMat, int seq_id) {
             drawObjectType<double>(homographyMat, seq_id);
         }
     } catch (std::exception& e) {
+        cout << "Debug68\n";
         throw e;
     }
 }
@@ -396,6 +400,7 @@ template<typename _Tp> void viewModel::drawObjectType(Mat& homographyMat,
         decomposeHomographyType<_Tp>(accHomMat, cameraMatrix, rotation,
                 translation, curModel->markerCenter);
     } catch (std::exception& e) {
+        cout << "Debug69\n";
         throw e;
     }
 

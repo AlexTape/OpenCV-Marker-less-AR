@@ -123,11 +123,13 @@ void visualWords::createVW(int cluster_num) {
         }
         descriptor_matcher->train();
     } catch (cv::Exception& e) {
+        cout << "Debug41\n";
         orCvException ce;
         ce.setFunctionName("visualWords::createVW");
         ce.setCvExceptionClass(e);
         throw ce;
     } catch (std::exception& e2) {
+        cout << "Debug42\n";
         throw e2;
     }
 }
@@ -135,6 +137,7 @@ void visualWords::createVW(int cluster_num) {
 void visualWords::convertFeatureMat(const vector<cv::Mat>& feature,
         cv::Mat& featureMat) {
     if (feature.empty()) {
+        cout << "Debug43\n";
         orArgException e("Empty Input Feature");
         e.setFunctionName("visualWords::convertFeatureMat()");
         throw e;
@@ -147,6 +150,7 @@ void visualWords::convertFeatureMat(const vector<cv::Mat>& feature,
     for (itr = feature.begin(); itr != feature.end(); itr++) {
         row += itr->rows;
         if (feature_dim != itr->cols) {
+            cout << "Debug44\n";
             throw orArgException("Illegal Size of Mat");
         }
     }
@@ -170,6 +174,7 @@ bool visualWords::saveIndex(const string& filename) const {
         writeIndex(fs, "VW_Index");
         return true;
     } catch (std::exception& e) {
+        cout << "Debug45\n";
 //		std::cerr << e.what() << std::endl;
         return false;
     }
@@ -182,6 +187,7 @@ void visualWords::writeIndex(cv::FileStorage& FS,
         cv::write(FS, "matcherType", matcherType);
         descriptor_matcher->write(FS);
     } catch (cv::Exception& e) {
+        cout << "Debug46\n";
         throw e;
     }
 }
@@ -192,6 +198,7 @@ bool visualWords::loadIndex(const string& filename) {
         readIndex(fs["VW_Index"]);
         return true;
     } catch (std::exception& e) {
+        cout << "Debug47\n";
 //		std::cerr << e.what() << std::endl;
         return false;
     }
@@ -203,6 +210,7 @@ void visualWords::readIndex(const cv::FileNode& FN) {
         this->descriptor_matcher = DescriptorMatcher::create(matcherType);
         descriptor_matcher->read(FN);
     } catch (cv::Exception& e) {
+        cout << "Debug48\n";
         throw e;
     }
 }
@@ -214,6 +222,7 @@ bool visualWords::save(const string& filename) const {
         this->write(FS, "visualWords");
         return true;
     } catch (std::exception& e) {
+        cout << "Debug49\n";
         return false;
     }
 }
@@ -226,6 +235,7 @@ bool visualWords::saveBinary(const string& filename,
         save_vw_binary(filename);
         return true;
     } catch (std::exception& e) {
+        cout << "Debug50\n";
         return false;
     }
 }
@@ -237,11 +247,13 @@ bool visualWords::load(const string& filename) {
         this->read(cvfs["visualWords"]);
         return true;
     } catch (cv::Exception& e) {
+        cout << "Debug51\n";
         orCvException orce;
         orce.setFunctionName("visualWords::load()");
         orce.setCvExceptionClass(e);
         return false;
     } catch (std::exception& e2) {
+        cout << "Debug52\n";
         return false;
     }
 }
@@ -258,11 +270,13 @@ bool visualWords::loadBinary(const string& filename,
         ret = load_vw_binary(filename);
         return ret;
     } catch (cv::Exception& e) {
+        cout << "Debug53\n";
         orCvException orce;
         orce.setFunctionName("visualWords::load()");
         orce.setCvExceptionClass(e);
         return false;
     } catch (std::exception& e2) {
+        cout << "Debug54\n";
         return false;
     }
 }
@@ -270,6 +284,7 @@ bool visualWords::loadBinary(const string& filename,
 bool visualWords::save_vw_binary(const string& filename) const {
     ofstream ofs(filename.c_str(), std::ios::binary);
     if (!ofs.is_open()) {
+        cout << "Debug55\n";
 //		throw new orArgException("failed to open " + filename);
         return false;
     }
@@ -293,6 +308,7 @@ bool visualWords::save_vw_binary(const string& filename) const {
 bool visualWords::load_vw_binary(const string& filename) {
     ifstream ifs(filename.c_str(), std::ios::binary);
     if (!ifs.is_open()) {
+        cout << "Debug56\n";
 //		throw new orArgException("failed to open " + filename);
         std::cerr << "failed to open " << filename << std::endl;
         return false;
@@ -300,6 +316,7 @@ bool visualWords::load_vw_binary(const string& filename) {
     char header[2];
     ifs.read(header, sizeof(header));
     if (memcmp(header, (const void*) "vw", 2) != 0) {
+        cout << "Debug57\n";
 //		throw new orArgException("wrong format file " + filename);
         std::cerr << "wrong format file " << filename << std::endl;
         return false;
@@ -308,6 +325,7 @@ bool visualWords::load_vw_binary(const string& filename) {
     int ver;
     ifs.read((char*) (&ver), sizeof(int));
     if (ver != version) {
+        cout << "Debug58\n";
 //		throw new orArgException("wrong version file: " + filename);
         std::cerr << "wrong version file: " << filename << std::endl;
         return false;
@@ -352,6 +370,7 @@ void visualWords::read(const FileNode& node) {
 //		feature_dim = node["feature_dim"];
         int ver = node["version"];
         if (ver != version) {
+            cout << "Debug59\n";
             throw new orArgException("wrong version file");
         }
         radius = node["radius"];
@@ -369,11 +388,13 @@ void visualWords::read(const FileNode& node) {
             descriptor_matcher->add(mat_vec);
         }
     } catch (cv::Exception& e) {
+        cout << "Debug60\n";
         orCvException orce;
         orce.setFunctionName("visualWords::read()");
         orce.setCvExceptionClass(e);
         throw orce;
     } catch (std::exception& e2) {
+        cout << "Debug61\n";
         throw e2;
     }
 }
@@ -426,6 +447,7 @@ Mat visualWords::querySearchDB(const Mat& features) {
 
         return indices;
     } catch (cv::Exception& e) {
+        cout << "Debug62\n";
         orCvException e2;
         e2.cv_e = e;
         e2.setFunctionName("visualWords::querySearchDB()");

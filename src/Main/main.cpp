@@ -350,8 +350,10 @@ int main(int argc, char * argv[]) {
                      Mat regimg = imread("img\\t4.jpg", 0);
                      createMatchingImage(regimg, queryimg, src_vec, dest_vec);*/
                 } catch (cv::Exception& e) {
+                    cout << "Debug14\n";
                     cerr << e.err;
                 } catch (std::exception& e2) {
+                    cout << "Debug15\n";
                     cerr << e2.what() << endl;
                 }
             } else if (opt == "queryf") {
@@ -397,6 +399,7 @@ int main(int argc, char * argv[]) {
                                             / CLOCKS_PER_SEC << endl;
                             result_vec.clear();
                         } catch (std::exception& e) {
+                            cout << "Debug16\n";
                             ofs << "-1,"
                                     << ((double) end_time - start_time)
                                             / CLOCKS_PER_SEC << endl;
