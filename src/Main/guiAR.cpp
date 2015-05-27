@@ -296,7 +296,7 @@ namespace cvar {
         Mat frame;
         if (capture.isOpened()) { // When the camera is present
             // TODO capture here
-            capture >> frame;
+            capture.read(frame);
 
         } else { // When the camera does not exist
             // No particularly to do
