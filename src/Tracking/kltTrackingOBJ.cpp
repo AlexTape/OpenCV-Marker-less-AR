@@ -37,6 +37,7 @@
 #include <opencv2/video/tracking.hpp>
 
 #include "../Main/commonCvFunctions.h"
+#include "../Main/utilFunctions.h"
 
 using namespace std;
 using namespace cv;

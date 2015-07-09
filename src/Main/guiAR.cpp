@@ -40,7 +40,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-#include "../Tracking/trackingOBJ.h"
+#include "../Tracking/kltTrackingOBJ.h"
 #include "../Overlay/viewModel.h"
 #include "commonCvFunctions.h"
 #include "utilFunctions.h"
@@ -61,7 +61,7 @@ using namespace cvar::tracking;
 using namespace cvar::overlay;
 
 controlOR* ctrlOR = 0;	// Specific object recognition class
-trackingOBJ* trckOBJ = 0;	// Object tracking class
+kltTrackingOBJ* trckOBJ = 0;	// Object tracking class
 viewModel *viewMDL;	// OpenGL image display class (singleton)
 
 VideoCapture capture(1);	// Camera capture
@@ -88,6 +88,10 @@ Mat frame;
 #endif
 
 namespace cvar {
+
+    kltTrackingOBJ* getTrackingObj() {
+        return trckOBJ;
+    }
 
     void fullScreenChange();
 
@@ -344,12 +348,13 @@ namespace cvar {
                     wait_seq_id = 0;
 
                     // Draw Result
-//				drawLineContour(frame, trckOBJ.object_position, Scalar(255));
-//				vector<Point2f>::iterator itr = trckOBJ.corners.begin();
-//				while(itr!=trckOBJ.corners.end()){
-//					circle(frame, *itr, 3, Scalar(255,0,0));
-//					itr++;
-//				}
+//                    drawLineContour(frame, trckOBJ.object_position,
+//                            Scalar(255));
+//                    vector<Point2f>::iterator itr = trckOBJ.corners.begin();
+//                    while (itr != trckOBJ.corners.end()) {
+//                        circle(frame, *itr, 3, Scalar(255, 0, 0));
+//                        itr++;
+//                    }
                 }
             } catch (exception& e) {
                 cout << "Debug10\n";
@@ -357,13 +362,6 @@ namespace cvar {
         } else {
             track_f = trckOBJ->onTracking(grayImg);
             seq_id++;
-        }
-#endif
-
-#ifdef PLOT_PT
-        if(track_f) {
-            drawLineContour(frame, trckOBJ.object_position, Scalar(255));
-            drawPoints(frame, trckOBJ.corners, trckOBJ.track_status, Scalar(255));
         }
 #endif
 
@@ -480,7 +478,7 @@ namespace cvar {
         glutCreateWindow("Augmented Reality");
 
         try {
-            trckOBJ = trackingOBJ::create(trackingOBJ::TRACKER_KLT);
+            trckOBJ = new kltTrackingOBJ();
 
             Size s = Size(frame.cols, frame.rows);
             setARConfig(s);

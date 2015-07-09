@@ -31,6 +31,9 @@
  //
  //M*/
 #include "modelObjectFactory.h"
+#include <iostream>
+
+using namespace std;
 using namespace cvar;
 using namespace cvar::overlay;
 
@@ -41,6 +44,9 @@ modelObjectFactory::~modelObjectFactory(void) {
 }
 
 modelObject* modelObjectFactory::create(int type) {
+
+    cout << "modelObjectFactory::create int: " << type << endl;
+
     if (type == METASEQ) {
         return new mqoModelObject();
     } else if (type == MQOSEQ) {

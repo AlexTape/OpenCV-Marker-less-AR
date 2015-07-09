@@ -39,12 +39,12 @@
 namespace cvar {
     namespace tracking {
 
-        class kltTrackingOBJ: public trackingOBJ {
+        class kltTrackingOBJ  { //public trackingOBJ {
             public:
                 kltTrackingOBJ(void);
                 virtual ~kltTrackingOBJ(void);
 
-            private:
+//            private:
                 cv::Mat prevImg;
                 std::vector<cv::Point2f> corners;	// Tracking point
                 std::vector<cv::Point2f> object_position;// Point of the four corners
@@ -54,7 +54,7 @@ namespace cvar {
                 double min_distance;
                 cv::Mat homographyMat;
 
-            public:
+//            public:
                 //! Start Tracking
                 /*! 
                  \param[in] grayImg first farme in gray scale

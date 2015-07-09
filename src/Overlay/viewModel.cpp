@@ -32,6 +32,8 @@
  //M*/
 #include "viewModel.h"
 #include "../Main/commonCvFunctions.h"
+#include "../Main/guiAR.h"
+#include "../Main/utilFunctions.h"
 #include <opencv2/imgproc/imgproc.hpp>
 
 #include <iostream>
@@ -439,6 +441,10 @@ template<typename _Tp> void viewModel::drawObjectType(Mat& homographyMat,
             / cameraMatrix.at<_Tp>(1, 1);
     double frust_D = ((double) capture_height - cameraMatrix.at<_Tp>(1, 2))
             * focal_length / cameraMatrix.at<_Tp>(1, 1);
+
+//    Scalar color1 = Scalar(255, 0, 0, 255);
+//    drawLineContour(cameraMatrix, cvar::getTrackingObj()->object_position, color1, 1,1,1);
+    //drawPoints(frame, trckOBJ->corners, trckOBJ->track_status, color1, 1,1,1);
 
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();

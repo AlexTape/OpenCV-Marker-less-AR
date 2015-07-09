@@ -320,6 +320,9 @@ int controlOR::initializeFeatureDetector() {
 int controlOR::extractFeatures(const cv::Mat& src_img,
         cv::vector<cv::KeyPoint>& kpt, cv::Mat& descriptor) const {
     // extract freak
+
+    cout << "DETECTION!\n";
+
     try {
         // keypoints detection from a query image
         feature_detector->detect(src_img, kpt);

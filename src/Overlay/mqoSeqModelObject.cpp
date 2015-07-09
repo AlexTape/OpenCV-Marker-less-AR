@@ -62,10 +62,14 @@ void mqoSeqModelObject::loadModelFile(string filename) {
         try {
             FileStorage fs(filename, FileStorage::READ);
 
+            cout << "loadModelFile:" << filename << endl;
+
             string fh;
             int num;
             fs["fileheader"] >> fh;
             fs["number"] >> num;
+
+            cout << "fileheader:"<< fh << " - nr:" << num  << endl;
 
             string::size_type fname_top = filename.find_last_of("\\");
             char fullfilename[256];
@@ -87,6 +91,8 @@ void mqoSeqModelObject::loadModelFile(string filename) {
 //			model_seq = mqoCreateSequence((char*)filename.c_str(),1.0);
 
             status = status | LOADED;
+
+            cout << status;
         } catch (std::exception& e) {
             cout << "Debug63\n";
             throw e;
