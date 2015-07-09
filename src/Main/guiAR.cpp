@@ -51,7 +51,7 @@
 //#define NO_OBJRECOG
 //#define PLOT_PT
 //#define NO_CAMERA
-//#define NO_OVERLAY
+#define NO_OVERLAY
 
 using namespace std;
 using namespace cv;
@@ -347,9 +347,17 @@ namespace cvar {
                     seq_id = 0;
                     wait_seq_id = 0;
 
+
                     // Draw Result
-//                    drawLineContour(frame, trckOBJ.object_position,
-//                            Scalar(255));
+                    std::vector<cv::Point2f> points = trckOBJ->object_position;
+
+                    line(frame, trckOBJ->object_position[0], trckOBJ->object_position[1], Scalar(255), 3, 8, 0);
+                    line(frame, trckOBJ->object_position[1], trckOBJ->object_position[2], Scalar(255), 3, 8, 0);
+                    line(frame, trckOBJ->object_position[2], trckOBJ->object_position[3], Scalar(255), 3, 8, 0);
+                    line(frame, trckOBJ->object_position[3], trckOBJ->object_position[0], Scalar(255), 3, 8, 0);
+
+//                    drawLineContour(frame, trckOBJ->object_position,
+//                            Scalar(255),1,1,1);
 //                    vector<Point2f>::iterator itr = trckOBJ.corners.begin();
 //                    while (itr != trckOBJ.corners.end()) {
 //                        circle(frame, *itr, 3, Scalar(255, 0, 0));
@@ -361,6 +369,15 @@ namespace cvar {
             }
         } else {
             track_f = trckOBJ->onTracking(grayImg);
+
+            // Draw Result
+            std::vector<cv::Point2f> points = trckOBJ->object_position;
+
+            line(frame, trckOBJ->object_position[0], trckOBJ->object_position[1], Scalar(255), 3, 8, 0);
+            line(frame, trckOBJ->object_position[1], trckOBJ->object_position[2], Scalar(255), 3, 8, 0);
+            line(frame, trckOBJ->object_position[2], trckOBJ->object_position[3], Scalar(255), 3, 8, 0);
+            line(frame, trckOBJ->object_position[3], trckOBJ->object_position[0], Scalar(255), 3, 8, 0);
+
             seq_id++;
         }
 #endif

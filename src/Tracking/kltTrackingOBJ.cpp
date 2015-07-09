@@ -39,6 +39,8 @@
 #include "../Main/commonCvFunctions.h"
 #include "../Main/utilFunctions.h"
 
+#include <iostream>
+
 using namespace std;
 using namespace cv;
 using namespace cvar;
@@ -110,6 +112,9 @@ bool kltTrackingOBJ::onTracking(const Mat& grayImg) {
             grayImg.copyTo(prevImg);
             corners = next_corners;
             object_position = next_object_position;
+            cout << "\nNEXT:";
+            cout << object_position.size();
+            cout << "\n";
         }
     }
     return true;
